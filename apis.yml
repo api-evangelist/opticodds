@@ -9,8 +9,8 @@ position: Consumer
 access: 3rd-Party
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Sports Betting
   - Odds
+  - Sports Betting
   - Sports Data
 created: '2025-02-08'
 modified: '2026-03-16'
@@ -26,8 +26,8 @@ apis:
       and more for sports betting applications.
     humanURL: https://opticodds.com/
     tags:
-      - Sports Betting
       - Odds
+      - Sports Betting
       - Sports Data
     properties:
       - type: Documentation
