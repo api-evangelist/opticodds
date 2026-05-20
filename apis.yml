@@ -17,6 +17,11 @@ modified: '2026-03-16'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml
 specificationVersion: '0.19'
+common:
+  - type: GitHubOrganization
+    url: https://github.com/OpticOdds
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/opticodds
 apis:
   - aid: opticodds:opticodds
     name: OpticOdds
