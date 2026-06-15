@@ -1,0 +1,1423 @@
+{
+  "item": [
+    {
+      "id": "397e6817-544f-4e9e-9e6b-d0915dd58fd5",
+      "name": "Reference",
+      "description": {
+        "content": "Sports, leagues, sportsbooks, market types.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9ebfc64b-bd4c-4ab3-a103-c1c0061fcad3",
+          "name": "List sports",
+          "request": {
+            "name": "List sports",
+            "description": {
+              "content": "Returns the catalogue of supported sports.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sports"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf25c881-6516-4579-97ae-b8df17e29ef1",
+              "name": "Sports collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "de0b332b-075d-4aac-b218-d66cf4a3f688",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sports"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e502d4c7-e93a-4bf0-b702-a9a19586b585",
+          "name": "List currently active sports",
+          "request": {
+            "name": "List currently active sports",
+            "description": {},
+            "url": {
+              "path": [
+                "sports",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f3e1ba54-eac2-4f2d-9ffd-72e67ff7eb07",
+              "name": "Active sports collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sports",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d9e50872-79ea-4fdf-bcff-1b4580c4dd70",
+          "name": "List leagues",
+          "request": {
+            "name": "List leagues",
+            "description": {},
+            "url": {
+              "path": [
+                "leagues"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sport",
+                  "value": "<string>",
+                  "description": "Sport slug (e.g. `basketball`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5cc0ac87-5931-4c8e-b6b9-2e5b722f37ad",
+              "name": "Leagues collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leagues"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sport",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c71d5dc5-df64-4fa9-9a06-dc07b4c00f40",
+          "name": "List active leagues",
+          "request": {
+            "name": "List active leagues",
+            "description": {},
+            "url": {
+              "path": [
+                "leagues",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e14c7e48-b377-43c7-a2f0-3d413a370937",
+              "name": "Active leagues.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "leagues",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "93ec0462-3bce-4c4b-be4d-b8c90fa8ecaa",
+          "name": "List sportsbooks",
+          "request": {
+            "name": "List sportsbooks",
+            "description": {},
+            "url": {
+              "path": [
+                "sportsbooks"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9037daa6-1881-47d0-895f-5c067c8a355a",
+              "name": "Sportsbooks collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sportsbooks"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d205c210-0501-42be-8b34-f414551014c1",
+          "name": "List market types",
+          "request": {
+            "name": "List market types",
+            "description": {},
+            "url": {
+              "path": [
+                "market-types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sport",
+                  "value": "<string>",
+                  "description": "Sport slug (e.g. `basketball`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6ef089bb-03a4-4e7a-bfce-6961273c9a5c",
+              "name": "Market type catalogue.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "market-types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sport",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b2369cf2-a793-4533-8a16-94ad3e47fe04",
+          "name": "List markets",
+          "request": {
+            "name": "List markets",
+            "description": {},
+            "url": {
+              "path": [
+                "markets"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "ecb5578f-128b-45e1-a128-345a0c7317da",
+              "name": "Markets collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "markets"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "fb54252d-9ebd-4418-b332-73ed7ed06cde",
+      "name": "Fixtures",
+      "description": {
+        "content": "Fixtures and odds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cbe98d00-ca80-4a85-8527-fa1c0a54766d",
+          "name": "List fixtures",
+          "request": {
+            "name": "List fixtures",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "sport",
+                  "value": "<string>",
+                  "description": "Sport slug (e.g. `basketball`)."
+                },
+                {
+                  "disabled": false,
+                  "key": "league",
+                  "value": "<string>",
+                  "description": "League slug (e.g. `nba`)."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "26b5ba9f-ccae-448d-ae54-c048b73cb8b2",
+              "name": "Fixtures collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "sport",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "league",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6482ab5-05c9-4b40-81ad-bfc7ca480c76",
+          "name": "List active fixtures",
+          "request": {
+            "name": "List active fixtures",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "72f25b72-f1d9-4e0a-94a1-29d4e889cd03",
+              "name": "Active fixtures collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2005b19e-cba0-4a78-8be8-4be62d11e130",
+          "name": "Get odds for fixtures",
+          "request": {
+            "name": "Get odds for fixtures",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "odds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fixture_id",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "fixture_id",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b774db6-343e-42b8-be62-1b35398b6c9e",
+              "name": "Odds payload.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "odds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fixture_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fixture_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3bd7890-9080-4c98-99da-b2a318f91a4c",
+          "name": "Historical odds for fixtures",
+          "request": {
+            "name": "Historical odds for fixtures",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "odds",
+                "historical"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "65d63b07-96b0-477c-b378-7e56b1caafbc",
+              "name": "Historical odds.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "odds",
+                    "historical"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "42996992-a27b-419a-89cc-13e0b649d625",
+      "name": "Results",
+      "description": {
+        "content": "Game and player results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ff3ec3b3-7ea3-4d19-a571-35be631f63b2",
+          "name": "Get fixture results",
+          "request": {
+            "name": "Get fixture results",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1e157112-b223-47c1-87d5-90c2d8567c5c",
+              "name": "Fixture results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "15b392b0-4621-4b64-9f0d-5482676645dd",
+          "name": "Get player results",
+          "request": {
+            "name": "Get player results",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "player-results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d4ad944f-a502-4ef9-a4cb-24c95f780150",
+              "name": "Player results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "player-results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "0795e95e-65bd-4172-a719-6ed3e14f4261",
+      "name": "Injuries",
+      "description": {
+        "content": "Injuries and injury predictions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "aaade9fd-255c-4abe-a801-51374d967e1d",
+          "name": "List injuries",
+          "request": {
+            "name": "List injuries",
+            "description": {},
+            "url": {
+              "path": [
+                "injuries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "929db228-fe78-48ca-ac88-4dc3115b380c",
+              "name": "Injuries collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "injuries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "3383b0eb-fdd4-4f07-9000-984818feec10",
+      "name": "Futures",
+      "description": {
+        "content": "Futures markets and odds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "590f09f7-35a0-4183-bb14-d34b796d2489",
+          "name": "List futures markets",
+          "request": {
+            "name": "List futures markets",
+            "description": {},
+            "url": {
+              "path": [
+                "futures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b68f75fb-09d8-4f69-8ea0-eaee45e0291f",
+              "name": "Futures collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ee15ceaa-8012-4c01-bbc8-d95952aa3b22",
+          "name": "List futures odds",
+          "request": {
+            "name": "List futures odds",
+            "description": {},
+            "url": {
+              "path": [
+                "futures",
+                "odds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "57ca76f5-8dd3-4a8e-bc93-62dc7ed5d944",
+              "name": "Futures odds collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "odds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 154.4176161805877,\n      \"key_1\": \"string\"\n    },\n    {\n      \"key_0\": 247.78959886204044\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.opticodds.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "9eb91cba-7cfe-4935-81bd-1bb0a22b83ae",
+    "name": "OpticOdds Sports Betting API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpticOdds offers real-time and historical sports betting data including\nmain-line odds, player props, alternate markets, injury data, schedules,\nrankings, and scores. The API is REST-based and authenticated with an\nAPI key passed either as the `X-Api-Key` header or `key` query\nparameter.\n\n\nContact Support:\n Name: OpticOdds Developer",
+      "type": "text/plain"
+    }
+  }
+}

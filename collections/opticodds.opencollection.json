@@ -1,0 +1,271 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpticOdds Sports Betting API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/sports"
+          },
+          "docs": "Returns the catalogue of supported sports."
+        },
+        {
+          "info": {
+            "name": "List currently active sports",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/sports/active"
+          },
+          "docs": "List currently active sports"
+        },
+        {
+          "info": {
+            "name": "List leagues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/leagues",
+            "params": [
+              {
+                "name": "sport",
+                "value": "",
+                "type": "query",
+                "description": "Sport slug (e.g. `basketball`)."
+              }
+            ]
+          },
+          "docs": "List leagues"
+        },
+        {
+          "info": {
+            "name": "List active leagues",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/leagues/active"
+          },
+          "docs": "List active leagues"
+        },
+        {
+          "info": {
+            "name": "List sportsbooks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/sportsbooks"
+          },
+          "docs": "List sportsbooks"
+        },
+        {
+          "info": {
+            "name": "List market types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/market-types",
+            "params": [
+              {
+                "name": "sport",
+                "value": "",
+                "type": "query",
+                "description": "Sport slug (e.g. `basketball`)."
+              }
+            ]
+          },
+          "docs": "List market types"
+        },
+        {
+          "info": {
+            "name": "List markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/markets"
+          },
+          "docs": "List markets"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Fixtures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures",
+            "params": [
+              {
+                "name": "sport",
+                "value": "",
+                "type": "query",
+                "description": "Sport slug (e.g. `basketball`)."
+              },
+              {
+                "name": "league",
+                "value": "",
+                "type": "query",
+                "description": "League slug (e.g. `nba`)."
+              }
+            ]
+          },
+          "docs": "List fixtures"
+        },
+        {
+          "info": {
+            "name": "List active fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/active"
+          },
+          "docs": "List active fixtures"
+        },
+        {
+          "info": {
+            "name": "Get odds for fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/odds",
+            "params": [
+              {
+                "name": "fixture_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get odds for fixtures"
+        },
+        {
+          "info": {
+            "name": "Historical odds for fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/odds/historical"
+          },
+          "docs": "Historical odds for fixtures"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get fixture results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/results"
+          },
+          "docs": "Get fixture results"
+        },
+        {
+          "info": {
+            "name": "Get player results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/player-results"
+          },
+          "docs": "Get player results"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Injuries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List injuries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/injuries"
+          },
+          "docs": "List injuries"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Futures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List futures markets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/futures"
+          },
+          "docs": "List futures markets"
+        },
+        {
+          "info": {
+            "name": "List futures odds",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/futures/odds"
+          },
+          "docs": "List futures odds"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
