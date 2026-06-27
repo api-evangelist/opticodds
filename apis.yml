@@ -22,7 +22,7 @@ common:
     url: https://github.com/OpticOdds
   - type: LinkedIn
     url: https://www.linkedin.com/company/opticodds
-  - type: LLMsTxt
+  - type: LlmsText
     url: https://opticodds.com/llms.txt
 apis:
   - aid: opticodds:opticodds
