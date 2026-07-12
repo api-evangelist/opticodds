@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/opticodds-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  - query
+schemes:
+- name: apiKeyHeader
+  type: apiKey
+  in: header
+  parameter: X-Api-Key
+  description: OpticOdds API key supplied in the X-Api-Key header.
+  sources:
+  - openapi/opticodds-openapi.yml
+- name: apiKeyQuery
+  type: apiKey
+  in: query
+  parameter: key
+  description: OpticOdds API key supplied via the `key` query parameter.
+  sources:
+  - openapi/opticodds-openapi.yml

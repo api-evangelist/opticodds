@@ -18,12 +18,18 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 common:
+  - type: DomainSecurity
+    url: security/opticodds-domain-security.yml
+  - type: Authentication
+    url: authentication/opticodds-authentication.yml
   - type: GitHubOrganization
     url: https://github.com/OpticOdds
   - type: LinkedIn
     url: https://www.linkedin.com/company/opticodds
   - type: LlmsText
     url: https://opticodds.com/llms.txt
+  - url: https://opticodds.com/blog
+    type: Blog
 apis:
   - aid: opticodds:opticodds
     name: OpticOdds
