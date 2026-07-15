@@ -18,6 +18,8 @@ url: >-
   https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 common:
+  - type: AgenticAccess
+    url: agentic-access/opticodds-agentic-access.yml
   - type: DomainSecurity
     url: security/opticodds-domain-security.yml
   - type: Authentication
