@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: OpticOdds Sports Betting Fixtures Results API
+  description: 'OpticOdds offers real-time and historical sports betting data including
+
+    main-line odds, player props, alternate markets, injury data, schedules,
+
+    rankings, and scores. The API is REST-based and authenticated with an
+
+    API key passed either as the `X-Api-Key` header or `key` query
+
+    parameter.
+
+    '
+  version: 3.0.0
+  contact:
+    name: OpticOdds Developer
+    url: https://developer.opticodds.com
+servers:
+- url: https://api.opticodds.com/api/v3
+  description: OpticOdds API v3 base
+security:
+- apiKeyHeader: []
+- apiKeyQuery: []
+tags:
+- name: Results
+  description: Game and player results.
+paths:
+  /fixtures/results:
+    get:
+      tags:
+      - Results
+      summary: Get fixture results
+      operationId: getFixtureResults
+      responses:
+        '200':
+          description: Fixture results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/player-results:
+    get:
+      tags:
+      - Results
+      summary: Get player results
+      operationId: getPlayerResults
+      responses:
+        '200':
+          description: Player results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+components:
+  schemas:
+    Collection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: OpticOdds API key supplied in the X-Api-Key header.
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: key
+      description: OpticOdds API key supplied via the `key` query parameter.
+externalDocs:
+  description: OpticOdds API Reference
+  url: https://developer.opticodds.com
