@@ -5,9 +5,22 @@ description: >-
   player props, alternate markets, injury data, schedules, ranking, scores
   and more for sports betting applications.
 type: Index
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/opticodds.png
 tags:
   - Odds
   - Sports Betting
@@ -33,20 +46,64 @@ common:
   - url: https://opticodds.com/blog
     type: Blog
 apis:
-  - aid: opticodds:opticodds
-    name: OpticOdds
-    description: >-
-      OpticOdds Sports Betting API offers real-time betting odds for main lines,
-      player props, alternate markets, injury data, schedules, ranking, scores
-      and more for sports betting applications.
-    humanURL: https://opticodds.com/
-    tags:
-      - Odds
-      - Sports Betting
-      - Sports Data
-    properties:
-      - type: Documentation
-        url: https://opticodds.com/docs/
+- aid: opticodds:opticodds
+  name: OpticOdds
+  description: >-
+    OpticOdds Sports Betting API offers real-time betting odds for main lines, player props, alternate
+    markets, injury data, schedules, ranking, scores and more for sports betting applications.
+  humanURL: https://opticodds.com/
+  tags:
+  - Odds
+  - Sports Betting
+  - Sports Data
+  properties:
+  - type: Documentation
+    url: https://opticodds.com/docs/
+- aid: opticodds:opticodds-fixtures-api
+  name: OpticOdds Fixtures API
+  description: Fixtures and odds.
+  humanURL: https://opticodds.com/
+  tags:
+  - Fixtures
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-fixtures-api-openapi.yml
+- aid: opticodds:opticodds-futures-api
+  name: OpticOdds Futures API
+  description: Futures markets and odds.
+  humanURL: https://opticodds.com/
+  tags:
+  - Futures
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-futures-api-openapi.yml
+- aid: opticodds:opticodds-injuries-api
+  name: OpticOdds Injuries API
+  description: Injuries and injury predictions.
+  humanURL: https://opticodds.com/
+  tags:
+  - Injuries
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-injuries-api-openapi.yml
+- aid: opticodds:opticodds-reference-api
+  name: OpticOdds Reference API
+  description: Sports, leagues, sportsbooks, market types.
+  humanURL: https://opticodds.com/
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-reference-api-openapi.yml
+- aid: opticodds:opticodds-results-api
+  name: OpticOdds Results API
+  description: Game and player results.
+  humanURL: https://opticodds.com/
+  tags:
+  - Results
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-results-api-openapi.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
