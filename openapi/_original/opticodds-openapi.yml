@@ -1,0 +1,294 @@
+openapi: 3.1.0
+info:
+  title: OpticOdds Sports Betting API
+  description: |
+    OpticOdds offers real-time and historical sports betting data including
+    main-line odds, player props, alternate markets, injury data, schedules,
+    rankings, and scores. The API is REST-based and authenticated with an
+    API key passed either as the `X-Api-Key` header or `key` query
+    parameter.
+  version: "3.0.0"
+  contact:
+    name: OpticOdds Developer
+    url: https://developer.opticodds.com
+servers:
+  - url: https://api.opticodds.com/api/v3
+    description: OpticOdds API v3 base
+security:
+  - apiKeyHeader: []
+  - apiKeyQuery: []
+tags:
+  - name: Reference
+    description: Sports, leagues, sportsbooks, market types.
+  - name: Fixtures
+    description: Fixtures and odds.
+  - name: Results
+    description: Game and player results.
+  - name: Injuries
+    description: Injuries and injury predictions.
+  - name: Futures
+    description: Futures markets and odds.
+paths:
+  /sports:
+    get:
+      tags: [Reference]
+      summary: List sports
+      description: Returns the catalogue of supported sports.
+      operationId: listSports
+      responses:
+        "200":
+          description: Sports collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+        "401":
+          $ref: '#/components/responses/Unauthorized'
+  /sports/active:
+    get:
+      tags: [Reference]
+      summary: List currently active sports
+      operationId: listActiveSports
+      responses:
+        "200":
+          description: Active sports collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /leagues:
+    get:
+      tags: [Reference]
+      summary: List leagues
+      operationId: listLeagues
+      parameters:
+        - $ref: '#/components/parameters/SportParam'
+      responses:
+        "200":
+          description: Leagues collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /leagues/active:
+    get:
+      tags: [Reference]
+      summary: List active leagues
+      operationId: listActiveLeagues
+      responses:
+        "200":
+          description: Active leagues.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /sportsbooks:
+    get:
+      tags: [Reference]
+      summary: List sportsbooks
+      operationId: listSportsbooks
+      responses:
+        "200":
+          description: Sportsbooks collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /market-types:
+    get:
+      tags: [Reference]
+      summary: List market types
+      operationId: listMarketTypes
+      parameters:
+        - $ref: '#/components/parameters/SportParam'
+      responses:
+        "200":
+          description: Market type catalogue.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /markets:
+    get:
+      tags: [Reference]
+      summary: List markets
+      operationId: listMarkets
+      responses:
+        "200":
+          description: Markets collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures:
+    get:
+      tags: [Fixtures]
+      summary: List fixtures
+      operationId: listFixtures
+      parameters:
+        - $ref: '#/components/parameters/SportParam'
+        - $ref: '#/components/parameters/LeagueParam'
+      responses:
+        "200":
+          description: Fixtures collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/active:
+    get:
+      tags: [Fixtures]
+      summary: List active fixtures
+      operationId: listActiveFixtures
+      responses:
+        "200":
+          description: Active fixtures collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/odds:
+    get:
+      tags: [Fixtures]
+      summary: Get odds for fixtures
+      operationId: getFixtureOdds
+      parameters:
+        - name: fixture_id
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+      responses:
+        "200":
+          description: Odds payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/odds/historical:
+    get:
+      tags: [Fixtures]
+      summary: Historical odds for fixtures
+      operationId: getHistoricalFixtureOdds
+      responses:
+        "200":
+          description: Historical odds.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/results:
+    get:
+      tags: [Results]
+      summary: Get fixture results
+      operationId: getFixtureResults
+      responses:
+        "200":
+          description: Fixture results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /fixtures/player-results:
+    get:
+      tags: [Results]
+      summary: Get player results
+      operationId: getPlayerResults
+      responses:
+        "200":
+          description: Player results.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /injuries:
+    get:
+      tags: [Injuries]
+      summary: List injuries
+      operationId: listInjuries
+      responses:
+        "200":
+          description: Injuries collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /futures:
+    get:
+      tags: [Futures]
+      summary: List futures markets
+      operationId: listFutures
+      responses:
+        "200":
+          description: Futures collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+  /futures/odds:
+    get:
+      tags: [Futures]
+      summary: List futures odds
+      operationId: listFuturesOdds
+      responses:
+        "200":
+          description: Futures odds collection.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+components:
+  securitySchemes:
+    apiKeyHeader:
+      type: apiKey
+      in: header
+      name: X-Api-Key
+      description: OpticOdds API key supplied in the X-Api-Key header.
+    apiKeyQuery:
+      type: apiKey
+      in: query
+      name: key
+      description: OpticOdds API key supplied via the `key` query parameter.
+  parameters:
+    SportParam:
+      name: sport
+      in: query
+      required: false
+      schema:
+        type: string
+      description: Sport slug (e.g. `basketball`).
+    LeagueParam:
+      name: league
+      in: query
+      required: false
+      schema:
+        type: string
+      description: League slug (e.g. `nba`).
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  schemas:
+    Collection:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties: true
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+externalDocs:
+  description: OpticOdds API Reference
+  url: https://developer.opticodds.com

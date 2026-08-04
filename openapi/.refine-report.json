@@ -1,0 +1,22 @@
+{
+  "provider": "opticodds",
+  "sources": [
+    "opticodds-fixtures-api-openapi.yml",
+    "opticodds-futures-api-openapi.yml",
+    "opticodds-injuries-api-openapi.yml",
+    "opticodds-reference-api-openapi.yml",
+    "opticodds-results-api-openapi.yml"
+  ],
+  "outputs": [
+    "opticodds-fixtures-api-openapi.yml",
+    "opticodds-futures-api-openapi.yml",
+    "opticodds-injuries-api-openapi.yml",
+    "opticodds-reference-api-openapi.yml",
+    "opticodds-results-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
