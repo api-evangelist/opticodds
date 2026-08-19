@@ -1,0 +1,244 @@
+# OpticOdds
+
+> OpticOdds is a premier B2B sports betting data provider delivering real-time sportsbook odds, player props, alternate markets, injury data, and historical data from 200+ sportsbooks. Its platform powers sportsbook operators, traders, prediction markets, DFS operators, platform providers, sports betting apps, and media/affiliate businesses worldwide. Now part of Gambling.com Group.
+
+OpticOdds' core offering is a low-latency Sports Betting API plus a suite of trading, automation, and intelligence products (Odds Screen, Copilot, Copilot Bet Builder, Sportsbook AI, Historical Odds). Developer documentation lives at developer.opticodds.com. The site is available in English, Spanish, Portuguese, Italian, Korean, and Chinese — canonical URLs below are English.
+
+## Core Products
+
+- [Sports Betting API](https://opticodds.com/sports-betting-api): Real-time odds API aggregating 200+ sportsbooks, including player props, alternate markets, and injury data.
+- [Odds Screen](https://opticodds.com/odds-screen): The fastest sportsbook live odds screen on the market, with custom consensus lines, real-time alerts, and live odds from 200+ sportsbooks.
+- [Copilot](https://opticodds.com/copilot): Automated sportsbook trading and risk management software — generate custom odds, manage risk, and scale operations without increasing headcount.
+- [Copilot Bet Builder](https://opticodds.com/copilot-bet-builder): High-performance bet builder and Same Game Parlay (SGP) engine for sportsbooks, with billions of correlated pricing combinations.
+- [Sportsbook AI](https://opticodds.com/sportsbook-ai): Conversational odds data via Claude MCP — query live odds, player props, line movement, and cross-book comparisons with no code.
+- [Historical Odds](https://opticodds.com/historical-odds): Years of timestamped, normalized historical betting odds across 200+ sportsbooks for backtesting, CLV analysis, and quant research.
+- [API Integration](https://opticodds.com/api-integration): Overview of how operators plug OpticOdds into their platform quickly, with multiple formats and full developer docs.
+- [OpenOdds Partnership Program](https://opticodds.com/openodds-program): Partnership program that markets and sells partner products to OpticOdds' customer base.
+- [Developer Documentation](https://developer.opticodds.com/reference/getting-started): Full API reference and getting-started guides for developers.
+
+## Solutions by Audience
+
+- [Sportsbook Operators & Traders](https://opticodds.com/sportsbook-operators-traders): Data, trading tools, and automation for sportsbook operators and in-house trading teams.
+- [Prediction Markets](https://opticodds.com/prediction-markets): Real-time data, pricing, and modeling solutions for prediction markets and market makers.
+- [Platform Providers](https://opticodds.com/platform-providers): Scalable, customizable data feeds designed for multi-operator sportsbook platform providers.
+- [DFS Operators](https://opticodds.com/dfs): Real-time player data, projections, and pricing tools built for enterprise daily fantasy sports operators.
+- [Sports Betting Apps](https://opticodds.com/sports-betting-apps): Fast, accurate, mobile-ready odds and deep market coverage for betting apps.
+- [Media & Affiliate](https://opticodds.com/media-affiliate): Odds, widgets, and content solutions for media companies and affiliates.
+
+## Company
+
+- [About Us](https://opticodds.com/about-us): Company overview — leading sports betting data provider, part of Gambling.com Group.
+- [Pricing](https://opticodds.com/pricing): Flexible pricing plans for startups through enterprises.
+- [Contact](https://opticodds.com/contact): Request a demo or get in touch with the OpticOdds team.
+- [Customers](https://opticodds.com/customers): Case studies from leading sportsbook and betting-platform partners.
+- [Testimonials](https://opticodds.com/testimonials): Customer testimonials and partner stories.
+
+## Content & Resources
+
+- [Content Hub](https://opticodds.com/content-hub): Videos, product guides, documentation, and tools for sportsbook operators and traders.
+- [Blog](https://opticodds.com/blog): Industry insights, product news, and tutorials on sportsbook APIs, odds comparison, and trading.
+- [Supported Sportsbooks Directory](https://opticodds.com/sportsbooks): Index of 120+ sportsbook API connectors covered by OpticOdds.
+- [Sports Coverage](https://opticodds.com/sports): Index of sports APIs available via OpticOdds.
+
+## Customer Case Studies
+
+- [Bettor in Green](https://opticodds.com/customers/bettor-in-green)
+- [Bettormetrics](https://opticodds.com/customers/bettormetrics)
+- [Chalkboard](https://opticodds.com/customers/chalkboard)
+- [Dabble](https://opticodds.com/customers/dabble)
+- [GDC Group](https://opticodds.com/customers/gdc-group)
+- [Kalshi](https://opticodds.com/customers/kalshi)
+- [Novig](https://opticodds.com/customers/novig)
+- [Overtime](https://opticodds.com/customers/overtime)
+- [Pikkit](https://opticodds.com/customers/pikkit)
+- [Sportsbet.io](https://opticodds.com/customers/sportsbet-io)
+- [Stats Perform](https://opticodds.com/customers/statsperform)
+- [The Yolo Group](https://opticodds.com/customers/the-yolo-group)
+- [WA.Technology](https://opticodds.com/customers/wa-technology)
+- [Whop](https://opticodds.com/customers/whop)
+
+## Sport Coverage
+
+- [Baseball](https://opticodds.com/sports/baseball)
+- [Basketball](https://opticodds.com/sports/basketball)
+- [Cricket](https://opticodds.com/sports/cricket)
+- [Esports](https://opticodds.com/sports/esports)
+- [Golf](https://opticodds.com/sports/golf)
+- [NFL](https://opticodds.com/sports/nfl)
+- [Soccer](https://opticodds.com/sports/soccer)
+
+## Comparisons
+
+- [OpticOdds vs. Sportradar](https://opticodds.com/comparison/sportradar)
+- [OpticOdds vs. SportsDataIO](https://opticodds.com/comparison/sportsdataio)
+- [OpticOdds vs. Genius Sports](https://opticodds.com/comparison/genius)
+- [OpticOdds vs. Don Best](https://opticodds.com/comparison/don-best)
+- [OpticOdds vs. LSports](https://opticodds.com/comparison/lsports)
+- [OpticOdds vs. TXOdds](https://opticodds.com/comparison/txodds)
+
+## Careers
+
+- [Customer Success Manager](https://opticodds.com/careers/customer-success-manager)
+- [Financial Analyst](https://opticodds.com/careers/financial-analyst)
+- [Frontend Developer](https://opticodds.com/careers/frontend-developer)
+- [UI/UX Designer](https://opticodds.com/careers/ui-ux-designer)
+
+## Optional
+
+Detailed blog posts, individual sportsbook API connector pages, and legal pages. LLMs may skip this section when context is limited.
+
+### Blog Posts
+
+- [AI Bots in Sports Betting](https://opticodds.com/blog/ai-bots-in-sports-betting)
+- [Bringing Same Game Parlays (SGP) to Esports — How Rimble Is Changing the Game](https://opticodds.com/blog/bringing-same-game-parlays-sgp-to-esports-how-rimble-is-changing-the-game)
+- [Calibration: The Key to Smarter Sports Betting](https://opticodds.com/blog/calibration-the-key-to-smarter-sports-betting)
+- [Choosing the Right Sports Betting Platform Provider](https://opticodds.com/blog/choosing-the-right-sports-betting-platform-provider)
+- [Correlation in Same Game Parlays](https://opticodds.com/blog/correlation-in-same-game-parlays)
+- [Create Custom Betting Odds — Optimize Betting Markets with Copilot](https://opticodds.com/blog/create-custom-betting-odds-optimize-betting-markets-with-copilot)
+- [Esports API: Unlocking Opportunities for Sportsbooks](https://opticodds.com/blog/esports-api-unlocking-opportunities-for-sportsbooks)
+- [Exploring the Relationship Between NFL Spreads and Moneyline Odds](https://opticodds.com/blog/explore-exploring-the-relationship-between-nfl-spreads-and-moneyline-odds-using-historical-data)
+- [Funded Sports Trading Odds API](https://opticodds.com/blog/funded-sports-trading-odds-api)
+- [Historic NBA Over/Under Betting Odds](https://opticodds.com/blog/historic-nba-over-under-betting-odds-unlock-insights-with-opticodds)
+- [Hold vs. EV — Finding an Edge in a Balanced Betting Market](https://opticodds.com/blog/hold-vs-ev-finding-an-edge-in-a-balanced-betting-market)
+- [How a Betting API Can Drive Automation and Growth](https://opticodds.com/blog/how-a-betting-api-can-drive-automation-and-growth)
+- [How Do Sportsbooks Set Odds? The OpticOdds Solution](https://opticodds.com/blog/how-do-sportsbooks-set-odds-the-opticodds-solution)
+- [How to Evaluate Sports Betting Data Providers](https://opticodds.com/blog/how-to-evaluate-sports-betting-data-providers)
+- [How You Bet the Big Game — Super Bowl LX Betting Trends](https://opticodds.com/blog/how-you-bet-the-big-game-super-bowl-lx-betting-trends)
+- [Leveraging Real-Time Odds API](https://opticodds.com/blog/leveraging-real-time-odds-api)
+- [More Markets, More Money — The OpticOdds Market Intelligence Tool](https://opticodds.com/blog/more-markets-more-money-the-opticodds-market-intelligence-tool)
+- [NBA Injury Report API — Real-Time Updates](https://opticodds.com/blog/nba-injury-report-api-real-time-updates-from-opticodds)
+- [NFL API: The Strategic Value of Real-Time Data](https://opticodds.com/blog/nfl-api-the-strategic-value-of-real-time-data)
+- [OpticOdds Partners with Rimble](https://opticodds.com/blog/opticodds-partner-with-rimble)
+- [OpticOdds Partners with TCL](https://opticodds.com/blog/opticodds-partner-with-tcl)
+- [OpticOdds Partners with Lusofunding](https://opticodds.com/blog/opticodds-partners-with-lusofunding-to-power-new-sports-prop-firm-platform)
+- [OpticOdds Partners with Pragmatic Play](https://opticodds.com/blog/opticodds-partners-with-pragmatic-play-to-power-expanded-u-s-player-prop-coverage)
+- [Probability Paths in Player Prop Modeling](https://opticodds.com/blog/probability-paths-in-player-prop-modeling)
+- [Sports Betting Odds in Prediction Markets — Best Strategies](https://opticodds.com/blog/sports-betting-odds-in-prediction-markets-best-strategies-with-opticodds)
+- [Sportsbook Management Software — Optimize Your Sportsbook with Copilot](https://opticodds.com/blog/sportsbook-management-software-optimize-your-sportsbook-with-copilot)
+- [The Power of Historical Betting Odds](https://opticodds.com/blog/the-power-of-historical-betting-odds-unlocking-insights-with-opticodds)
+- [Wagering Reimagined — A New Era in Social Sports Betting](https://opticodds.com/blog/wagering-reimagined-a-new-era-in-social-sports-betting)
+- [What Are Bet Settlements? A Guide](https://opticodds.com/blog/what-are-bet-settlements-guide)
+
+### Sportsbook API Connectors
+
+- [10bet API](https://opticodds.com/sportsbooks/10bet-api)
+- [1xBet API](https://opticodds.com/sportsbooks/1xbet-api)
+- [22Bet API](https://opticodds.com/sportsbooks/22bet-api)
+- [888sport API](https://opticodds.com/sportsbooks/888sport-api)
+- [Action 24/7 API](https://opticodds.com/sportsbooks/action24-7-api)
+- [Bally Bet API](https://opticodds.com/sportsbooks/bally-bet-api)
+- [BC.Game API](https://opticodds.com/sportsbooks/bc-game-api)
+- [BetAnySports API](https://opticodds.com/sportsbooks/bet-any-sports-api)
+- [Bet105 API](https://opticodds.com/sportsbooks/bet105-api)
+- [Bet99 API](https://opticodds.com/sportsbooks/bet99-api)
+- [Betano API](https://opticodds.com/sportsbooks/betano-api)
+- [BetCRIS API](https://opticodds.com/sportsbooks/betcris-api)
+- [BetDEX API](https://opticodds.com/sportsbooks/betdex-api)
+- [BetDSI API](https://opticodds.com/sportsbooks/betdsi-api)
+- [Betfair API](https://opticodds.com/sportsbooks/betfair-api)
+- [Betfred API](https://opticodds.com/sportsbooks/betfred-api)
+- [BetJack API](https://opticodds.com/sportsbooks/betjack-api)
+- [Betly API](https://opticodds.com/sportsbooks/betly-api)
+- [BetM API](https://opticodds.com/sportsbooks/betm-api)
+- [Betnacional API](https://opticodds.com/sportsbooks/betnacional-api)
+- [BetOpenly API](https://opticodds.com/sportsbooks/betopenly-api)
+- [BetPARX API](https://opticodds.com/sportsbooks/betparx-api)
+- [Betplay API](https://opticodds.com/sportsbooks/betplay-api)
+- [Betr API](https://opticodds.com/sportsbooks/betr-api)
+- [BetRight API](https://opticodds.com/sportsbooks/betright-api)
+- [BetRivers API](https://opticodds.com/sportsbooks/betrivers-api)
+- [Betsafe API](https://opticodds.com/sportsbooks/betsafe-api)
+- [Betsson API](https://opticodds.com/sportsbooks/betsson-api)
+- [BetVictor API](https://opticodds.com/sportsbooks/betvictor-api)
+- [Betway API](https://opticodds.com/sportsbooks/betway-api)
+- [Bodog API](https://opticodds.com/sportsbooks/bodog-api)
+- [Bookmaker API](https://opticodds.com/sportsbooks/bookmaker-api)
+- [Boom Fantasy API](https://opticodds.com/sportsbooks/boomfantasy-api)
+- [Borgata API](https://opticodds.com/sportsbooks/borgata-api)
+- [bwin API](https://opticodds.com/sportsbooks/bwin-api)
+- [Casumo API](https://opticodds.com/sportsbooks/casumo-api)
+- [Chalkboard API](https://opticodds.com/sportsbooks/chalkboard-api)
+- [Circa Sports API](https://opticodds.com/sportsbooks/circasports-api)
+- [Circa Vegas API](https://opticodds.com/sportsbooks/circavegas-api)
+- [ClutchBet API](https://opticodds.com/sportsbooks/clutchbet-api)
+- [Codere API](https://opticodds.com/sportsbooks/codere-api)
+- [Coolbet API](https://opticodds.com/sportsbooks/coolbet-api)
+- [Coral API](https://opticodds.com/sportsbooks/coral-api)
+- [Crab Sports API](https://opticodds.com/sportsbooks/crabsports-api)
+- [Dafabet API](https://opticodds.com/sportsbooks/dafabet-api)
+- [Desert Diamond API](https://opticodds.com/sportsbooks/desertdiamond-api)
+- [DraftKings API](https://opticodds.com/sportsbooks/draftkings-api)
+- [DRF API](https://opticodds.com/sportsbooks/drf-api)
+- [Elitebet API](https://opticodds.com/sportsbooks/elitebet-api)
+- [Fanatics API](https://opticodds.com/sportsbooks/fanatics-api)
+- [FireKeepers API](https://opticodds.com/sportsbooks/firekeepers-api)
+- [Fliff API](https://opticodds.com/sportsbooks/fliff-api)
+- [Four Winds API](https://opticodds.com/sportsbooks/fourwinds-api)
+- [Galera.bet API](https://opticodds.com/sportsbooks/galerabet-api)
+- [GGBet API](https://opticodds.com/sportsbooks/ggbet-api)
+- [Golden Nugget API](https://opticodds.com/sportsbooks/goldennugget-api)
+- [Heritage API](https://opticodds.com/sportsbooks/heritage-api)
+- [HotStreak API](https://opticodds.com/sportsbooks/hotstreak-api)
+- [Juicebet API](https://opticodds.com/sportsbooks/juicebet-api)
+- [Kalshi API](https://opticodds.com/sportsbooks/kalshi-api)
+- [Kutt API](https://opticodds.com/sportsbooks/kutt-api)
+- [Ladbrokes API](https://opticodds.com/sportsbooks/ladbrokes-api)
+- [LeoVegas API](https://opticodds.com/sportsbooks/leovegas-api)
+- [LowVig API](https://opticodds.com/sportsbooks/lowvig-api)
+- [MISE API](https://opticodds.com/sportsbooks/mise-api)
+- [Neds API](https://opticodds.com/sportsbooks/neds-api)
+- [Nitrogen Sports API](https://opticodds.com/sportsbooks/nitrogen-api)
+- [NorthStar Bets API](https://opticodds.com/sportsbooks/northstarbets-api)
+- [Novig API](https://opticodds.com/sportsbooks/novig-api)
+- [OnyxOdds API](https://opticodds.com/sportsbooks/onyxodds-api)
+- [OwnersBox API](https://opticodds.com/sportsbooks/ownersbox-api)
+- [ParlayE API](https://opticodds.com/sportsbooks/parlaye-api)
+- [ParlayPlay](https://opticodds.com/sportsbooks/parlayplay)
+- [PartyPoker API](https://opticodds.com/sportsbooks/partypoker-api)
+- [Picklebet API](https://opticodds.com/sportsbooks/picklebet-api)
+- [Play Alberta API](https://opticodds.com/sportsbooks/playalberta-api)
+- [PointsBet API](https://opticodds.com/sportsbooks/pointsbet-api)
+- [Polymarket API](https://opticodds.com/sportsbooks/polymarket-api)
+- [PrizePicks API](https://opticodds.com/sportsbooks/prizepicks-api)
+- [ProLine API](https://opticodds.com/sportsbooks/proline-api)
+- [Prophet X API](https://opticodds.com/sportsbooks/prophet-x-api)
+- [Rebet API](https://opticodds.com/sportsbooks/rebet-api)
+- [Resorts World Bet API](https://opticodds.com/sportsbooks/resortsworldbet-api)
+- [Rizk API](https://opticodds.com/sportsbooks/rizk-api)
+- [Robinhood](https://opticodds.com/sportsbooks/robinhood)
+- [Saba Sports API](https://opticodds.com/sportsbooks/sabasports-api)
+- [SBK API](https://opticodds.com/sportsbooks/sbk-api)
+- [SBOBET API](https://opticodds.com/sportsbooks/sbobet-api)
+- [Sleeper API](https://opticodds.com/sportsbooks/sleeper-api)
+- [Smarkets API](https://opticodds.com/sportsbooks/smarkets-api)
+- [Sportingbet API](https://opticodds.com/sportsbooks/sportingbet-api)
+- [Sports Interaction API](https://opticodds.com/sportsbooks/sportsinteraction-api)
+- [Sporttrade API](https://opticodds.com/sportsbooks/sporttrade-api)
+- [Sportzino API](https://opticodds.com/sportsbooks/sportzino-api)
+- [Stake API](https://opticodds.com/sportsbooks/stake-api)
+- [STN Sports API](https://opticodds.com/sportsbooks/stnsports-api)
+- [SugarHouse API](https://opticodds.com/sportsbooks/sugarhouse-api)
+- [Superbet API](https://opticodds.com/sportsbooks/superbet-api)
+- [SuperBook API](https://opticodds.com/sportsbooks/superbook-api)
+- [Suprabets API](https://opticodds.com/sportsbooks/suprabets-api)
+- [SX Bet API](https://opticodds.com/sportsbooks/sxbet-api)
+- [TAB API](https://opticodds.com/sportsbooks/tab-api)
+- [TABtouch API](https://opticodds.com/sportsbooks/tabtouch-api)
+- [theScore API](https://opticodds.com/sportsbooks/thescore-api)
+- [Thrillzz API](https://opticodds.com/sportsbooks/thrillzz-api)
+- [Tipico API](https://opticodds.com/sportsbooks/tipico-api)
+- [Tonybet API](https://opticodds.com/sportsbooks/tonybet-api)
+- [TopSport API](https://opticodds.com/sportsbooks/topsport-api)
+- [TwinSpires API](https://opticodds.com/sportsbooks/twinspires-api)
+- [Unibet API](https://opticodds.com/sportsbooks/unibet-api)
+- [Vivid Picks API](https://opticodds.com/sportsbooks/vividpicks-api)
+- [Westgate API](https://opticodds.com/sportsbooks/westgate-api)
+- [William Hill API](https://opticodds.com/sportsbooks/williamhill-api)
+- [Wind Creek API](https://opticodds.com/sportsbooks/windcreek-api)
+- [WynnBET API](https://opticodds.com/sportsbooks/wynnbet-api)
+- [YouWager API](https://opticodds.com/sportsbooks/youwager-api)
+
+### Legal
+
+- [Terms of Service](https://opticodds.com/terms-of-service)
+- [Privacy Policy](https://opticodds.com/privacy-policy)

@@ -1,0 +1,203 @@
+{
+  "item": [
+    {
+      "id": "86b33df7-a0f3-4520-a2b5-ba4970ca343d",
+      "name": "Results",
+      "description": {
+        "content": "Game and player results.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "dd778a5c-5eb9-4fe8-8f21-f795b87264e0",
+          "name": "Get fixture results",
+          "request": {
+            "name": "Get fixture results",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3e7a013b-8631-4729-9ed2-9e7ebd2e06a2",
+              "name": "Fixture results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 3609.90773021005,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": 4799.71351446779,\n      \"key_1\": 1885.3668394675317\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5db5ecc0-2581-476b-ad65-4ce7c7f6e369",
+          "name": "Get player results",
+          "request": {
+            "name": "Get player results",
+            "description": {},
+            "url": {
+              "path": [
+                "fixtures",
+                "player-results"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bf433f35-0c3b-4518-b248-b2506ce903fe",
+              "name": "Player results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fixtures",
+                    "player-results"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 3609.90773021005,\n      \"key_1\": \"string\",\n      \"key_2\": \"string\"\n    },\n    {\n      \"key_0\": 4799.71351446779,\n      \"key_1\": 1885.3668394675317\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.opticodds.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "b425fab4-4656-42b9-8002-76739323db61",
+    "name": "OpticOdds Sports Betting Fixtures Results API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpticOdds offers real-time and historical sports betting data including\nmain-line odds, player props, alternate markets, injury data, schedules,\nrankings, and scores. The API is REST-based and authenticated with an\nAPI key passed either as the `X-Api-Key` header or `key` query\nparameter.\n\n\nContact Support:\n Name: OpticOdds Developer",
+      "type": "text/plain"
+    }
+  }
+}

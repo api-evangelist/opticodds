@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpticOdds Sports Betting Fixtures Results API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Results",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get fixture results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/results"
+          },
+          "docs": "Get fixture results"
+        },
+        {
+          "info": {
+            "name": "Get player results",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/player-results"
+          },
+          "docs": "Get player results"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,124 @@
+{
+  "item": [
+    {
+      "id": "3dea4d36-2480-4c14-82e3-a073624ffe40",
+      "name": "Injuries",
+      "description": {
+        "content": "Injuries and injury predictions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d9ff52fd-e9b5-4c07-b8cb-81563df05cf2",
+          "name": "List injuries",
+          "request": {
+            "name": "List injuries",
+            "description": {},
+            "url": {
+              "path": [
+                "injuries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6199947d-10de-476f-9739-2bac5f66c5c9",
+              "name": "Injuries collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "injuries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 2581.4110412398404,\n      \"key_1\": 1411.6503317990282\n    },\n    {\n      \"key_0\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.opticodds.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "587c0467-980f-4359-bd4f-4f987b505eac",
+    "name": "OpticOdds Sports Betting Fixtures Injuries API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpticOdds offers real-time and historical sports betting data including\nmain-line odds, player props, alternate markets, injury data, schedules,\nrankings, and scores. The API is REST-based and authenticated with an\nAPI key passed either as the `X-Api-Key` header or `key` query\nparameter.\n\n\nContact Support:\n Name: OpticOdds Developer",
+      "type": "text/plain"
+    }
+  }
+}

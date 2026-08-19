@@ -1,0 +1,91 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "OpticOdds Sports Betting Fixtures API",
+    "version": "3.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-Api-Key",
+      "value": "{{X-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Fixtures",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures",
+            "params": [
+              {
+                "name": "sport",
+                "value": "",
+                "type": "query",
+                "description": "Sport slug (e.g. `basketball`)."
+              },
+              {
+                "name": "league",
+                "value": "",
+                "type": "query",
+                "description": "League slug (e.g. `nba`)."
+              }
+            ]
+          },
+          "docs": "List fixtures"
+        },
+        {
+          "info": {
+            "name": "List active fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/active"
+          },
+          "docs": "List active fixtures"
+        },
+        {
+          "info": {
+            "name": "Get odds for fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/odds",
+            "params": [
+              {
+                "name": "fixture_id",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get odds for fixtures"
+        },
+        {
+          "info": {
+            "name": "Historical odds for fixtures",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.opticodds.com/api/v3/fixtures/odds/historical"
+          },
+          "docs": "Historical odds for fixtures"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

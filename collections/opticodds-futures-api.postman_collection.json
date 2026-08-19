@@ -1,0 +1,201 @@
+{
+  "item": [
+    {
+      "id": "a6d27c8b-1da0-4436-b3fe-d3c06b4ed944",
+      "name": "Futures",
+      "description": {
+        "content": "Futures markets and odds.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5a37d6a3-9e63-46c9-9d5f-063557557e78",
+          "name": "List futures markets",
+          "request": {
+            "name": "List futures markets",
+            "description": {},
+            "url": {
+              "path": [
+                "futures"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3bae57d4-bc87-4788-968c-95d5f6917259",
+              "name": "Futures collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 4542,\n      \"key_1\": \"string\",\n      \"key_2\": false,\n      \"key_3\": true\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 2604\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a88f9a18-8d72-41de-b40a-dbe5a23104d6",
+          "name": "List futures odds",
+          "request": {
+            "name": "List futures odds",
+            "description": {},
+            "url": {
+              "path": [
+                "futures",
+                "odds"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3865bcc5-a5cf-4924-b546-d9675729199e",
+              "name": "Futures odds collection.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "futures",
+                    "odds"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"key_0\": 4542,\n      \"key_1\": \"string\",\n      \"key_2\": false,\n      \"key_3\": true\n    },\n    {\n      \"key_0\": \"string\",\n      \"key_1\": 2604\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.opticodds.com/api/v3",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c00db9a5-8995-49fb-86a9-c7643303688c",
+    "name": "OpticOdds Sports Betting Fixtures Futures API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "OpticOdds offers real-time and historical sports betting data including\nmain-line odds, player props, alternate markets, injury data, schedules,\nrankings, and scores. The API is REST-based and authenticated with an\nAPI key passed either as the `X-Api-Key` header or `key` query\nparameter.\n\n\nContact Support:\n Name: OpticOdds Developer",
+      "type": "text/plain"
+    }
+  }
+}
