@@ -1,0 +1,199 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the OpticOdds v3 API
+  version: 1.0.0
+extends: openapi/opticodds-api-v3-openapi.json
+x-provenance:
+  generated: '2026-08-27'
+  method: generated
+  source: >-
+    Derived from the harvested contract at
+    https://api.opticodds.com/api/v3/openapi.json plus
+    developer.opticodds.com documentation. Never mutates the original.
+  rationale: >-
+    The harvested document is a swaggo artifact generated from Go handlers. It
+    is accurate but carries NO operationId on any of its 51 operations, no tag
+    descriptions, and a contact URL that 404s. Operation ids are the identifier
+    every downstream tool (SDK generators, MCP tool binding, the tool crosswalk
+    in mcp/opticodds-tool-crosswalk.yml, agent skills) needs, so this overlay
+    supplies them without touching the provider's document. Ids follow the
+    verbNoun convention the OpticOdds MCP tool names already use.
+actions:
+  - target: $.info.contact
+    description: >-
+      info.contact.url advertises https://opticodds.com/support, which returns
+      HTTP 404 (probed 2026-08-27). Point at the contact page that resolves.
+    update:
+      name: OpticOdds Support
+      url: https://opticodds.com/contact
+  - target: $.info
+    description: Record the documentation and changelog locations in the contract itself.
+    update:
+      x-documentation: https://developer.opticodds.com/reference/getting-started
+      x-changelog: https://developer.opticodds.com/changelog
+      x-status-page: https://status.opticodds.com/
+      x-llms-txt: https://developer.opticodds.com/llms.txt
+      x-mcp-server: https://api.opticodds.com/mcp
+  - target: $
+    description: >-
+      The document declares no top-level tags[] block, so the tags used on
+      operations have names but no descriptions. Supply them.
+    update:
+      tags:
+        - name: sports
+          description: Sport taxonomy — the root of the reference graph.
+        - name: leagues
+          description: Leagues within a sport, with region and gender.
+        - name: teams
+          description: Teams and their league/sport membership.
+        - name: players
+          description: Player roster data, biography and team membership.
+        - name: tournaments
+          description: Tournament groupings, used heavily for golf, tennis and motorsport.
+        - name: conferences
+          description: Conference groupings of leagues.
+        - name: divisions
+          description: Division groupings of leagues.
+        - name: sportsbooks
+          description: The 200+ sportsbooks OpticOdds aggregates, and their poll freshness.
+        - name: markets
+          description: Betting markets and market hierarchy, including settleable markets.
+        - name: market-types
+          description: Market type registry with valid selections.
+        - name: fixtures
+          description: Scheduled and live events. The v3 merge of v2 game and schedule.
+        - name: odds
+          description: Priced selections per fixture, sportsbook and market — the grain of the API.
+        - name: futures
+          description: Outright and futures markets, priced independently of a fixture.
+        - name: results
+          description: Game, player and tournament results.
+        - name: injuries
+          description: Injury reports and injury predictions.
+        - name: parlay
+          description: Parlay and same-game-parlay pricing, including BYOP and pre-packaged parlays.
+        - name: grader
+          description: Bet settlement — grade a settled odds or futures bet.
+        - name: copilot
+          description: OpticOdds Copilot generated pricing. Separately licensed.
+        - name: queue
+          description: >-
+            RabbitMQ push-queue lifecycle. The only state-changing operations in
+            the contract; every start has a matching stop.
+  - target: $.paths['/sports'].get
+    update: { operationId: listSports }
+  - target: $.paths['/sports/active'].get
+    update: { operationId: listActiveSports }
+  - target: $.paths['/leagues'].get
+    update: { operationId: listLeagues }
+  - target: $.paths['/leagues/active'].get
+    update: { operationId: listActiveLeagues }
+  - target: $.paths['/teams'].get
+    update: { operationId: listTeams }
+  - target: $.paths['/players'].get
+    update: { operationId: listPlayers }
+  - target: $.paths['/tournaments'].get
+    update: { operationId: listTournaments }
+  - target: $.paths['/tournaments/results'].get
+    update: { operationId: getTournamentResults }
+  - target: $.paths['/conferences'].get
+    update: { operationId: listConferences }
+  - target: $.paths['/divisions'].get
+    update: { operationId: listDivisions }
+  - target: $.paths['/sportsbooks'].get
+    update: { operationId: listSportsbooks }
+  - target: $.paths['/sportsbooks/active'].get
+    update: { operationId: listActiveSportsbooks }
+  - target: $.paths['/sportsbooks/last-polled'].get
+    update: { operationId: getSportsbookLastPolled }
+  - target: $.paths['/markets'].get
+    update: { operationId: listMarkets }
+  - target: $.paths['/markets/active'].get
+    update: { operationId: listActiveMarkets }
+  - target: $.paths['/markets/settleable'].get
+    update: { operationId: listSettleableMarkets }
+  - target: $.paths['/market-types'].get
+    update: { operationId: listMarketTypes }
+  - target: $.paths['/fixtures'].get
+    update: { operationId: listFixtures }
+  - target: $.paths['/fixtures/active'].get
+    update: { operationId: listActiveFixtures }
+  - target: $.paths['/fixtures/odds'].get
+    update: { operationId: getFixtureOdds }
+  - target: $.paths['/fixtures/odds/historical'].get
+    update: { operationId: getHistoricalFixtureOdds }
+  - target: $.paths['/fixtures/results'].get
+    update: { operationId: getFixtureResults }
+  - target: $.paths['/fixtures/results/head-to-head'].get
+    update: { operationId: getHeadToHeadResults }
+  - target: $.paths['/fixtures/player-results'].get
+    update: { operationId: getFixturePlayerResults }
+  - target: $.paths['/fixtures/player-results/last-x'].get
+    update: { operationId: getPlayerResultsLastX }
+  - target: $.paths['/futures'].get
+    update: { operationId: listFutures }
+  - target: $.paths['/futures/odds'].get
+    update: { operationId: getFutureOdds }
+  - target: $.paths['/injuries'].get
+    update: { operationId: listInjuries }
+  - target: $.paths['/injuries/predictions'].get
+    update: { operationId: listInjuryPredictions }
+  - target: $.paths['/grader/odds'].get
+    update: { operationId: gradeOddsBet }
+  - target: $.paths['/grader/odds'].post
+    update: { operationId: gradeOddsBetsBulk }
+  - target: $.paths['/grader/futures'].get
+    update: { operationId: gradeFuturesBet }
+  - target: $.paths['/parlay/odds'].post
+    update: { operationId: getParlayOdds }
+  - target: $.paths['/parlay/odds/byop'].post
+    update: { operationId: getBYOPParlayOdds }
+  - target: $.paths['/parlays/pre-pack'].get
+    update: { operationId: listFeaturedParlays }
+  - target: $.paths['/copilot/fixtures'].get
+    update: { operationId: listCopilotFixtures }
+  - target: $.paths['/copilot/fixtures/odds'].get
+    update: { operationId: getCopilotFixtureOdds }
+  - target: $.paths['/copilot/fixtures/odds/historical'].get
+    update: { operationId: getCopilotHistoricalOdds }
+  - target: $.paths['/copilot/parlay/odds'].get
+    update: { operationId: getCopilotParlayOdds }
+  - target: $.paths['/copilot/parlay/odds'].post
+    update: { operationId: calculateCopilotParlayOdds }
+  - target: $.paths['/copilot/versions'].get
+    update: { operationId: listCopilotVersions }
+  - target: $.paths['/copilot/queue/start'].post
+    update:
+      operationId: startCopilotQueue
+      x-reversal-operation: stopCopilotQueue
+      x-reversal-window: not-stated
+  - target: $.paths['/copilot/queue/stop'].post
+    update:
+      operationId: stopCopilotQueue
+      x-reverses: startCopilotQueue
+  - target: $.paths['/copilot/queue/status'].get
+    update: { operationId: getCopilotQueueStatus }
+  - target: $.paths['/copilot/queue/remove-connections'].get
+    update: { operationId: removeCopilotQueueConnections }
+  - target: $.paths['/copilot/results/queue/start'].post
+    update:
+      operationId: startCopilotResultsQueue
+      x-reversal-operation: stopCopilotResultsQueue
+      x-reversal-window: not-stated
+  - target: $.paths['/copilot/results/queue/stop'].post
+    update:
+      operationId: stopCopilotResultsQueue
+      x-reverses: startCopilotResultsQueue
+  - target: $.paths['/copilot/results/queue/status'].get
+    update: { operationId: getCopilotResultsQueueStatus }
+  - target: $.paths['/fixtures/results/queue/start'].post
+    update:
+      operationId: startFixtureResultsQueue
+      x-reversal-operation: stopFixtureResultsQueue
+      x-reversal-window: not-stated
+  - target: $.paths['/fixtures/results/queue/stop'].post
+    update:
+      operationId: stopFixtureResultsQueue
+      x-reverses: startFixtureResultsQueue
+  - target: $.paths['/fixtures/results/queue/status'].get
+    update: { operationId: getFixtureResultsQueueStatus }

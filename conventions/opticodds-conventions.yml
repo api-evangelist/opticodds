@@ -1,0 +1,284 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  openapi/opticodds-api-v3-openapi.json (info.description, parameters,
+  responses) ; https://developer.opticodds.com/reference/authentication.md ;
+  https://developer.opticodds.com/reference/common-issues.md ;
+  https://developer.opticodds.com/docs/api-faq.md ;
+  https://developer.opticodds.com/docs/sse-streaming.md ;
+  https://developer.opticodds.com/docs/migrating-to-v3.md
+description: >-
+  Cross-cutting runtime semantics for the OpticOdds v3 API: how you
+  authenticate, page, filter, read errors, and what you can and cannot take
+  back. The API is overwhelmingly a read surface — 44 of 51 operations are GET
+  and return sports data — with a small write surface confined to bet grading,
+  parlay pricing and RabbitMQ queue lifecycle.
+authentication:
+  style: api-key
+  transports:
+    - in: header
+      name: X-Api-Key
+    - in: query
+      name: key
+  bearer_variant:
+    surface: mcp
+    header: 'Authorization: Bearer <api-key>'
+    note: >-
+      The hosted MCP server at api.opticodds.com/mcp takes the SAME key but in
+      a different header shape than the REST API. This is an easy trap: a
+      client that works against REST with X-Api-Key gets
+      "Missing Authorization header" from the MCP endpoint.
+  oauth: false
+  scopes: false
+  docs: https://developer.opticodds.com/reference/authentication.md
+  artifact: authentication/opticodds-authentication.yml
+pagination:
+  modes: 2
+  default_mode: offset
+  offset:
+    page_param: page
+    indexing: 1-based
+    limit_param: limit
+    limit_default: 100
+    limit_max: 100
+    response_fields:
+      - page
+      - has_more
+  cursor:
+    cursor_param: cursor
+    limit_param: limit
+    response_fields:
+      - cursor
+    terminal_value: 'null'
+    recommended_for: large result sets
+  mutual_exclusion: >-
+    "Do not pass both `page` and `cursor`. Cursor-based pagination is
+    recommended for large result sets." When cursor is used, `page` and
+    `has_more` are omitted from the response.
+  history:
+    - date: '2026-02-19'
+      change: '`total_pages` replaced by `has_more`'
+      source: https://developer.opticodds.com/changelog
+  source: openapi/opticodds-api-v3-openapi.json#/info/description
+filtering:
+  multi_value_style: repeated-query-parameter
+  example: '&sportsbook=DraftKings&sportsbook=BetMGM'
+  spec_collection_format: csv
+  note: >-
+    The OpenAPI declares array parameters with collectionFormat csv, but the
+    documentation teaches repeated parameters. Both appear to be accepted;
+    repeated parameters are what the provider shows.
+  encoding_trap:
+    description: >-
+      Query values containing `+` must be percent-encoded as %2B or the request
+      silently returns no results rather than erroring.
+    example_bad: '&market=Player Passing + Rushing Yards'
+    example_good: '&market=Player%20Passing%20%2B%20Rushing%20Yards'
+    source: https://developer.opticodds.com/reference/common-issues.md
+  request_shape_limits:
+    - constraint: up to 5 sportsbooks per request
+      source: https://developer.opticodds.com/docs/api-faq.md
+  incremental:
+    param: updated_since
+    applies_to: /fixtures endpoints
+    added: '2026-05-12'
+    note: The provider's supported mechanism for polling only what changed.
+identifiers:
+  primary: opaque string `id` on every entity
+  secondary: >-
+    Most entities also carry `numerical_id` (integer) and some carry `base_id`.
+    Fixtures additionally carry `game_id`, the v2 compatibility handle.
+  prefixes: none
+  examples:
+    fixture_id: '202604020E7921D1'
+    team_id: '73AEB6743EC2'
+    league_id: 'nba'
+    sport_id: 'basketball'
+    tournament_id: 'pga-masters-2025'
+  note: >-
+    Sport and league ids are human-readable slugs; fixture and team ids are
+    opaque hex. There is no type prefix, so an id is not self-describing.
+timestamps:
+  format: ISO 8601
+  timezone: >-
+    "The timezone may be UTC (±0) or UTC-5" — the provider does not normalise
+    to a single zone and relies on the offset being present in the string.
+  source: https://developer.opticodds.com/docs/api-faq.md
+  exception:
+    field: timestamp on odds objects
+    type: number
+    note: Odds rows carry a numeric epoch `timestamp`, not an ISO string.
+error_envelope:
+  shape: '{"error": "<message>"}'
+  schema: response.ErrorResponse
+  rfc9457: false
+  content_type: application/json
+  codes_in_body: false
+  exception:
+    surface: grader
+    shape: '{"code": <int>, "message": "<string>"}'
+    schema: response.GraderError
+    example: '{"code": 101, "message": "Sport not supported"}'
+    note: >-
+      The bet-grading endpoints are the only place a machine-readable numeric
+      error code appears. Everywhere else the error is a bare human string.
+  artifact: errors/opticodds-problem-types.yml
+rate_limit_signaling:
+  documented_limits: true
+  runtime_headers: false
+  exhaustion_status: undocumented
+  note: >-
+    Limits are published in the FAQ (10 / 250 / 2500 per 15s by endpoint
+    class), but no RateLimit-* or Retry-After header is documented and no
+    operation in the contract declares a 429. An agent cannot read its
+    remaining budget; it can only know the ceiling.
+  artifact: rate-limits/opticodds-rate-limits.yml
+versioning:
+  style: url-path
+  current: /api/v3
+  artifact: lifecycle/opticodds-lifecycle.yml
+request_tracing:
+  correlation_header: none-documented
+  request_id_in_response: false
+  note: >-
+    No request-id or trace header is documented, and the error envelope carries
+    no correlation handle. Support escalation is via a sales rep with no
+    identifier to quote.
+field_expansion:
+  supported: false
+  sparse_fieldsets: false
+  note: >-
+    Responses are fixed-shape envelopes ({"data": [...]}). Some endpoints take
+    boolean include_* flags (include_fixture_updates, include_deep_link,
+    include_starting_lineups) which are additive toggles rather than a general
+    expansion grammar.
+metadata:
+  user_defined_fields: false
+  note: Read-only reference data. Consumers cannot attach metadata to objects.
+streaming:
+  protocol: server-sent-events
+  documented: true
+  guide: https://developer.opticodds.com/docs/sse-streaming.md
+  endpoints:
+    - GET /stream/odds/{sport}
+    - GET /stream/results/{sport}
+    - GET /stream/futures/{sport}
+    - GET /stream/copilot/{sport}/odds
+    - GET /stream/prediction-markets
+  event_types:
+    - connected
+    - ping
+    - odds
+    - locked-odds
+    - fixture-status
+    - fixture-results
+  resumption:
+    param: last_entry_id
+    note: Resume from a specific event id after reconnection.
+  reconnect_hint: 'retry: 5000 (SSE clients wait 5s before auto-reconnect)'
+  webhooks: false
+  websockets: false
+  provider_statement: >-
+    "We do not offer webhooks or WebSockets. However, we provide a Server-Sent
+    Events (SSE) streaming endpoint" —
+    https://developer.opticodds.com/docs/api-faq.md
+  contract_gap: >-
+    None of the five /stream/* endpoints appear in the harvested OpenAPI, which
+    describes only the 49 polling paths. The streaming surface is documented in
+    prose and in the reference index but is absent from the machine-readable
+    contract.
+  queue_alternative:
+    protocol: amqp
+    product: RabbitMQ push queues
+    guide: https://developer.opticodds.com/docs/getting-started.md
+    control_operations:
+      - POST /copilot/queue/start
+      - POST /copilot/queue/stop
+      - POST /copilot/results/queue/start
+      - POST /copilot/results/queue/stop
+      - POST /fixtures/results/queue/start
+      - POST /fixtures/results/queue/stop
+idempotency:
+  supported: false
+  header: null
+  na: false
+  assessment: >-
+    No Idempotency-Key header, no idempotency semantics documented, and no
+    idempotency parameter in the contract. Mostly harmless: 44 of 51 operations
+    are GET and naturally idempotent, and the POST operations that price
+    parlays or grade bets are pure computations that return the same answer for
+    the same input. The exposure is the six queue start/stop POSTs, where a
+    retried start is the one call that can leave duplicate state. No
+    Idempotency pointer is emitted for this provider.
+dry_run_mode:
+  supported: false
+  na: false
+  note: >-
+    No test mode, sandbox key prefix, or dry-run flag is published. There is a
+    sales-arranged free trial but no separate test environment, so an agent
+    cannot rehearse a call against non-production data.
+reversibility:
+  grade: documented
+  applicability: partial
+  read_only_surface: >-
+    44 of 51 operations are GET. For the read surface reversibility is `na` —
+    nothing to take back.
+  write_surface:
+    total_operations: 7
+    classes:
+      - class: pure-computation
+        operations:
+          - POST /parlay/odds
+          - POST /parlay/odds/byop
+          - POST /grader/odds
+          - POST /copilot/parlay/odds
+        reversible: na
+        rationale: >-
+          These POST because the request body is large, not because they mutate
+          anything. They price a parlay or grade a bet and persist no
+          customer-visible state, so there is nothing to reverse.
+      - class: queue-lifecycle
+        operations:
+          - POST /copilot/queue/start
+          - POST /copilot/results/queue/start
+          - POST /fixtures/results/queue/start
+        reversible: true
+        reversal_operations:
+          - POST /copilot/queue/stop
+          - POST /copilot/results/queue/stop
+          - POST /fixtures/results/queue/stop
+        supporting_operations:
+          - GET /copilot/queue/status
+          - GET /copilot/results/queue/status
+          - GET /fixtures/results/queue/status
+          - GET /copilot/queue/remove-connections
+        window: not-stated
+        window_source: null
+        rationale: >-
+          Every queue start has a matching stop and a status read, so the one
+          state-changing action in the contract has an explicit, documented
+          undo. What is NOT stated anywhere is a window: the docs do not say
+          how long after a start a stop is honoured, whether stopping drains or
+          discards buffered messages, or what happens to messages produced
+          between start and stop. Graded `documented` rather than `verified`
+          for exactly that reason — the reversal path exists, the window does
+          not.
+  data_deletion:
+    supported: false
+    note: >-
+      No delete operation exists anywhere in the contract; there is no
+      customer-writable data to remove.
+  assessment: >-
+    Low-risk surface for an agent. The worst outcome of a mistaken call is a
+    wasted request against the 15-second budget, except on the three queue
+    start operations, which have a stop but no stated window.
+cross_references:
+  errors: errors/opticodds-problem-types.yml
+  lifecycle: lifecycle/opticodds-lifecycle.yml
+  authentication: authentication/opticodds-authentication.yml
+  rate_limits: rate-limits/opticodds-rate-limits.yml
+  data_model: data-model/opticodds-data-model.yml
+  mcp: mcp/opticodds-mcp.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,116 @@
+generated: '2026-08-27'
+method: searched
+source: https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md
+description: >-
+  OpticOdds ships a first-party Model Context Protocol server in BOTH
+  deployment shapes: a hosted remote endpoint an MCP client can POST to today,
+  and an npm-distributed local stdio server launched with npx. Both are
+  published verbatim in the OpticOdds MCP Integration Guide, and the remote
+  endpoint was probed directly for this artifact.
+name: OpticOdds MCP
+status: published
+deployment:
+  mode: both
+  endpoint: https://api.opticodds.com/mcp
+  install: npx -y opticodds-mcp
+  package: https://www.npmjs.com/package/opticodds-mcp
+  auth: api-key
+  verified: probed
+transport:
+  remote: http
+  local: stdio
+authentication:
+  scheme: bearer
+  header: 'Authorization: Bearer <OPTICODDS_API_KEY>'
+  local_env: OPTICODDS_API_KEY
+  note: >-
+    The same OpticOdds API key used for the REST API. No OAuth: the server does
+    not advertise /.well-known/oauth-protected-resource and the documented
+    method is a static bearer key.
+probe:
+  url: https://api.opticodds.com/mcp
+  method: POST
+  body: '{"jsonrpc":"2.0","id":1,"method":"tools/list"}'
+  accept: application/json, text/event-stream
+  http_status: 401
+  response: >-
+    {"error":"Missing Authorization header. Use: Authorization: Bearer
+    <your_opticodds_api_key>"}
+  interpretation: >-
+    A live MCP server that rejects anonymous introspection with an
+    OpticOdds-specific auth message. The endpoint is real and reachable; the
+    tool inputSchemas are auth-gated and require an authenticated tools/list to
+    read. The tool list below is therefore the PUBLISHED list from the
+    provider's own integration guide — names and descriptions only, no
+    inputSchema — and is not a transcript of a live tools/list response.
+  probed: '2026-08-27'
+client_configuration:
+  claude_desktop_remote: |
+    {
+      "mcpServers": {
+        "opticodds": {
+          "url": "https://api.opticodds.com/mcp",
+          "headers": { "Authorization": "Bearer YOUR_API_KEY" }
+        }
+      }
+    }
+  claude_desktop_local: |
+    {
+      "mcpServers": {
+        "opticodds": {
+          "command": "npx",
+          "args": ["-y", "opticodds-mcp"],
+          "env": { "OPTICODDS_API_KEY": "your-api-key" }
+        }
+      }
+    }
+  claude_code: >-
+    claude mcp add opticodds --transport http https://api.opticodds.com/mcp
+    -H "Authorization: Bearer <YOUR_API_KEY>"
+tool_count: 16
+tools_source: >-
+  https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md
+  (provider-published table; input schemas not published)
+tools:
+  - name: get_sports
+    description: List all supported sports
+  - name: get_leagues
+    description: Get leagues for a given sport
+  - name: get_fixtures
+    description: Retrieve upcoming and live fixtures
+  - name: get_odds
+    description: Pull real-time odds for a fixture
+  - name: get_markets
+    description: Discover available betting markets
+  - name: get_sportsbooks
+    description: List available sportsbooks
+  - name: get_player_props
+    description: Get player prop lines
+  - name: get_injuries
+    description: Check injury reports
+  - name: get_results
+    description: Look up final scores and results
+  - name: get_line_history
+    description: View historical line movement
+  - name: find_best_price
+    description: Find the best available price across books
+  - name: find_outliers
+    description: Spot outlier lines across sportsbooks
+  - name: compare_lines
+    description: Compare lines across multiple sportsbooks
+  - name: compare_futures_lines
+    description: Compare futures odds across books
+  - name: grade_bet
+    description: Grade a settled bet
+  - name: grade_futures_bet
+    description: Grade a settled futures bet
+product:
+  name: Sportsbook AI
+  url: https://opticodds.com/sportsbook-ai
+  note: >-
+    OpticOdds markets the MCP surface as "Sportsbook AI — Conversational Odds
+    Data Powered by Claude MCP" and lists it in site navigation as the
+    "OpticOdds AI Connector (MCP)".
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,68 @@
+generated: '2026-08-27'
+method: generated
+source: >-
+  openapi/opticodds-api-v3-openapi.json (harvested from
+  https://api.opticodds.com/api/v3/openapi.json) plus developer.opticodds.com
+  guides
+provider: OpticOdds
+description: >-
+  Packaged Agent Skills for the marquee OpticOdds v3 flows. Every operation
+  named in these skills is verified present in the harvested contract, or — for
+  the streaming skill — in the provider's published SSE guide and API reference
+  index, which is flagged inside that skill because those endpoints are absent
+  from the contract. The contract declares NO operationId on any operation, so
+  skills address operations by METHOD + PATH.
+skill_count: 4
+skills:
+  - name: opticodds-compare-lines
+    file: opticodds-compare-lines.md
+    summary: >-
+      Resolve fixture, sportsbook and market ids, pull odds across up to 5
+      books per request, and group on grouping_key to find the best price.
+    operations:
+      - GET /fixtures
+      - GET /sportsbooks/active
+      - GET /markets/active
+      - GET /fixtures/odds
+  - name: opticodds-stream-live-odds
+    file: opticodds-stream-live-odds.md
+    summary: >-
+      Consume the SSE stream, handle connected/ping/odds/locked-odds events,
+      and resume with last_entry_id after a drop.
+    operations:
+      - GET /stream/odds/{sport}
+      - GET /stream/results/{sport}
+      - GET /stream/futures/{sport}
+    caveat: >-
+      The /stream/* endpoints are documented by OpticOdds but absent from the
+      machine-readable contract.
+  - name: opticodds-grade-settled-bets
+    file: opticodds-grade-settled-bets.md
+    summary: >-
+      Check settleable markets, grade single and bulk bets, and read the
+      numeric GraderError envelope unique to this surface.
+    operations:
+      - GET /markets/settleable
+      - GET /grader/odds
+      - POST /grader/odds
+      - GET /grader/futures
+  - name: opticodds-track-injuries
+    file: opticodds-track-injuries.md
+    summary: >-
+      Pull injuries and injury predictions, reconcile identifiers via
+      source_ids, and correlate with historical line movement.
+    operations:
+      - GET /injuries
+      - GET /injuries/predictions
+      - GET /teams
+      - GET /players
+      - GET /fixtures/odds/historical
+cross_references:
+  conventions: conventions/opticodds-conventions.yml
+  errors: errors/opticodds-problem-types.yml
+  rate_limits: rate-limits/opticodds-rate-limits.yml
+  authentication: authentication/opticodds-authentication.yml
+  mcp: mcp/opticodds-mcp.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

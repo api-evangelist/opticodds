@@ -1,0 +1,84 @@
+generated: '2026-08-27'
+method: searched
+source: https://developer.opticodds.com/changelog
+description: >-
+  OpticOdds maintains a dated changelog on its ReadMe-hosted developer hub,
+  categorised Added / Improved / Removed. Entries are prose one-liners with no
+  semantic version attached — the API is versioned by URL path (v3) and the
+  changelog tracks changes within v3 rather than releases of it.
+scheme:
+  type: date-based
+  versioning: url-path
+  current_version: v3
+  current_version_label: OpticOdds v3.0
+  semver: false
+  rss: not-published
+  categories:
+    - Added
+    - Improved
+    - Removed
+entry_count_recent: 10
+pages: 7
+window: 2026-01-08 through 2026-08-07 (first page of 7)
+entries:
+  - date: '2026-08-07'
+    type: Added
+    breaking: false
+    summary: Streaming endpoints for futures.
+  - date: '2026-06-23'
+    type: Improved
+    breaking: false
+    summary: Soccer fixture results now have populated `events`.
+  - date: '2026-06-05'
+    type: Improved
+    breaking: false
+    summary: Allow negative correlation for OpticOdds AI SGP.
+  - date: '2026-05-29'
+    type: Improved
+    breaking: false
+    summary: New `dead_heat_reduction` on the odds grader endpoint.
+  - date: '2026-05-12'
+    type: Improved
+    breaking: false
+    summary: Ability to query by `updated_since` on /fixtures endpoints.
+  - date: '2026-05-05'
+    type: Added
+    breaking: false
+    summary: Tournament support for ATP / WTA / ATP Challenger.
+  - date: '2026-03-03'
+    type: Removed
+    breaking: true
+    summary: >-
+      Removing `Underdog Fantasy (3 or 5 Pick)` in favour of
+      `Underdog Fantasy (2 Pick)`.
+    note: >-
+      A sportsbook identifier was withdrawn. Any client filtering on the old
+      value silently stops matching.
+  - date: '2026-02-24'
+    type: Added
+    breaking: false
+    summary: Override copilot parlay prices.
+  - date: '2026-02-19'
+    type: Added
+    breaking: true
+    summary: Switching from `total_pages` to `has_more`.
+    note: >-
+      A response-envelope field was replaced. Clients paginating on
+      `total_pages` break. Filed as Added by the provider; recorded as breaking
+      here because the field it replaced is gone from the documented envelope.
+  - date: '2026-01-08'
+    type: Added
+    breaking: false
+    summary: Extra field on /fixtures endpoint.
+observations:
+  - >-
+    Two of the ten most recent entries are breaking changes to response shape
+    or identifier values, and neither is flagged as breaking by the provider.
+    There is no deprecation window, Sunset header, or advance notice attached
+    to either.
+  - >-
+    Cadence is roughly monthly and the log is current — the newest entry is
+    2026-08-07, twenty days before this pass.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

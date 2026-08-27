@@ -1,0 +1,140 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  openapi/opticodds-api-v3-openapi.json (4xx/5xx responses across 51
+  operations) ; enriched from
+  https://developer.opticodds.com/reference/common-issues.md and
+  https://developer.opticodds.com/docs/api-faq.md
+description: >-
+  Error catalog for the OpticOdds v3 API. The API does NOT use RFC 9457
+  problem+json. Every documented failure returns application/json with a single
+  free-text field — {"error": "Invalid API key"} — with no code, no type URI,
+  no field pointer and no correlation id. The one exception is the bet-grading
+  surface, which returns a numeric code alongside the message.
+format:
+  rfc9457: false
+  content_type: application/json
+  envelope: '{"error": "<human readable message>"}'
+  schema: response.ErrorResponse
+  machine_readable_code: false
+  correlation_id: false
+  field_level_detail: false
+coverage:
+  operations: 51
+  with_400: 45
+  with_401: 51
+  with_403: 8
+  with_404: 4
+  with_500: 51
+  with_429: 0
+  note: >-
+    401 and 500 are declared on every operation. No operation declares 429,
+    despite the provider publishing three rate limits — the throttled response
+    is entirely undocumented.
+problem_types:
+  - status: 400
+    title: Bad Request
+    schema: response.ErrorResponse
+    operations: 45
+    causes:
+      - Invalid or unknown query parameter value (sport, league, market, sportsbook).
+      - >-
+        Query parameter containing a literal `+` that was not percent-encoded
+        as %2B — this returns no results rather than an error on some
+        endpoints, which is worse than a 400.
+      - More than 5 sportsbooks requested in a single call.
+    remediation: >-
+      Resolve identifier values against the reference endpoints (/sports,
+      /leagues, /markets, /sportsbooks) before filtering on them; URL-encode
+      every value.
+    source: https://developer.opticodds.com/reference/common-issues.md
+  - status: 401
+    title: Unauthorized
+    schema: response.ErrorResponse
+    example_body: '{"error": "Invalid API key"}'
+    operations: 51
+    causes:
+      - No API key supplied.
+      - Key supplied in the wrong place for the surface being called.
+    remediation: >-
+      REST takes the key as the X-Api-Key header or the `key` query parameter.
+      The hosted MCP endpoint takes it as Authorization: Bearer — its 401 body
+      is a distinct string, "Missing Authorization header. Use: Authorization:
+      Bearer <your_opticodds_api_key>".
+    source: https://developer.opticodds.com/reference/authentication.md
+  - status: 403
+    title: Forbidden
+    schema: response.ErrorResponse
+    operations: 8
+    applies_to:
+      - GET /fixtures/odds
+      - GET /fixtures/odds/historical
+      - GET /futures
+      - GET /futures/odds
+      - GET /markets/active
+      - GET /copilot/fixtures/odds
+      - POST /parlay/odds
+      - POST /parlay/odds/byop
+    causes:
+      - >-
+        Key is valid but the contract does not include the requested data
+        product — historical odds, futures, Copilot pricing, or parlay pricing
+        are separately licensed.
+    remediation: Entitlement change; contact the account representative.
+    note: >-
+      403 is the entitlement signal, and it lands only on the revenue-bearing
+      operations. This is the single most useful distinction in the catalog for
+      an agent: 401 means the key is wrong, 403 means the key is right and the
+      plan is not.
+  - status: 404
+    title: Not Found
+    schema: response.ErrorResponse
+    operations: 4
+    applies_to:
+      - GET /sportsbooks/active
+      - GET /sportsbooks/last-polled
+      - POST /fixtures/results/queue/start
+      - POST /fixtures/results/queue/stop
+    causes:
+      - Named fixture, sportsbook or queue does not exist.
+    remediation: Verify the id against the corresponding list endpoint.
+  - status: 500
+    title: Internal Server Error
+    schema: response.ErrorResponse
+    operations: 51
+    remediation: >-
+      Retry with exponential backoff. Check https://status.opticodds.com/ for a
+      declared incident. No Retry-After is returned.
+  - status: 429
+    title: Too Many Requests
+    declared_in_contract: false
+    documented: false
+    note: >-
+      GAP. Three rate limits are published (10 / 250 / 2500 requests per 15s by
+      endpoint class) but the contract declares no 429 on any operation and no
+      documentation states the status code or headers returned on exhaustion.
+      Recorded as a gap, not asserted as behaviour — we did not observe a
+      throttled response, because every call requires a key.
+grader_errors:
+  schema: response.GraderError
+  envelope: '{"code": <integer>, "message": "<string>"}'
+  applies_to:
+    - GET /grader/odds
+    - POST /grader/odds
+    - GET /grader/futures
+  known_codes:
+    - code: 101
+      message: Sport not supported
+      source: openapi/opticodds-api-v3-openapi.json (definitions example)
+  note: >-
+    The full grader code registry is not published. Only code 101 appears, as
+    the example value in the contract's own schema. Everything else in the
+    numeric space is undocumented.
+gaps:
+  - No error-code registry is published for the API as a whole.
+  - No RFC 9457 problem+json, no type URIs, no `instance` handle.
+  - No request/correlation id in any error body or header.
+  - No 429 declared or documented despite published rate limits.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

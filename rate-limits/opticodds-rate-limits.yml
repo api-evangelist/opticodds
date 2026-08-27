@@ -3,88 +3,115 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: OpticOdds
 providerId: opticodds
+generated: '2026-08-27'
+method: searched
+source: https://developer.opticodds.com/docs/api-faq.md
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
+modified: '2026-08-27'
 tags:
   - Odds
   - Sports Betting
   - Sports Data
   - Rate Limiting
-  - Quotas
   - Throttling
-description: Machine-readable rate limit definitions for the OpticOdds API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
-responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
+description: >-
+  OpticOdds publishes three rate limits, all on a fixed 15-second window, in
+  the API FAQ under "What is the request limit around the API?". The limits are
+  endpoint-class-scoped rather than plan-scoped: the docs state one set of
+  numbers with no tier variation. OpticOdds does NOT document any rate-limit
+  response headers or the status code returned on exhaustion, which is the
+  material gap for an agent: a client can read the ceiling from the docs but
+  cannot read its remaining budget at runtime.
+limit_count: 3
+window:
+  length: 15
+  unit: second
+  reset: >-
+    Fixed window. The provider states "the limit resets after the 15s are
+    completed" and "These will all reset after 15 seconds."
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Historical odds endpoints
+    scope: per-key
+    applies_to:
+      - GET /fixtures/odds/historical
+      - GET /copilot/fixtures/odds/historical
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - OpticOdds
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - OpticOdds
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - OpticOdds
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - OpticOdds
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - OpticOdds
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+    window: 15s
+    metric: requests
+    burst: null
+    source: https://developer.opticodds.com/docs/api-faq.md
+  - name: Streaming endpoints (new connections)
+    scope: per-key
+    applies_to:
+      - GET /stream/odds/{sport}
+      - GET /stream/results/{sport}
+      - GET /stream/futures/{sport}
+      - GET /stream/copilot/{sport}/odds
+      - GET /stream/prediction-markets
+    limit: 250
+    window: 15s
+    metric: new connections
+    burst: null
+    source: https://developer.opticodds.com/docs/api-faq.md
+    note: >-
+      Counts connection establishment, not events received. Long-lived SSE
+      connections do not consume the polling budget.
+  - name: All other endpoints
+    scope: per-key
+    applies_to:
+      - all remaining REST operations
+    limit: 2500
+    window: 15s
+    metric: requests
+    burst: null
+    source: https://developer.opticodds.com/docs/api-faq.md
+headers:
+  documented: false
+  limit: null
+  remaining: null
+  reset: null
+  retry_after: null
+  policy: null
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After header is documented anywhere
+    in the OpticOdds documentation, and none appears in the harvested OpenAPI —
+    no operation declares a 429 response. Not asserted here, because we have
+    not observed a throttled response: authentication is required before any
+    call, so the runtime signal could not be probed anonymously.
+response_codes:
+  throttled: null
+  note: >-
+    The contract declares 400, 401, 403, 404 and 500 across its operations. No
+    429 is declared on any of the 51 operations, so the status code returned on
+    exhaustion is undocumented.
+concurrency_limits:
+  - name: Sportsbooks per request
+    limit: 5
+    scope: per-request
+    source: https://developer.opticodds.com/docs/api-faq.md
+    note: >-
+      "Each request can retrieve data from up to 5 sports books
+      simultaneously." Enforced as a request-shape constraint, not a rate.
+  - name: Recommended leagues per stream connection
+    limit: 10
+    scope: per-connection
+    binding: recommendation
+    source: https://developer.opticodds.com/docs/sse-streaming.md
+    note: >-
+      "OpticOdds recommends grouping up to 10 leagues per connection." A
+      published best practice, not an enforced ceiling.
+plan_variation:
+  documented: false
+  note: >-
+    The published limits carry no tier qualifier and OpticOdds publishes no
+    plans at all (see plans/opticodds-plans-pricing.yml), so no per-tier rate
+    ladder can be recorded.
+supersedes: >-
+  This file replaces a 2026-05-04 bulk-sweep scaffold that asserted
+  free/professional/enterprise tiers at 10/100/1000 requests per minute with
+  monthly quotas and a full X-RateLimit-* header set. None of those numbers or
+  headers were ever published by OpticOdds; they were scaffold defaults and are
+  removed here in favour of the three limits the provider actually documents.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

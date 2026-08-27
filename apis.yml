@@ -1,23 +1,37 @@
 aid: opticodds
 name: OpticOdds
 description: >-
-  OpticOdds Sports Betting API offers real-time betting odds for main lines,
-  player props, alternate markets, injury data, schedules, ranking, scores
-  and more for sports betting applications.
+  OpticOdds is a B2B sports betting data provider whose v3 REST API delivers
+  real-time and historical odds aggregated from 200+ sportsbooks, covering main
+  lines, player props, alternate markets, futures, injuries and injury
+  predictions, fixtures, results, and same-game-parlay pricing. The platform
+  serves sportsbook operators and traders, prediction markets, platform
+  providers, DFS operators, betting apps, and media and affiliate businesses.
+  Alongside the polling API it publishes Server-Sent Events streaming endpoints
+  and RabbitMQ push queues, a bet-settlement grader, and a first-party Model
+  Context Protocol server available both as a hosted endpoint and as an npm
+  package. OpticOdds is part of Gambling.com Group.
 type: Index
 accessModel:
-  pricing: freemium
-  onboarding: self-serve
-  trial: false
-  try_now: true
+  pricing: contact-sales
+  onboarding: sales-assisted
+  trial: true
+  try_now: false
   public: false
-  label: Freemium · Self-serve signup
+  label: Contact sales · Sales-assisted onboarding
   confidence: high
   source:
   - plans
   - authentication
-  generated: '2026-07-22'
-  method: derived
+  generated: '2026-08-27'
+  method: searched
+  note: >-
+    Corrected 2026-08-27. The prior freemium/self-serve label was derived from a
+    2026-05-04 scaffold. OpticOdds publishes no plans or prices;
+    opticodds.com/pricing is a lead-capture form, opticodds.com/sign-up and
+    /login both return 404, and the only account surface is the
+    existing-customer dashboard at app.opticodds.com. A free trial exists but
+    is arranged through a sales representative.
 position: Consumer
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/opticodds.png
@@ -25,12 +39,20 @@ tags:
   - Odds
   - Sports Betting
   - Sports Data
+  - Real-Time Data
+  - Streaming
+  - Fixtures
+  - Injuries
+  - Prediction Markets
+  - Model Context Protocol
 created: '2025-02-08'
-modified: '2026-03-16'
+modified: '2026-08-27'
 url: >-
   https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml
 specificationVersion: '0.23'
 common:
+  - type: Website
+    url: https://opticodds.com/
   - type: AgenticAccess
     url: agentic-access/opticodds-agentic-access.yml
   - type: DomainSecurity
@@ -43,26 +65,108 @@ common:
     url: https://www.linkedin.com/company/opticodds
   - type: LlmsText
     url: https://opticodds.com/llms.txt
+  - type: LLMsTxt
+    url: llms/opticodds-llms.txt
   - url: https://opticodds.com/blog
     type: Blog
+  - type: DeveloperPortal
+    url: https://developer.opticodds.com/
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+  - type: APIReference
+    url: https://developer.opticodds.com/reference/get_fixtures-odds
+  - type: GettingStarted
+    url: https://developer.opticodds.com/docs/odds-api-getting-started-guide
+  - type: Support
+    url: https://opticodds.com/contact
+  - type: Community
+    url: https://developer.opticodds.com/discuss
+  - type: TermsOfService
+    url: https://opticodds.com/terms-of-service
+  - type: PrivacyPolicy
+    url: https://opticodds.com/privacy-policy
+  - type: StatusPage
+    url: https://status.opticodds.com/
+  - type: Lifecycle
+    url: lifecycle/opticodds-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/opticodds-changelog.yml
+  - type: Conventions
+    url: conventions/opticodds-conventions.yml
+  - type: ErrorCatalog
+    url: errors/opticodds-problem-types.yml
+  - type: DataModel
+    url: data-model/opticodds-data-model.yml
+  - type: Conformance
+    url: conformance/opticodds-conformance.yml
+  - type: Packages
+    url: packages/opticodds-packages.yml
+  - type: MCPServer
+    url: mcp/opticodds-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/opticodds-tool-crosswalk.yml
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Overlay
+    url: overlays/opticodds-api-v3-overlay.yaml
+  - type: Plans
+    url: plans/opticodds-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/opticodds-rate-limits.yml
+  - type: FinOps
+    url: finops/opticodds-finops.yml
+  - type: WellKnownProbe
+    url: well-known/opticodds-well-known.yml
 apis:
 - aid: opticodds:opticodds
-  name: OpticOdds
+  name: OpticOdds API v3
   description: >-
-    OpticOdds Sports Betting API offers real-time betting odds for main lines, player props, alternate
-    markets, injury data, schedules, ranking, scores and more for sports betting applications.
-  humanURL: https://opticodds.com/
+    The complete OpticOdds v3 REST API — 51 operations across sports, leagues,
+    teams, players, tournaments, conferences, divisions, sportsbooks, markets,
+    fixtures, live and historical odds, futures, results, injuries, parlay
+    pricing, bet grading, Copilot pricing and RabbitMQ queue control. Harvested
+    verbatim from the contract OpticOdds serves at
+    https://api.opticodds.com/api/v3/openapi.json.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Odds
   - Sports Betting
   - Sports Data
   properties:
+  - type: OpenAPI
+    url: openapi/opticodds-api-v3-openapi.json
   - type: Documentation
-    url: https://opticodds.com/docs/
+    url: https://developer.opticodds.com/reference/getting-started
+  - type: Overlay
+    url: overlays/opticodds-api-v3-overlay.yaml
+- aid: opticodds:opticodds-mcp
+  name: OpticOdds MCP Server
+  description: >-
+    First-party Model Context Protocol server exposing 16 read-only OpticOdds
+    tools — odds, fixtures, player props, injuries, results, line history,
+    best-price and outlier detection, line comparison and bet grading. Shipped
+    in both deployment shapes: a hosted remote endpoint at
+    https://api.opticodds.com/mcp and a local stdio server published to npm as
+    opticodds-mcp. Marketed as Sportsbook AI.
+  humanURL: https://developer.opticodds.com/docs/opticodds-mcp-integration-guide
+  baseURL: https://api.opticodds.com/mcp
+  tags:
+  - Model Context Protocol
+  - Agents
+  - Odds
+  properties:
+  - type: MCPServer
+    url: mcp/opticodds-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/opticodds-tool-crosswalk.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/docs/opticodds-mcp-integration-guide
 - aid: opticodds:opticodds-fixtures-api
   name: OpticOdds Fixtures API
   description: Fixtures and odds.
-  humanURL: https://opticodds.com/
+  humanURL: https://developer.opticodds.com/reference/get_fixtures
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Fixtures
   properties:
@@ -71,7 +175,8 @@ apis:
 - aid: opticodds:opticodds-futures-api
   name: OpticOdds Futures API
   description: Futures markets and odds.
-  humanURL: https://opticodds.com/
+  humanURL: https://developer.opticodds.com/reference/get_futures
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Futures
   properties:
@@ -80,7 +185,8 @@ apis:
 - aid: opticodds:opticodds-injuries-api
   name: OpticOdds Injuries API
   description: Injuries and injury predictions.
-  humanURL: https://opticodds.com/
+  humanURL: https://developer.opticodds.com/reference/get_injuries
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Injuries
   properties:
@@ -89,7 +195,8 @@ apis:
 - aid: opticodds:opticodds-reference-api
   name: OpticOdds Reference API
   description: Sports, leagues, sportsbooks, market types.
-  humanURL: https://opticodds.com/
+  humanURL: https://developer.opticodds.com/reference/get_sports
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Reference
   properties:
@@ -98,7 +205,8 @@ apis:
 - aid: opticodds:opticodds-results-api
   name: OpticOdds Results API
   description: Game and player results.
-  humanURL: https://opticodds.com/
+  humanURL: https://developer.opticodds.com/reference/get_fixtures-results
+  baseURL: https://api.opticodds.com/api/v3
   tags:
   - Results
   properties:
@@ -107,3 +215,39 @@ apis:
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-pointer-notes:
+  no_pricing_pointer: >-
+    opticodds.com/pricing returns HTTP 200 but is a three-step lead-capture
+    form with no price, tier, quota or currency on it. The pricing_link check
+    reads public pricing, and "contact us" is not that, so no Pricing pointer
+    is emitted. See plans/opticodds-plans-pricing.yml.
+  no_signup_pointer: >-
+    opticodds.com/sign-up and opticodds.com/login both return 404.
+    app.opticodds.com is an existing-customer dashboard login, not a
+    self-service registration path, so no SignUp or Login pointer is emitted.
+  no_wellknown_pointer: >-
+    Every /.well-known/ path probed 404 on all three hosts. The probe record is
+    wired as WellKnownProbe so the measurement is not lost, deliberately NOT as
+    WellKnown, which would assert a served surface.
+  no_webhooks_pointer: >-
+    OpticOdds states in its API FAQ that it offers neither webhooks nor
+    WebSockets. The event surface is SSE and RabbitMQ, captured in
+    conventions/opticodds-conventions.yml.
+  no_deprecation_pointer: >-
+    Removals are announced in the changelog and the v2-to-v3 migration guide,
+    but no deprecation policy, notice period, or Sunset/Deprecation header is
+    published.
+  no_security_or_compliance_pointer: >-
+    No security.txt, no vulnerability-disclosure page, no bug bounty, and no
+    trust center or published certification were found. trust.opticodds.com
+    does not resolve; opticodds.com/security returns 404.
+  no_sdks_pointer: >-
+    OpticOdds publishes no first-party REST client library in any registry. The
+    one first-party npm package, opticodds-mcp, is an MCP server rather than an
+    SDK, and the only REST client on npm is a community package under the
+    third-party @sports-sdk scope.
+x-enrichment:
+  date: '2026-08-27'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1

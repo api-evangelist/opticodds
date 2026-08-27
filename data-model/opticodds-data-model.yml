@@ -1,0 +1,272 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  openapi/opticodds-api-v3-openapi.json — 133 definitions, resolved through
+  $ref links and *_id reference fields
+description: >-
+  Entity graph of the OpticOdds v3 API. The core is a five-level taxonomy
+  (Sport -> League -> Team -> Player, with Tournament/Conference/Division as
+  alternative groupings) against which two fact tables hang: Fixture (a
+  scheduled or live event) and Odd (a priced selection from one Sportsbook on
+  one Fixture). Every read endpoint is a projection of that shape, and every
+  odds row is uniquely located by the tuple (fixture, sportsbook, market,
+  selection).
+conventions:
+  envelope: >-
+    Collection responses wrap rows in a `data` array alongside pagination
+    fields — the *Envelope definitions (FixturesEnvelope, SportsEnvelope, ...)
+    are the wrappers, not entities.
+  identifiers:
+    primary: opaque string `id`
+    secondary: integer `numerical_id` on most taxonomy entities
+    legacy: '`game_id` on Fixture, the v2 compatibility handle'
+    prefixes: none
+  soft_refs: >-
+    Odds rows reference Team and Player by bare `team_id` / `player_id`
+    strings, NOT by $ref. The graph is only partly expressed in the schema; the
+    rest is convention.
+entities:
+  - name: Sport
+    schema: response.Sport
+    id: string slug (e.g. basketball)
+    endpoints:
+      - GET /sports
+      - GET /sports/active
+    relationships:
+      - has_many: League
+        via: League.sport
+      - has_many: Market
+        via: Sport.main_markets
+  - name: League
+    schema: response.League
+    id: string slug (e.g. nba)
+    endpoints:
+      - GET /leagues
+      - GET /leagues/active
+    fields: [gender, region, region_code, numerical_id]
+    relationships:
+      - belongs_to: Sport
+        via: League.sport
+      - has_many: Team
+      - has_many: Fixture
+  - name: Conference
+    schema: response.Conference
+    endpoints: [GET /conferences]
+    relationships:
+      - has_many: League
+        via: Conference.leagues
+  - name: Division
+    schema: response.Division
+    endpoints: [GET /divisions]
+    relationships:
+      - has_many: League
+        via: Division.leagues
+  - name: Team
+    schema: response.Team
+    id: opaque hex string (e.g. 73AEB6743EC2)
+    endpoints: [GET /teams]
+    fields: [abbreviation, city, mascot, nickname, conference, division, logo, is_active, source_ids]
+    relationships:
+      - belongs_to: League
+        via: Team.league
+      - belongs_to: Sport
+        via: Team.sport
+      - has_many: Player
+        via: Player.team
+  - name: Player
+    schema: response.Player
+    endpoints: [GET /players]
+    fields: [first_name, last_name, position, number, age, height, weight, experience, is_active]
+    relationships:
+      - belongs_to: Team
+        via: Player.team
+      - belongs_to: League
+        via: Player.league
+      - belongs_to: Sport
+        via: Player.sport
+  - name: Tournament
+    schema: response.Tournament
+    endpoints:
+      - GET /tournaments
+      - GET /tournaments/results
+    fields: [start_date, end_date]
+    relationships:
+      - has_many: Fixture
+        via: Fixture.tournament
+  - name: Fixture
+    schema: response.Fixture
+    id: opaque hex string (e.g. 202604020E7921D1)
+    endpoints:
+      - GET /fixtures
+      - GET /fixtures/active
+    fields:
+      - status (unplayed, live, half, completed, cancelled, suspended, delayed, forfeited, invalid)
+      - start_date, is_live, has_odds, updated_at
+      - venue_name, venue_location, venue_neutral, broadcast, weather
+      - season_year, season_type, season_week, tournament_stage
+      - home_team_display, away_team_display, home_record, away_record
+      - home_rotation_number, away_rotation_number, home_seed, away_seed
+      - game_id (v2 compatibility)
+    relationships:
+      - belongs_to: Sport
+        via: Fixture.sport
+      - belongs_to: League
+        via: Fixture.league
+      - belongs_to: Tournament
+        via: Fixture.tournament
+      - has_many: Competitor
+        via: Fixture.home_competitors / Fixture.away_competitors
+      - has_one: Result
+        via: Fixture.result
+      - has_one: Lineups
+        via: Fixture.lineups
+      - has_one: FixtureExtra
+        via: Fixture.extra
+      - has_many: Odd
+        via: Odd.fixture (odds are returned nested under the fixture)
+    note: >-
+      Fixture is the v3 merge of the v2 `game` and `schedule` entities. The
+      `game_id` field exists solely to map v2 identifiers forward.
+  - name: Competitor
+    schema: response.Competitor
+    fields: [id, name, abbreviation, logo, base_id, numerical_id]
+    note: >-
+      The participant slot on a Fixture. Shares an id space with Team for team
+      sports; for individual sports (tennis, golf, motorsport) it is the
+      athlete.
+  - name: Sportsbook
+    schema: response.Sportsbook
+    endpoints:
+      - GET /sportsbooks
+      - GET /sportsbooks/active
+      - GET /sportsbooks/last-polled
+    fields: [name, logo, is_active, is_onshore]
+    relationships:
+      - has_many: Odd
+        via: Odd.sportsbook
+  - name: Market
+    schema: response.Market / response.MarketWithHierarchy / response.ActiveMarket
+    endpoints:
+      - GET /markets
+      - GET /markets/active
+      - GET /markets/settleable
+    relationships:
+      - belongs_to: Sport
+      - has_many: MarketType
+  - name: MarketType
+    schema: response.MarketType
+    endpoints: [GET /market-types]
+    fields: [id (integer), name, notes, selections]
+  - name: Odd
+    schema: response.FixtureOdd
+    endpoints:
+      - GET /fixtures/odds
+      - GET /markets/active
+    fields:
+      - price, points, selection, selection_line, normalized_selection
+      - market, market_id, is_main, grouping_key, timestamp
+      - deep_link, limits, order_book
+    relationships:
+      - belongs_to: Fixture
+      - belongs_to: Sportsbook
+        via: Odd.sportsbook (string name, not a $ref)
+      - belongs_to: Player
+        via: Odd.player_id (soft reference)
+      - belongs_to: Team
+        via: Odd.team_id (soft reference)
+      - has_one: FixtureOddLimit
+        via: Odd.limits
+    note: >-
+      The grain of the whole API. `grouping_key` is how the same logical
+      selection is matched across sportsbooks — it is what makes best-price and
+      outlier comparison possible.
+  - name: HistoricalOdd
+    schema: response.HistoricalOdd
+    endpoints: [GET /fixtures/odds/historical]
+    relationships:
+      - has_many: HistoricalOddEntry
+        via: HistoricalOdd.entries
+    fields: [clv, olv]
+    note: >-
+      Same identity as Odd but carries a time series of entries plus closing
+      and opening line value.
+  - name: FutureOdd
+    schema: response.FutureOdd
+    endpoints:
+      - GET /futures
+      - GET /futures/odds
+    note: >-
+      Structurally an Odd, but hangs off a future market rather than a Fixture
+      — it has no fixture_id.
+  - name: Result
+    schema: response.FixtureResultDetail / response.BaseResult / response.Score
+    endpoints:
+      - GET /fixtures/results
+      - GET /fixtures/results/head-to-head
+      - GET /tournaments/results
+    relationships:
+      - belongs_to: Fixture
+      - has_one: Scores
+        via: Result.scores
+  - name: PlayerResult
+    schema: response.PlayerResultEntry / response.PlayerResultLastXEntry
+    endpoints:
+      - GET /fixtures/player-results
+      - GET /fixtures/player-results/last-x
+    relationships:
+      - belongs_to: Player
+      - belongs_to: Fixture
+  - name: Injury
+    schema: response.Injury
+    endpoints: [GET /injuries]
+    fields: [status, type]
+    relationships:
+      - belongs_to: Player
+      - belongs_to: Team
+      - belongs_to: League
+      - belongs_to: Sport
+  - name: InjuryPrediction
+    schema: response.InjuryPrediction
+    endpoints: [GET /injuries/predictions]
+    relationships:
+      - belongs_to: Player
+      - has_one: InjuryPredictionData
+  - name: Parlay
+    schema: response.ParlayResult / response.FeaturedParlay
+    endpoints:
+      - POST /parlay/odds
+      - POST /parlay/odds/byop
+      - GET /parlays/pre-pack
+    relationships:
+      - has_many: ParlayLeg
+        via: Parlay.legs
+    note: >-
+      A ParlayLeg references a Fixture, a market, and optionally a player or
+      team — the same soft-reference pattern as Odd.
+  - name: InPlayData
+    schema: response.InPlayData / response.FullInPlayData / response.InPlayRunners
+    note: Live match state attached to a Fixture; surfaced through the odds and results feeds.
+  - name: Queue
+    schema: >-
+      response.CopilotQueueStatus / response.FixtureResultsQueueStatus /
+      response.QueueStopData
+    endpoints:
+      - POST /copilot/queue/start
+      - POST /copilot/queue/stop
+      - GET /copilot/queue/status
+      - POST /fixtures/results/queue/start
+      - POST /fixtures/results/queue/stop
+      - GET /fixtures/results/queue/status
+    note: >-
+      The only customer-writable entity in the contract — a RabbitMQ push
+      subscription, not sports data.
+graph_summary:
+  root_taxonomy: Sport -> League -> Team -> Player
+  alternative_groupings: [Tournament, Conference, Division]
+  fact_tables: [Fixture, Odd, Result, Injury]
+  odds_grain: (fixture, sportsbook, market, selection)
+  cross_book_join_key: Odd.grouping_key
+  writable_entities: [Queue]
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

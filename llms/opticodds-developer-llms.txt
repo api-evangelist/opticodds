@@ -1,0 +1,131 @@
+# OpticOdds Documentation
+
+> Access real-time sportsbook odds, injury reports, schedules, and results via OpticOdds’ powerful API. Built for sportsbook operators, data providers, and developers, our docs make it easy to integrate betting data.
+
+Append .md to any documentation page URL to get its markdown version.
+
+## Guides
+- [Sportsbooks](https://developer.opticodds.com/docs/sportsbooks.md): Refreshed August 2026
+- [Leagues](https://developer.opticodds.com/docs/leagues.md): Refreshed August 2026
+- [OpenOdds — Third Party Partners](https://developer.opticodds.com/docs/third-party-partners.md): OpenOdds is our open partner ecosystem — a curated network of the best data providers in sports betting, all accessible through a single OpticOdds API call. No extra vendor contracts. No separate integrations. Just flip it on and go. Every OpenOdds partner is available as an optional add-on to your existing plan.
+- [RotoWire News & Injury Data](https://developer.opticodds.com/docs/rotowire-news-injury-data.md)
+- [Odds API: Getting Started Guide](https://developer.opticodds.com/docs/odds-api-getting-started-guide.md)
+- [OpticOdds for Prediction Market Makers](https://developer.opticodds.com/docs/opticodds-for-prediction-market-makers.md)
+- [Non-Sport Prediction Markets Data](https://developer.opticodds.com/docs/non-sport-prediction-markets.md)
+- [Non-Sport Prediction Markets Order Book](https://developer.opticodds.com/docs/prediction-markets-streaming-guide.md)
+- [SSE Streaming Guide](https://developer.opticodds.com/docs/sse-streaming.md)
+- [Soccer Statistics API Guide](https://developer.opticodds.com/docs/statistics-api-guide.md): This guide demonstrates the comprehensive depth of match and player statistics available through our API, with real examples from a Premier League fixture.
+- [Football Statistics API Guide](https://developer.opticodds.com/docs/nfl-statistics-api-guide.md): This guide demonstrates the comprehensive depth of match and player statistics available through our API, with real examples from an NFL fixture.
+- [Basketball Statistics API Guide](https://developer.opticodds.com/docs/nba-statistics-api-guide.md): This guide demonstrates the comprehensive depth of match and player statistics available through our API, with real examples from an NBA fixture.
+- [Baseball Statistics API Guide](https://developer.opticodds.com/docs/baseball-statistics-api-guide.md): This guide demonstrates the comprehensive depth of game and player statistics available through our API, with real examples from an MLB fixture.
+- [In-Play Data Guide](https://developer.opticodds.com/docs/in-play-data-guide.md)
+- [OpticOdds MCP Integration Guide](https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md): Connect OpticOdds real-time sports betting data directly to Claude using the Model Context Protocol (MCP).
+- [How Operators Can Use RotoWire Data to Improve Operations](https://developer.opticodds.com/docs/how-operators-can-use-rotowire-data-to-improve-operations.md)
+- [How Market Makers & Syndicates Can Use RotoWire Data to Improve Operations](https://developer.opticodds.com/docs/how-market-makers-syndicates-can-use-rotowire-data-to-improve-operations.md)
+- [Getting Started with Copilot](https://developer.opticodds.com/docs/getting-started-1.md)
+- [Default Settings](https://developer.opticodds.com/docs/default-settings.md)
+- [Configurations](https://developer.opticodds.com/docs/configurations.md)
+- [Operations](https://developer.opticodds.com/docs/trading-floor.md)
+- [Odds Integration Guide](https://developer.opticodds.com/docs/data-ingestion.md)
+- [Scores Integration Guide](https://developer.opticodds.com/docs/scores-integration-guide.md)
+- [Snapshots API](https://developer.opticodds.com/docs/snapshots.md)
+- [Users & Permissions in Copilot](https://developer.opticodds.com/docs/users-permissions-in-copilot.md)
+- [Same Game Parlay (SGP) Pricer & Bet Builder](https://developer.opticodds.com/docs/same-game-parlay-sgp-pricer-bet-builder.md)
+- [Getting Started with RabbitMQ](https://developer.opticodds.com/docs/getting-started.md): Common information that you need to get started using our queue based updates.
+- [Fixture Results](https://developer.opticodds.com/docs/fixture-results.md)
+- [Settlement Rules](https://developer.opticodds.com/docs/settlement-rules.md): Settlement rules for each sport we grade. The general principles below reflect how our grader actually settles bets and apply to every sport unless a sport-specific page states otherwise.
+- [Aussie Rules](https://developer.opticodds.com/docs/aussie-rules.md)
+- [Badminton](https://developer.opticodds.com/docs/badminton.md)
+- [Baseball](https://developer.opticodds.com/docs/baseball.md)
+- [Basketball](https://developer.opticodds.com/docs/basketball.md)
+- [Football](https://developer.opticodds.com/docs/football.md)
+- [Golf](https://developer.opticodds.com/docs/golf.md)
+- [Hockey](https://developer.opticodds.com/docs/hockey.md)
+- [Motorsports](https://developer.opticodds.com/docs/motorsports.md)
+- [Soccer](https://developer.opticodds.com/docs/soccer.md)
+- [Tennis](https://developer.opticodds.com/docs/tennis.md)
+- [API FAQ](https://developer.opticodds.com/docs/api-faq.md): We understand that navigating a new API can be both exciting and challenging. Whether you're just starting your free trial or are already a valued client, this FAQ is designed to address your most common questions and ensure a seamless experience.  Here, you’ll find answers to questions about setting up your API integration, managing data requests, troubleshooting common issues, and understanding subscription and usage policies. Our goal is to provide you with all the information you need to make the most out of the OpticOdds API, empowering you to access real-time data for various leagues across basketball, football, baseball, tennis, soccer, and more.  If you don’t find what you’re looking for, our support team is always ready to assist you. Let’s get started!
+- [Odds Screen FAQ](https://developer.opticodds.com/docs/trading-screen-faq.md): Welcome to the OpticOdds Odds Screen FAQ page! Whether you're a sportsbook operator, a trader, or a professional bettor, the Odds Screen is designed to provide you with fast, reliable, and accurate betting data in real-time. This tool aggregates odds from over 100 global sportsbooks, covering a wide range of sports and markets to help you make informed betting decisions.  This FAQ aims to answer the most common questions about the Odds Screen, from its features and integrations to customization and data accuracy. Explore the sections below to learn how the Odds Screen can optimize your betting strategy and enhance your overall experience.
+- [Migrating to v3](https://developer.opticodds.com/docs/migrating-to-v3.md): Helpful migration guide when going from v2 to v3.
+
+## API Reference
+- [Getting Started](https://developer.opticodds.com/reference/getting-started.md): Welcome to the OpticOdds API — your all-in-one source for real-time and historical sports betting data. You’ll be up and running in no time!
+- [Authentication](https://developer.opticodds.com/reference/authentication.md): We offer two ways to pass your api key to the API. You can either pass it as a header or as a query parameter.
+- [Fixtures Lifecycle](https://developer.opticodds.com/reference/fixtures-lifecycle.md)
+- [Common Issues](https://developer.opticodds.com/reference/common-issues.md): Describes common issues that users experience.
+- [/sports](https://developer.opticodds.com/reference/get_sports.md)
+- [/sports/active](https://developer.opticodds.com/reference/get_sports-active.md)
+- [/leagues](https://developer.opticodds.com/reference/get_leagues.md)
+- [/leagues/active](https://developer.opticodds.com/reference/get_leagues-active.md)
+- [/sportsbooks](https://developer.opticodds.com/reference/get_sportsbooks.md)
+- [/sportsbooks/active](https://developer.opticodds.com/reference/get_sportsbooks-active.md)
+- [/sportsbooks/last-polled](https://developer.opticodds.com/reference/get_sportsbooks-last-polled.md)
+- [/markets](https://developer.opticodds.com/reference/get_markets.md)
+- [/markets/active](https://developer.opticodds.com/reference/get_markets-active.md)
+- [/markets/settleable](https://developer.opticodds.com/reference/get_markets-settleable.md)
+- [/market-types](https://developer.opticodds.com/reference/get_market-types.md)
+- [/teams](https://developer.opticodds.com/reference/get_teams.md)
+- [/players](https://developer.opticodds.com/reference/get_players.md)
+- [/fixtures](https://developer.opticodds.com/reference/get_fixtures.md)
+- [/fixtures/active](https://developer.opticodds.com/reference/get_fixtures-active.md)
+- [/tournaments](https://developer.opticodds.com/reference/get_tournaments.md)
+- [/conferences](https://developer.opticodds.com/reference/get_conferences.md)
+- [/divisions](https://developer.opticodds.com/reference/get_divisions.md)
+- [Odds](https://developer.opticodds.com/reference/odds.md)
+- [/fixtures/odds](https://developer.opticodds.com/reference/get_fixtures-odds.md)
+- [/fixtures/odds/historical](https://developer.opticodds.com/reference/get_fixtures-odds-historical.md)
+- [/fixtures/results](https://developer.opticodds.com/reference/get_fixtures-results.md)
+- [/fixtures/player-results](https://developer.opticodds.com/reference/get_fixtures-player-results.md)
+- [/tournaments/results](https://developer.opticodds.com/reference/get_tournaments-results.md)
+- [/fixtures/player-results/last-x](https://developer.opticodds.com/reference/get_fixtures-player-results-last-x.md)
+- [/fixtures/results/head-to-head](https://developer.opticodds.com/reference/get_fixtures-results-head-to-head.md)
+- [/futures](https://developer.opticodds.com/reference/get_futures.md)
+- [/futures/odds](https://developer.opticodds.com/reference/get_futures-odds.md)
+- [/grader/odds](https://developer.opticodds.com/reference/get_grader-odds.md)
+- [/grader/futures](https://developer.opticodds.com/reference/get_grader-futures.md)
+- [/injuries](https://developer.opticodds.com/reference/get_injuries.md)
+- [/injuries/predictions](https://developer.opticodds.com/reference/get_injuries-predictions.md)
+- [Parlay](https://developer.opticodds.com/reference/parlay.md)
+- [/parlay/odds](https://developer.opticodds.com/reference/post_parlay-odds.md)
+- [/stream/odds/{sport}](https://developer.opticodds.com/reference/get_stream-odds-sport.md)
+- [/stream/results/{sport}](https://developer.opticodds.com/reference/get_stream-results-sport.md)
+- [/stream/futures/{sport}](https://developer.opticodds.com/reference/get_stream-futures-sport.md)
+- [/copilot/fixtures/odds](https://developer.opticodds.com/reference/get_copilot-fixtures-odds.md)
+- [/copilot/grader/odds](https://developer.opticodds.com/reference/get_copilot-grader-odds.md)
+- [/stream/copilot/{sport}/odds](https://developer.opticodds.com/reference/get_stream-copilot-sport-odds.md)
+- [/copilot/parlay/odds](https://developer.opticodds.com/reference/get_copilot-parlay-odds.md)
+- [/copilot/queue/start](https://developer.opticodds.com/reference/post_copilot-queue-start.md)
+- [/copilot/queue/stop](https://developer.opticodds.com/reference/post_copilot-queue-stop.md)
+- [/copilot/queue/status](https://developer.opticodds.com/reference/get_copilot-queue-status.md)
+- [/copilot/fixtures](https://developer.opticodds.com/reference/get_copilot-fixtures.md)
+- [/copilot/fixtures/odds/historical](https://developer.opticodds.com/reference/get_copilot-fixtures-odds-historical.md)
+- [/copilot/versions](https://developer.opticodds.com/reference/get_copilot-versions.md)
+- [/copilot/snapshot/fixtures/odds](https://developer.opticodds.com/reference/get_copilot-snapshot-fixtures-odds.md)
+- [/copilot/results/queue/start](https://developer.opticodds.com/reference/post_copilot-results-queue-start.md)
+- [/copilot/results/queue/stop](https://developer.opticodds.com/reference/post_copilot-results-queue-stop.md)
+- [/copilot/results/queue/status](https://developer.opticodds.com/reference/get_copilot-results-queue-status.md)
+- [/copilot/queue/remove-connections](https://developer.opticodds.com/reference/get_copilot-queue-remove-connections.md)
+- [/copilot/parlay/odds](https://developer.opticodds.com/reference/post_copilot-parlay-odds.md)
+- [/fixtures/results/queue/start](https://developer.opticodds.com/reference/post_fixtures-results-queue-start.md)
+- [/fixtures/results/queue/stop](https://developer.opticodds.com/reference/post_fixtures-results-queue-stop.md)
+- [/fixtures/results/queue/status](https://developer.opticodds.com/reference/get_fixtures-results-queue-status.md)
+- [/prediction-markets/categories](https://developer.opticodds.com/reference/get_prediction-markets-categories.md)
+- [/prediction-markets/canonical-events/ids](https://developer.opticodds.com/reference/get_prediction-markets-canonical-events-ids.md)
+- [/prediction-markets/canonical-events](https://developer.opticodds.com/reference/get_prediction-markets-canonical-events.md)
+- [/stream/prediction-markets](https://developer.opticodds.com/reference/get_stream-prediction-markets.md)
+
+## Pages
+- [API FAQ Page](https://developer.opticodds.com/page/faq-page.md)
+- [Trading Screen FAQ](https://developer.opticodds.com/page/trading-screen-faq.md)
+
+## Changelog
+- [Streaming endpoints for futures.](https://developer.opticodds.com/changelog/streaming-endpoints-for-futures.md)
+- [Soccer fixture results now have populated `events`.](https://developer.opticodds.com/changelog/soccer-fixture-results-now-have-populated-events.md)
+- [Allow negative correlation for OpticOdds AI SGP.](https://developer.opticodds.com/changelog/allow-negative-correlation-for-opticodds-ai-sgp.md)
+- [New `dead_heat_reduction` on the odds grader endpoint.](https://developer.opticodds.com/changelog/new-dead_heat_reduction-on-the-odds-grader-endpoint.md)
+- [Ability to query by updated_since on /fixtures endpoints.](https://developer.opticodds.com/changelog/abiity-to-query-by-updated_since-on-fixtures-endpoints.md)
+- [Tournament support for ATP/WTA/ATP Challenger.](https://developer.opticodds.com/changelog/tournament-support-for-atpwtaatp-challenger.md)
+- [Removing `Underdog Fantasy (3 or 5 Pick)` in favor of `Underdog Fantasy (2 Pick)`.](https://developer.opticodds.com/changelog/removing-underdog-fantasy-3-or-5-pick-in-favor-of-underdog-fantasy-2-pick.md)
+- [Override copilot parlay prices.](https://developer.opticodds.com/changelog/override-copilot-parlay-prices.md)
+- [Switching from `total_pages` to `has_more`.](https://developer.opticodds.com/changelog/switching-from-total_pages-to-has_more.md)
+- [Extra field on /fixtures endpoint.](https://developer.opticodds.com/changelog/extra-field-on-fixtures-endpoint.md)

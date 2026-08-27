@@ -1,0 +1,174 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  openapi/opticodds-api-v3-openapi.json ; developer.opticodds.com
+  documentation ; probes recorded in well-known/opticodds-well-known.yml and
+  security/opticodds-domain-security.yml
+description: >-
+  Cross-cutting standards assertions for OpticOdds. Each entry records whether
+  the standard is conformed to and the evidence for the call. Negatives are
+  kept: they are the useful half of this file.
+standards:
+  - id: openapi
+    name: OpenAPI / Swagger
+    conforms: true
+    version: '2.0'
+    evidence: >-
+      A machine-readable contract is served anonymously at
+      https://api.opticodds.com/api/v3/openapi.json (HTTP 200, 289KB, 49 paths
+      / 51 operations, 133 definitions). Saved verbatim to
+      openapi/opticodds-api-v3-openapi.json.
+    note: >-
+      Swagger 2.0, not OpenAPI 3.x. It is a swaggo document generated from the
+      Go server (definitions are namespaced
+      github_com_opticodds_api-go_internal_v3_response.*), which is why it
+      carries no operationId on any operation and no tag descriptions.
+  - id: oauth2
+    name: OAuth 2.0
+    conforms: false
+    evidence: >-
+      securityDefinitions declares only apiKey schemes (X-Api-Key header, `key`
+      query parameter). /.well-known/oauth-authorization-server and
+      /.well-known/oauth-protected-resource both 404 on every host.
+  - id: oidc
+    name: OpenID Connect
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on all three hosts.
+  - id: rfc9457
+    name: RFC 9457 Problem Details for HTTP APIs
+    conforms: false
+    evidence: >-
+      All 4xx/5xx responses return application/json with the shape
+      {"error": "<string>"} (response.ErrorResponse). No type, title, status,
+      detail or instance members; no application/problem+json media type.
+  - id: rfc9116
+    name: RFC 9116 security.txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns 404 on api.opticodds.com,
+      opticodds.com and developer.opticodds.com.
+  - id: rfc8594
+    name: RFC 8594 Sunset HTTP Header
+    conforms: false
+    evidence: >-
+      No Sunset or Deprecation header is documented. Removals are announced in
+      the changelog and the v2-to-v3 migration guide as prose, with no dates.
+  - id: rfc9110-rate-limit
+    name: RateLimit header fields (draft / RFC 9110 conventions)
+    conforms: false
+    evidence: >-
+      Three rate limits are published in the API FAQ but no RateLimit-*,
+      X-RateLimit-* or Retry-After header is documented, and no operation
+      declares a 429 response.
+  - id: pagination
+    name: Documented pagination
+    conforms: true
+    evidence: >-
+      Two documented modes in info.description of the contract: offset
+      (page 1-indexed, limit max 100 default 100, response carries page +
+      has_more) and cursor (opaque cursor token, null when exhausted). The two
+      are documented as mutually exclusive.
+  - id: idempotency
+    name: Idempotency keys
+    conforms: false
+    evidence: >-
+      No Idempotency-Key header or equivalent anywhere in the contract or
+      documentation. 44 of 51 operations are GET; the six queue start/stop
+      POSTs are the only calls where a retry can duplicate state.
+  - id: sse
+    name: Server-Sent Events (WHATWG / text-event-stream)
+    conforms: true
+    evidence: >-
+      Five documented /stream/* endpoints emitting named events (connected,
+      ping, odds, locked-odds, fixture-status, fixture-results) with a `retry:`
+      field and last_entry_id resumption —
+      https://developer.opticodds.com/docs/sse-streaming.md
+    note: >-
+      Conformant in behaviour but ABSENT from the machine-readable contract:
+      none of the five stream endpoints appear in the harvested OpenAPI.
+  - id: asyncapi
+    name: AsyncAPI
+    conforms: false
+    evidence: >-
+      No AsyncAPI document is published. The event surface (SSE + RabbitMQ push
+      queues) is described only in prose guides.
+  - id: webhooks
+    name: Webhooks / callbacks
+    conforms: false
+    evidence: >-
+      Explicitly disclaimed by the provider: "We do not offer webhooks or
+      WebSockets. However, we provide a Server-Sent Events (SSE) streaming
+      endpoint" — https://developer.opticodds.com/docs/api-faq.md. No
+      `webhooks` or `callbacks` object exists in the contract (which is Swagger
+      2.0 and could not express one). No Webhooks pointer is emitted for this
+      provider.
+  - id: mcp
+    name: Model Context Protocol
+    conforms: true
+    version: not-advertised
+    evidence: >-
+      Hosted server at https://api.opticodds.com/mcp answers a JSON-RPC
+      tools/list POST with an MCP-specific 401 auth challenge; a first-party
+      stdio server is published as npm opticodds-mcp. Both documented at
+      https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md
+    note: >-
+      Protocol version is not advertised anonymously and tools/list is
+      auth-gated, so conformance is established by behaviour and documentation,
+      not by reading a server capabilities response.
+  - id: a2a
+    name: A2A Agent Card
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json return 404 on
+      all three hosts.
+  - id: iso8601
+    name: ISO 8601 timestamps
+    conforms: true
+    evidence: >-
+      "All timestamps are in ISO 8601 format" —
+      https://developer.opticodds.com/docs/api-faq.md
+    note: >-
+      Partial. The provider states the timezone "may be UTC (±0) or UTC-5", so
+      offsets are present but not normalised, and odds rows carry a numeric
+      epoch `timestamp` rather than an ISO string.
+  - id: llmstxt
+    name: llms.txt
+    conforms: true
+    evidence: >-
+      Two documents served: https://opticodds.com/llms.txt (company/product
+      index) and https://developer.opticodds.com/llms.txt (documentation index,
+      HTTP 200). The docs host also serves a .md twin of every page, and states
+      so in-band.
+compliance_certifications:
+  published: false
+  trust_center: false
+  probes:
+    - url: https://trust.opticodds.com
+      status: '000 (DNS does not resolve)'
+    - url: https://opticodds.com/security
+      status: 404
+  note: >-
+    No SOC 2, ISO 27001, PCI DSS or equivalent certification is published
+    anywhere on the OpticOdds site, and no trust center exists. OpticOdds is
+    part of Gambling.com Group (Nasdaq: GAMB); any group-level certification is
+    not published on the OpticOdds surface. No Compliance pointer is emitted,
+    because nothing was found to point at.
+domain_standard:
+  applicable: false
+  market: sports betting odds and trading data
+  searched_for:
+    - OpenRTB (advertising — not this market)
+    - SCIM, OData, FHIR, ActivityPub, OAI-PMH, ISO 20022, HL7, X12 — none applicable
+  finding: >-
+    B2B sports-betting data has no adopted interchange standard. Identifiers
+    (sport, league, team, player, market, sportsbook) are vendor-proprietary
+    across the whole category — OpticOdds, Sportradar, SportsDataIO, Don Best
+    and TXODDS each define their own. OpticOdds' own answer to this is
+    `source_ids`, a field on Fixture, Team and Player carrying the identifiers
+    other providers use for the same object, and `grouping_key` on odds rows,
+    which is what makes the same selection matchable across 200+ sportsbooks.
+    That is a de facto crosswalk, not a standard. REWARD-ONLY dimension: no
+    penalty applies where a market has no standard, and none is invented here.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

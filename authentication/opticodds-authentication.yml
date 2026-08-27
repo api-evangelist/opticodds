@@ -1,24 +1,114 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/opticodds-openapi.yml
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://developer.opticodds.com/reference/authentication.md ;
+  openapi/opticodds-api-v3-openapi.json (securityDefinitions) ;
+  https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md
+docs: https://developer.opticodds.com/reference/authentication.md
+description: >-
+  OpticOdds authenticates with a single long-lived API key. There is no OAuth,
+  no OIDC, no scopes, and no token exchange. The one thing worth knowing is
+  that the key travels in a DIFFERENT header depending on which surface you
+  call: X-Api-Key for REST, Authorization: Bearer for the hosted MCP server.
 summary:
   types:
-  - apiKey
+    - apiKey
   api_key_in:
-  - header
-  - query
+    - header
+    - query
+  oauth2: false
+  oidc: false
+  mtls: false
+  scopes: false
+  rotation_documented: false
+  expiry_documented: false
+  multi_key_per_account: undocumented
 schemes:
-- name: apiKeyHeader
-  type: apiKey
-  in: header
-  parameter: X-Api-Key
-  description: OpticOdds API key supplied in the X-Api-Key header.
-  sources:
-  - openapi/opticodds-openapi.yml
-- name: apiKeyQuery
-  type: apiKey
-  in: query
-  parameter: key
-  description: OpticOdds API key supplied via the `key` query parameter.
-  sources:
-  - openapi/opticodds-openapi.yml
+  - name: ApiKeyHeader
+    type: apiKey
+    in: header
+    parameter: X-Api-Key
+    surface: rest
+    description: API key passed via X-Api-Key header.
+    example: >-
+      curl --location
+      'https://api.opticodds.com/api/v3/leagues?sport=basketball'
+      --header 'X-Api-Key: <YOUR API KEY>'
+    recommended: true
+    sources:
+      - openapi/opticodds-api-v3-openapi.json
+      - https://developer.opticodds.com/reference/authentication.md
+  - name: ApiKeyQuery
+    type: apiKey
+    in: query
+    parameter: key
+    surface: rest
+    description: API key passed as the `key` query parameter.
+    example: >-
+      curl --location
+      'https://api.opticodds.com/api/v3/leagues?sport=basketball&key=<YOUR API KEY>'
+    recommended: false
+    risk: >-
+      Query-string keys are logged by proxies, CDNs and browser history. Both
+      forms are offered as equals in the documentation with no warning. The
+      SSE streaming endpoints in practice depend on this form, because
+      EventSource cannot set request headers.
+    sources:
+      - openapi/opticodds-api-v3-openapi.json
+      - https://developer.opticodds.com/reference/authentication.md
+  - name: McpBearer
+    type: http
+    scheme: bearer
+    in: header
+    parameter: Authorization
+    surface: mcp
+    description: >-
+      The hosted MCP server at https://api.opticodds.com/mcp takes the same
+      OpticOdds API key as a bearer token.
+    example: 'Authorization: Bearer <YOUR_API_KEY>'
+    local_stdio_env: OPTICODDS_API_KEY
+    probe:
+      url: https://api.opticodds.com/mcp
+      http_status: 401
+      body: >-
+        {"error":"Missing Authorization header. Use: Authorization: Bearer
+        <your_opticodds_api_key>"}
+      probed: '2026-08-27'
+    sources:
+      - https://developer.opticodds.com/docs/opticodds-mcp-integration-guide.md
+      - probed 2026-08-27
+key_lifecycle:
+  issuance: >-
+    Keys are issued through a sales representative or account manager. There is
+    no self-serve signup — opticodds.com/login and opticodds.com/sign-up both
+    return 404; the only account surface is https://app.opticodds.com/.
+  test_keys: none-published
+  key_prefix: none-published
+  rotation: undocumented
+  revocation: undocumented
+authorization:
+  model: entitlement-by-contract
+  signal: HTTP 403
+  gated_operations:
+    - GET /fixtures/odds
+    - GET /fixtures/odds/historical
+    - GET /futures
+    - GET /futures/odds
+    - GET /markets/active
+    - GET /copilot/fixtures/odds
+    - POST /parlay/odds
+    - POST /parlay/odds/byop
+  note: >-
+    A valid key does not imply access to everything. Eight operations declare
+    403 and they are exactly the licensed data products — historical odds,
+    futures, Copilot pricing and parlay pricing. There is no endpoint that
+    reports what a key is entitled to, so an agent discovers its entitlements
+    only by being refused.
+gaps:
+  - No published key rotation or revocation procedure.
+  - No scopes or least-privilege model; one key unlocks the whole entitlement.
+  - No entitlement-introspection endpoint.
+  - Query-parameter keys offered without a caveat.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

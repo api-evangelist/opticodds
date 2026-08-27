@@ -1,0 +1,99 @@
+generated: '2026-08-27'
+method: searched
+source: >-
+  https://developer.opticodds.com/docs/migrating-to-v3.md ;
+  https://developer.opticodds.com/changelog ; https://status.opticodds.com/ ;
+  https://developer.opticodds.com/docs/api-faq.md ;
+  openapi/opticodds-api-v3-openapi.json
+description: >-
+  Version, deprecation and operational-transparency posture for the OpticOdds
+  API. Versioning is URL-path based and currently on v3. A v2-to-v3 migration
+  guide exists and names what was removed, but there is no published
+  deprecation POLICY — no notice period, no sunset date, no RFC 8594 Sunset or
+  Deprecation headers, and no deprecated operations flagged in the contract.
+versioning:
+  scheme: url-path
+  current: v3
+  base: https://api.opticodds.com/api/v3
+  spec_version: '3.0'
+  previous:
+    - version: v2
+      status: superseded
+      migration_guide: https://developer.opticodds.com/docs/migrating-to-v3.md
+      sunset_date: null
+      note: >-
+        The migration guide describes v2 as the version customers are moving
+        off and explicitly supports a gradual transition ("It also allows for
+        the ability to slowly transition between v2 and v3"), but never states
+        a date on which v2 stops being served.
+  version_negotiation: path-only
+  header_versioning: false
+deprecation:
+  policy_published: false
+  notice_period: null
+  sunset_header: false
+  deprecation_header: false
+  deprecated_operations_in_spec: 0
+  documented_removals:
+    - item: '`game` and `schedule` entities'
+      replacement: '`fixture` (carries a `game_id` field for mapping)'
+      source: https://developer.opticodds.com/docs/migrating-to-v3.md
+    - item: '`/games` endpoint'
+      replacement: '`/fixtures/active` (now paginated)'
+      source: https://developer.opticodds.com/docs/migrating-to-v3.md
+    - item: Team records functionality
+      replacement: none
+      source: https://developer.opticodds.com/docs/migrating-to-v3.md
+      note: >-
+        "We are deprecating the team records functionality as part of the v3
+        api... We will work on adding it back in a better way in the future."
+    - item: '`total_pages` response field'
+      replacement: '`has_more`'
+      date: '2026-02-19'
+      source: https://developer.opticodds.com/changelog
+    - item: '`Underdog Fantasy (3 or 5 Pick)` sportsbook identifier'
+      replacement: '`Underdog Fantasy (2 Pick)`'
+      date: '2026-03-03'
+      source: https://developer.opticodds.com/changelog
+  assessment: >-
+    Removals are announced in the changelog and the migration guide, which is
+    more than many providers do, but announcement is not a policy. No pointer
+    of type Deprecation is emitted for this provider, because nothing published
+    tells a consumer how much warning they will get before a field or
+    identifier disappears.
+status_page:
+  published: true
+  url: https://status.opticodds.com/
+  http_status: 200
+  title: 'OpticOdds System Status: Real-Time API & Service Updates'
+  referenced_from: https://developer.opticodds.com/docs/api-faq.md
+  note: >-
+    The API FAQ directs customers here for outage and disruption updates, and
+    the site footer links it as "Status".
+sla:
+  published: false
+  note: >-
+    No public SLA, uptime commitment or credit schedule. OpticOdds markets on
+    latency ("the fastest sportsbook live odds screen on the market") but
+    publishes no numeric target.
+support:
+  model: account-managed
+  channels:
+    - name: Sales / account representative
+      note: >-
+        "the best way to resolve them in real-time is by contacting our support
+        team via your sales rep" — https://developer.opticodds.com/docs/api-faq.md
+    - name: Contact form
+      url: https://opticodds.com/contact
+    - name: Developer hub discussions
+      url: https://developer.opticodds.com/discuss
+  public_ticketing: false
+  note: >-
+    https://opticodds.com/support returns 404 — which matters, because it is
+    the contact URL the API's own OpenAPI info.contact block advertises.
+changelog:
+  url: https://developer.opticodds.com/changelog
+  artifact: changelog/opticodds-changelog.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

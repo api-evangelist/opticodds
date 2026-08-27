@@ -1,0 +1,82 @@
+generated: '2026-08-27'
+method: probed
+source: direct HTTP probes, 2026-08-27
+description: >-
+  Every /.well-known/ discovery path probed on all three OpticOdds hosts. Every
+  path returned 404. No WellKnown or SecurityTxt pointer is emitted, because
+  nothing was served — this file records a measured absence, not a surface.
+hit_count: 0
+hosts:
+  - host: https://api.opticodds.com
+    note: >-
+      Returns a genuine 179-byte HTML 404 page for every unknown path — a real
+      404, not a catch-all 200.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://opticodds.com
+    note: >-
+      Webflow-hosted marketing site. Answers 404 with an 88-byte
+      "Invalid .well-known request" body on every path.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://developer.opticodds.com
+    note: >-
+      ReadMe-hosted docs host. Returns HTTP 404 with a ~69KB SPA shell body on
+      several paths; the status is a true 404 and the body is HTML, so no path
+      counts as a document.
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/oauth-protected-resource
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+notes:
+  - >-
+    The hosted MCP server at https://api.opticodds.com/mcp is authenticated with
+    a bearer API key, not OAuth, so the absence of
+    /.well-known/oauth-protected-resource is consistent with the documented auth
+    model rather than a gap in an OAuth deployment.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

@@ -1,0 +1,245 @@
+generated: '2026-08-27'
+method: derived
+source: >-
+  mcp/opticodds-mcp.yml (16 provider-published tools) bound against
+  openapi/opticodds-api-v3-openapi.json (51 operations, harvested from
+  https://api.opticodds.com/api/v3/openapi.json)
+description: >-
+  Binds each published OpticOdds MCP tool to the REST operation(s) that back
+  it, and records what each surface holds that the other does not. The
+  harvested OpenAPI declares NO operationId on any operation (it is a swaggo
+  document generated from Go handlers), so REST operations are identified here
+  by METHOD + PATH, which is the only stable identifier the contract provides.
+  Bindings are by name and documented semantics: the live MCP tools/list is
+  auth-gated (HTTP 401), so no tool inputSchema was readable and no binding is
+  asserted at high confidence beyond a one-to-one name/path match.
+surfaces:
+  openapi:
+    file: openapi/opticodds-api-v3-openapi.json
+    version: Swagger 2.0
+    base: https://api.opticodds.com/api/v3
+    operations: 51
+    gated: false
+    note: >-
+      The document itself is served anonymously; calling the operations
+      requires an API key.
+  mcp:
+    url: https://api.opticodds.com/mcp
+    tools: 16
+    gated: true
+    note: tools/list returns 401 without a bearer API key.
+  graphql:
+    present: false
+  sse:
+    documented: true
+    endpoints:
+      - GET /stream/odds/{sport}
+      - GET /stream/results/{sport}
+      - GET /stream/futures/{sport}
+      - GET /stream/copilot/{sport}/odds
+      - GET /stream/prediction-markets
+    note: >-
+      Documented in the API reference index and the SSE Streaming Guide but
+      ABSENT from the harvested OpenAPI, which describes only the 49 polling
+      paths. Recorded here as a real divergence between the docs and the
+      contract.
+coverage:
+  mcp_tools: 16
+  mcp_tools_bound: 16
+  mcp_only: 0
+  rest_operations: 51
+  rest_operations_covered: 17
+  rest_only: 34
+  binding_confidence:
+    high: 9
+    medium: 5
+    low: 2
+crosswalk:
+  - tool: get_sports
+    category: reference
+    rest:
+      - GET /sports
+      - GET /sports/active
+    binding: direct
+    confidence: high
+  - tool: get_leagues
+    category: reference
+    rest:
+      - GET /leagues
+      - GET /leagues/active
+    binding: direct
+    confidence: high
+  - tool: get_sportsbooks
+    category: reference
+    rest:
+      - GET /sportsbooks
+      - GET /sportsbooks/active
+    binding: direct
+    confidence: high
+  - tool: get_markets
+    category: reference
+    rest:
+      - GET /markets
+      - GET /markets/active
+      - GET /market-types
+    binding: direct
+    confidence: high
+  - tool: get_fixtures
+    category: schedule
+    rest:
+      - GET /fixtures
+      - GET /fixtures/active
+    binding: direct
+    confidence: high
+  - tool: get_odds
+    category: odds
+    rest:
+      - GET /fixtures/odds
+    binding: direct
+    confidence: high
+  - tool: get_line_history
+    category: odds
+    rest:
+      - GET /fixtures/odds/historical
+    binding: direct
+    confidence: high
+  - tool: get_injuries
+    category: injuries
+    rest:
+      - GET /injuries
+      - GET /injuries/predictions
+    binding: direct
+    confidence: high
+  - tool: get_results
+    category: results
+    rest:
+      - GET /fixtures/results
+      - GET /fixtures/player-results
+    binding: direct
+    confidence: high
+  - tool: get_player_props
+    category: odds
+    rest:
+      - GET /fixtures/odds
+    binding: filtered
+    confidence: medium
+    note: >-
+      Player props are not a separate REST path; they are /fixtures/odds rows
+      filtered by a player market. The tool most likely pre-applies that
+      filter.
+  - tool: compare_lines
+    category: analysis
+    rest:
+      - GET /fixtures/odds
+    binding: composite
+    confidence: medium
+    note: >-
+      No REST comparison operation exists. /fixtures/odds accepts up to 5
+      sportsbooks per request, so a cross-book comparison is client-side
+      aggregation over one or more calls.
+  - tool: find_best_price
+    category: analysis
+    rest:
+      - GET /fixtures/odds
+    binding: composite
+    confidence: medium
+    note: Best-price selection is computed over the same odds rows; no REST equivalent.
+  - tool: find_outliers
+    category: analysis
+    rest:
+      - GET /fixtures/odds
+    binding: composite
+    confidence: low
+    note: >-
+      Outlier detection is an analytic the REST contract does not expose. The
+      underlying data is /fixtures/odds; the scoring logic lives in the tool.
+  - tool: compare_futures_lines
+    category: futures
+    rest:
+      - GET /futures
+      - GET /futures/odds
+    binding: composite
+    confidence: medium
+  - tool: grade_bet
+    category: settlement
+    rest:
+      - GET /grader/odds
+      - POST /grader/odds
+    binding: direct
+    confidence: high
+  - tool: grade_futures_bet
+    category: settlement
+    rest:
+      - GET /grader/futures
+    binding: direct
+    confidence: low
+    note: >-
+      Name match is unambiguous; confidence is held low only because the tool's
+      inputSchema is gated and /grader/futures has no bulk POST sibling.
+mcp_only: []
+rest_only:
+  - operations:
+      - GET /teams
+      - GET /players
+      - GET /tournaments
+      - GET /tournaments/results
+      - GET /conferences
+      - GET /divisions
+      - GET /markets/settleable
+      - GET /sportsbooks/last-polled
+    reason: >-
+      Reference and taxonomy endpoints with no dedicated MCP tool. An agent can
+      reach sports, leagues, markets and sportsbooks but not teams, players,
+      tournaments, conferences or divisions.
+  - operations:
+      - GET /fixtures/results/head-to-head
+      - GET /fixtures/player-results/last-x
+    reason: >-
+      Aggregated historical result views. get_results covers point-in-time
+      results only.
+  - operations:
+      - POST /parlay/odds
+      - POST /parlay/odds/byop
+      - GET /parlays/pre-pack
+      - GET /copilot/parlay/odds
+      - POST /copilot/parlay/odds
+    reason: >-
+      Parlay and same-game-parlay pricing. No MCP tool prices a parlay, which
+      is the largest capability gap between the two surfaces.
+  - operations:
+      - GET /copilot/fixtures
+      - GET /copilot/fixtures/odds
+      - GET /copilot/fixtures/odds/historical
+      - GET /copilot/versions
+    reason: >-
+      Copilot (OpticOdds' own generated pricing) is a licensed product tier
+      absent from the MCP tool set.
+  - operations:
+      - POST /copilot/queue/start
+      - POST /copilot/queue/stop
+      - GET /copilot/queue/status
+      - GET /copilot/queue/remove-connections
+      - POST /copilot/results/queue/start
+      - POST /copilot/results/queue/stop
+      - GET /copilot/results/queue/status
+      - POST /fixtures/results/queue/start
+      - POST /fixtures/results/queue/stop
+      - GET /fixtures/results/queue/status
+    reason: >-
+      RabbitMQ queue lifecycle management — the only write/state-changing
+      operations in the whole contract. Deliberately absent from the MCP
+      surface, which is read-only. This is the correct posture and worth
+      recording: an agent connected to this server cannot start or stop a
+      customer's data queue.
+  - operations:
+      - GET /stream/odds/{sport}
+      - GET /stream/results/{sport}
+      - GET /stream/futures/{sport}
+      - GET /stream/copilot/{sport}/odds
+      - GET /stream/prediction-markets
+    reason: >-
+      SSE streaming. Long-lived connections are not expressible as MCP tools,
+      and are also missing from the OpenAPI itself.
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
