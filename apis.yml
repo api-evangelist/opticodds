@@ -118,37 +118,13 @@ common:
   - type: WellKnownProbe
     url: well-known/opticodds-well-known.yml
 apis:
-- aid: opticodds:opticodds
-  name: OpticOdds API v3
-  description: >-
-    The complete OpticOdds v3 REST API — 51 operations across sports, leagues,
-    teams, players, tournaments, conferences, divisions, sportsbooks, markets,
-    fixtures, live and historical odds, futures, results, injuries, parlay
-    pricing, bet grading, Copilot pricing and RabbitMQ queue control. Harvested
-    verbatim from the contract OpticOdds serves at
-    https://api.opticodds.com/api/v3/openapi.json.
-  humanURL: https://developer.opticodds.com/reference/getting-started
-  baseURL: https://api.opticodds.com/api/v3
-  tags:
-  - Odds
-  - Sports Betting
-  - Sports Data
-  properties:
-  - type: OpenAPI
-    url: openapi/opticodds-api-v3-openapi.json
-  - type: Documentation
-    url: https://developer.opticodds.com/reference/getting-started
-  - type: Overlay
-    url: overlays/opticodds-api-v3-overlay.yaml
 - aid: opticodds:opticodds-mcp
   name: OpticOdds MCP Server
   description: >-
-    First-party Model Context Protocol server exposing 16 read-only OpticOdds
-    tools — odds, fixtures, player props, injuries, results, line history,
-    best-price and outlier detection, line comparison and bet grading. Shipped
-    in both deployment shapes: a hosted remote endpoint at
-    https://api.opticodds.com/mcp and a local stdio server published to npm as
-    opticodds-mcp. Marketed as Sportsbook AI.
+    First-party Model Context Protocol server exposing 16 read-only OpticOdds tools — odds, fixtures,
+    player props, injuries, results, line history, best-price and outlier detection, line comparison and
+    bet grading. Shipped in both deployment shapes: a hosted remote endpoint at https://api.opticodds.com/mcp
+    and a local stdio server published to npm as opticodds-mcp. Marketed as Sportsbook AI.
   humanURL: https://developer.opticodds.com/docs/opticodds-mcp-integration-guide
   baseURL: https://api.opticodds.com/mcp
   tags:
@@ -212,6 +188,186 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/opticodds-results-api-openapi.yml
+- aid: opticodds:opticodds-conferences-api
+  name: OpticOdds Conferences API
+  description: The conferences API from OpticOdds — 1 operation(s) for conferences.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - conferences
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-conferences-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-copilot-api
+  name: OpticOdds Copilot API
+  description: The copilot API from OpticOdds — 5 operation(s) for copilot.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - copilot
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-copilot-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-divisions-api
+  name: OpticOdds Divisions API
+  description: The divisions API from OpticOdds — 1 operation(s) for divisions.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - divisions
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-divisions-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-grader-api
+  name: OpticOdds Grader API
+  description: The grader API from OpticOdds — 2 operation(s) for grader.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - grader
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-grader-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-leagues-api
+  name: OpticOdds Leagues API
+  description: The leagues API from OpticOdds — 2 operation(s) for leagues.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - leagues
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-leagues-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-market-types-api
+  name: OpticOdds Market Types API
+  description: The market-types API from OpticOdds — 1 operation(s) for market-types.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - market-types
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-market-types-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-markets-api
+  name: OpticOdds Markets API
+  description: The markets API from OpticOdds — 2 operation(s) for markets.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - markets
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-markets-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-odds-api
+  name: OpticOdds Odds API
+  description: The odds API from OpticOdds — 3 operation(s) for odds.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - odds
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-odds-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-parlay-api
+  name: OpticOdds Parlay API
+  description: The parlay API from OpticOdds — 3 operation(s) for parlay.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - parlay
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-parlay-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-players-api
+  name: OpticOdds Players API
+  description: The players API from OpticOdds — 1 operation(s) for players.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - players
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-players-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-queue-api
+  name: OpticOdds Queue API
+  description: The queue API from OpticOdds — 10 operation(s) for queue.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - queue
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-queue-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-sports-api
+  name: OpticOdds Sports API
+  description: The sports API from OpticOdds — 2 operation(s) for sports.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - sports
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-sports-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-sportsbooks-api
+  name: OpticOdds Sportsbooks API
+  description: The sportsbooks API from OpticOdds — 3 operation(s) for sportsbooks.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - sportsbooks
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-sportsbooks-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-teams-api
+  name: OpticOdds Teams API
+  description: The teams API from OpticOdds — 1 operation(s) for teams.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - teams
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-teams-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
+- aid: opticodds:opticodds-tournaments-api
+  name: OpticOdds Tournaments API
+  description: The tournaments API from OpticOdds — 2 operation(s) for tournaments.
+  humanURL: https://developer.opticodds.com/reference/getting-started
+  baseURL: https://api.opticodds.com/api/v3
+  tags:
+  - tournaments
+  properties:
+  - type: OpenAPI
+    url: openapi/opticodds-tournaments-api-openapi.yml
+  - type: Documentation
+    url: https://developer.opticodds.com/reference/getting-started
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
