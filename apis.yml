@@ -12,6 +12,18 @@ description: >-
   Context Protocol server available both as a hosted endpoint and as an npm
   package. OpticOdds is part of Gambling.com Group.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: contact-sales
   onboarding: sales-assisted
