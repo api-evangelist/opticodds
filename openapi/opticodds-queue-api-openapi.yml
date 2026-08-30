@@ -1,0 +1,666 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Queue API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: queue
+paths:
+  /copilot/queue/remove-connections:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Forcefully closes all consumer connections on a copilot queue
+      tags:
+      - queue
+      summary: Remove copilot queue connections
+      parameters:
+      - description: Queue config ID
+        name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SuccessEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/queue/start:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Creates a new queue or re-enables an existing one by ID
+      tags:
+      - queue
+      summary: Start a copilot odds queue
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotQueueStartRequest'
+        description: Queue start request
+        required: true
+  /copilot/queue/status:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns status and metrics for all copilot odds queues
+      tags:
+      - queue
+      summary: Get copilot odds queue status
+      parameters:
+      - description: Filter by queue config ID (repeatable)
+        name: id
+        in: query
+        schema:
+          type: integer
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/queue/stop:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Disables queues by ID list and removes them from RabbitMQ
+      tags:
+      - queue
+      summary: Stop copilot odds queues
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotQueueStopRequest'
+        description: Queue stop request
+        required: true
+  /copilot/results/queue/start:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Creates a new queue or re-enables an existing one by ID
+      tags:
+      - queue
+      summary: Start a copilot results queue
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStartRequest'
+        description: Queue start request
+        required: true
+  /copilot/results/queue/status:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns status and metrics for all copilot results queues
+      tags:
+      - queue
+      summary: Get copilot results queue status
+      parameters:
+      - description: Filter by queue config ID (repeatable)
+        name: id
+        in: query
+        schema:
+          type: integer
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/results/queue/stop:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Disables queues by ID list and removes them from RabbitMQ
+      tags:
+      - queue
+      summary: Stop copilot results queues
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStopRequest'
+        description: Queue stop request
+        required: true
+  /fixtures/results/queue/start:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Creates a new queue or re-enables an existing one by ID
+      tags:
+      - queue
+      summary: Start a fixture results queue
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatusEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStartRequest'
+        description: Queue start request
+        required: true
+  /fixtures/results/queue/status:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns status and metrics for all fixture results queues
+      tags:
+      - queue
+      summary: Get fixture results queue status
+      parameters:
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatusEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /fixtures/results/queue/stop:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Disables a queue and removes it from RabbitMQ
+      tags:
+      - queue
+      summary: Stop a fixture results queue
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.QueueStopEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStopRequest'
+        description: Queue stop request
+        required: true
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: true
+        id:
+          type: integer
+          example: 1
+        messages_per_second:
+          type: number
+          example: 3.5
+        num_consumers:
+          type: integer
+          example: 1
+        num_messages:
+          type: integer
+          example: 42
+        queue_name:
+          type: string
+          example: rmquser_copres_abc123
+        version:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo'
+    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus'
+    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            type: integer
+    github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 5
+        name:
+          type: string
+          example: v1
+    github_com_opticodds_api-go_internal_v3_response.QueueStopData:
+      type: object
+      properties:
+        stopped:
+          type: array
+          items:
+            type: integer
+    github_com_opticodds_api-go_internal_v3_response.SuccessEnvelope:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    github_com_opticodds_api-go_internal_v3_response.QueueStopEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.QueueStopData'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatusEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatus'
+    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            type: integer
+    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStartRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        version_id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatus'
+    github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatus:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: true
+        id:
+          type: integer
+          example: 1
+        is_live:
+          type: boolean
+        messages_per_second:
+          type: number
+          example: 3.5
+        num_consumers:
+          type: integer
+          example: 1
+        num_messages:
+          type: integer
+          example: 42
+        odds_format:
+          type: string
+          example: AMERICAN
+        queue_name:
+          type: string
+          example: rmquser_cop_abc123
+        version:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo'
+    github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatus:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: true
+        id:
+          type: integer
+          example: 1
+        leagues:
+          type: array
+          items:
+            type: string
+        messages_per_second:
+          type: number
+          example: 3.5
+        num_consumers:
+          type: integer
+          example: 1
+        num_messages:
+          type: integer
+          example: 42
+        queue_name:
+          type: string
+          example: apikey_fres_abc123
+        sports:
+          type: array
+          items:
+            type: string
+    github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStartRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        leagues:
+          type: array
+          items:
+            type: string
+        sports:
+          type: array
+          items:
+            type: string
+    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStartRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        is_live:
+          type: boolean
+        odds_format:
+          type: string
+        version_id:
+          type: integer
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

@@ -1,0 +1,362 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Grader API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: grader
+paths:
+  /grader/futures:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns the grading result for a futures market selection
+      tags:
+      - grader
+      summary: Grade a futures bet
+      parameters:
+      - description: Sport ID
+        name: sport
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: League ID
+        name: league
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Tournament ID
+        name: tournament_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Market identifier
+        name: market
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Selection name
+        name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Player ID
+        name: player_id
+        in: query
+        schema:
+          type: string
+      - description: Include live result
+        name: show_live_result
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /grader/odds:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns the grading result for a single odds market selection
+      tags:
+      - grader
+      summary: Grade an odds bet
+      parameters:
+      - description: Fixture ID
+        name: fixture_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Market identifier
+        name: market
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Selection name
+        name: name
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: Player ID
+        name: player_id
+        in: query
+        schema:
+          type: string
+      - description: Include live result
+        name: show_live_result
+        in: query
+        schema:
+          type: boolean
+      - description: Void on substitution
+        name: void_substitutes
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns grading results for up to 25 odds market selections
+      tags:
+      - grader
+      summary: Grade odds bets in bulk
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest'
+        description: Bulk grading request
+        required: true
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResult:
+      type: object
+      properties:
+        away_score:
+          type: number
+        away_team_display:
+          type: string
+          example: Philadelphia Eagles
+        fixture_id:
+          type: string
+          example: nfl-chiefs-eagles-2025-02-09
+        home_score:
+          type: number
+        home_team_display:
+          type: string
+          example: Kansas City Chiefs
+        market:
+          type: string
+          example: Moneyline
+        name:
+          type: string
+          example: Kansas City Chiefs
+        player_score:
+          type: number
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry:
+      type: object
+      properties:
+        away_score:
+          type: number
+        away_team_display:
+          type: string
+          example: Philadelphia Eagles
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.GraderError'
+        fixture_id:
+          type: string
+          example: nfl-chiefs-eagles-2025-02-09
+        home_score:
+          type: number
+        home_team_display:
+          type: string
+          example: Kansas City Chiefs
+        market:
+          type: string
+          example: Moneyline
+        name:
+          type: string
+          example: Kansas City Chiefs
+        player_score:
+          type: number
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry:
+      type: object
+      properties:
+        fixture_id:
+          type: string
+        market:
+          type: string
+        name:
+          type: string
+        player_id:
+          type: string
+        show_live_result:
+          type: boolean
+        void_substitutes:
+          type: boolean
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
+      type: object
+      properties:
+        dead_heat_reduction:
+          type: number
+        market:
+          type: string
+          example: The Masters Winner
+        name:
+          type: string
+          example: Scottie Scheffler
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+        tournament_id:
+          type: string
+          example: pga-masters-2025
+        tournament_name:
+          type: string
+          example: The Masters
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.GraderError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 101
+        message:
+          type: string
+          example: Sport not supported
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

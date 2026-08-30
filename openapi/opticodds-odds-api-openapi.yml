@@ -1,0 +1,618 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Odds API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: odds
+paths:
+  /fixtures/odds:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns current odds for fixtures filtered by fixture ID, player ID, or team ID. Requires at least one sportsbook.
+      tags:
+      - odds
+      summary: Get live odds for fixtures
+      parameters:
+      - description: 'Fixture IDs (use GET /fixtures for valid values). Example: ''202604020E7921D1'''
+        name: fixture_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Sportsbook IDs (use GET /sportsbooks for valid values). Example: ''draftkings'''
+        name: sportsbook
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Market IDs (use GET /markets for valid values). Example: ''moneyline'''
+        name: market
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by selection name (requires market)
+        name: name
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Player IDs (use GET /players for valid values). Example: ''3C093E0F82BD'''
+        name: player_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Team IDs (use GET /teams for valid values). Example: ''73AEB6743EC2'''
+        name: team_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by main line status
+        name: is_main
+        in: query
+        schema:
+          type: boolean
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          default: american
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureOddsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /fixtures/odds/historical:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns historical odds with OLV/CLV and optional timeseries for a single fixture
+      tags:
+      - odds
+      summary: Get historical odds for a fixture
+      parameters:
+      - description: 'Fixture ID (use GET /fixtures for valid values). Example: ''202604020E7921D1'''
+        name: fixture_id
+        in: query
+        required: true
+        schema:
+          type: string
+      - description: 'Sportsbook IDs (1-5 required, use GET /sportsbooks for valid values). Example: ''draftkings'''
+        name: sportsbook
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Market IDs (use GET /markets for valid values, required if include_timeseries=true). Example: ''moneyline'''
+        name: market
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by main line status
+        name: is_main
+        in: query
+        schema:
+          type: boolean
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          enum:
+          - american
+          - decimal
+          - probability
+          - malay
+          - hong_kong
+          - indonesian
+          default: american
+      - description: Include timeseries data (requires market)
+        name: include_timeseries
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include locked entries in timeseries (requires include_timeseries)
+        name: include_locked
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOddsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /markets/active:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns markets that currently have odds for the given fixtures and sportsbooks
+      tags:
+      - odds
+      summary: List active markets for fixtures
+      parameters:
+      - description: 'Fixture IDs (use GET /fixtures for valid values). Example: ''202604020E7921D1'''
+        name: fixture_id
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Sportsbook IDs (use GET /sportsbooks for valid values). Example: ''draftkings'''
+        name: sportsbook
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by main line status
+        name: is_main
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketsActiveEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.ActiveMarket:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        numerical_id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_team_display:
+          type: string
+        game_id:
+          type: string
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_team_display:
+          type: string
+        id:
+          type: string
+        is_live:
+          type: boolean
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        odds:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureOdd'
+        season_type:
+          type: string
+        season_week:
+          type: string
+        season_year:
+          type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+        status:
+          type: string
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        venue_location:
+          type: string
+        venue_name:
+          type: string
+        venue_neutral:
+          type: boolean
+    github_com_opticodds_api-go_internal_v3_response.Tournament:
+      type: object
+      properties:
+        end_date:
+          type: string
+          example: '2025-06-20T00:00:00Z'
+        id:
+          type: string
+          example: nba-playoffs-2025
+        name:
+          type: string
+          example: NBA Playoffs 2025
+        numerical_id:
+          type: integer
+          example: 50
+        start_date:
+          type: string
+          example: '2025-04-15T00:00:00Z'
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOddsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds'
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOdd:
+      type: object
+      properties:
+        clv:
+          description: CLV is the Closing Line Value — the final price+points before the event started.
+          allOf:
+          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry'
+        id:
+          type: string
+        is_main:
+          type: boolean
+        market:
+          type: string
+        market_id:
+          type: string
+        name:
+          type: string
+        normalized_selection:
+          type: string
+        olv:
+          description: OLV is the Opening Line Value — the first price+points posted for this selection.
+          allOf:
+          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
+        player_id:
+          type: string
+        points:
+          type: number
+        selection:
+          type: string
+        selection_line:
+          type: string
+        sportsbook:
+          type: string
+        team_id:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.MarketsActiveEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ActiveMarket'
+    github_com_opticodds_api-go_internal_v3_response.Competitor:
+      type: object
+      properties:
+        abbreviation:
+          type: string
+          example: LAL
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        logo:
+          type: string
+          example: https://cdn.opticodds.com/logos/lakers.png
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
+    github_com_opticodds_api-go_internal_v3_response.FixtureOddsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry:
+      type: object
+      properties:
+        locked:
+          type: boolean
+        points:
+          type: number
+        price:
+          type: number
+        timestamp:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.LineValue:
+      type: object
+      properties:
+        points:
+          type: number
+        price:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.FixtureOdd:
+      type: object
+      properties:
+        deep_link:
+          type: object
+          additionalProperties:
+            type: string
+        grouping_key:
+          description: GroupingKey links related odds together (e.g., all player props for the same player in the same market).
+          type: string
+        id:
+          type: string
+        is_main:
+          description: IsMain indicates whether this is the primary/default line for the market (true) vs an alternate line (false).
+          type: boolean
+        limits:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureOddLimit'
+        market:
+          type: string
+        market_id:
+          type: string
+        name:
+          type: string
+        normalized_selection:
+          description: NormalizedSelection is the standardized selection value (e.g., "home", "away", "over", "under", "yes", "no").
+          type: string
+        order_book: {}
+        player_id:
+          type: string
+        points:
+          description: Points is the spread/handicap/total numeric value for this selection (e.g., -3.5 for a spread bet).
+          type: number
+        price:
+          description: 'Price is the odds value in the requested odds_format (default: American).'
+          type: number
+        selection:
+          description: Selection is the entity of the bet — the team, player, or outcome being wagered on (e.g., "Los Angeles Lakers", "LeBron James").
+          type: string
+        selection_line:
+          description: SelectionLine is the directional qualifier for the selection (e.g., "over", "under"). Null for markets without a direction like moneyline.
+          type: string
+        source_ids:
+          type: object
+          additionalProperties:
+            type: string
+        sportsbook:
+          type: string
+        team_id:
+          type: string
+        timestamp:
+          description: Timestamp is the Unix epoch timestamp (seconds with decimal) when this odd was last updated.
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.FixtureOddLimit:
+      type: object
+      properties:
+        max:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_team_display:
+          type: string
+        game_id:
+          type: string
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_team_display:
+          type: string
+        id:
+          type: string
+        is_live:
+          type: boolean
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        odds:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOdd'
+        season_type:
+          type: string
+        season_week:
+          type: string
+        season_year:
+          type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+        status:
+          type: string
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        venue_location:
+          type: string
+        venue_name:
+          type: string
+        venue_neutral:
+          type: boolean
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

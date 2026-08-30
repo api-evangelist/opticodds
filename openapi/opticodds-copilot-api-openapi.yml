@@ -1,0 +1,1018 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Copilot API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: copilot
+paths:
+  /copilot/fixtures:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns active fixtures associated with a copilot version
+      tags:
+      - copilot
+      summary: List copilot fixtures
+      parameters:
+      - description: Copilot version ID
+        name: copilot_version_id
+        in: query
+        required: true
+        schema:
+          type: integer
+      - description: Filter by sport IDs
+        name: sport
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by league IDs
+        name: league
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by fixture IDs
+        name: id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by numerical IDs
+        name: numerical_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - description: Filter by team IDs
+        name: team_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by tournament ID
+        name: tournament_id
+        in: query
+        schema:
+          type: string
+      - description: Filter by status
+        name: status
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by live status
+        name: is_live
+        in: query
+        schema:
+          type: boolean
+      - description: Filter by start date
+        name: start_date
+        in: query
+        schema:
+          type: string
+      - description: Filter fixtures starting before date
+        name: start_date_before
+        in: query
+        schema:
+          type: string
+      - description: Filter fixtures starting after date
+        name: start_date_after
+        in: query
+        schema:
+          type: string
+      - description: Filter by season year
+        name: season_year
+        in: query
+        schema:
+          type: string
+      - description: Filter by season week
+        name: season_week
+        in: query
+        schema:
+          type: string
+      - description: Filter by season type
+        name: season_type
+        in: query
+        schema:
+          type: string
+      - description: Filter by divisions
+        name: division
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by conferences
+        name: conference
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Page number
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - description: Cursor for pagination
+        name: cursor
+        in: query
+        schema:
+          type: string
+      - description: Include starting lineups
+        name: include_starting_lineups
+        in: query
+        schema:
+          type: boolean
+      - description: Include sportradar IDs
+        name: include_sportradar_id
+        in: query
+        schema:
+          type: boolean
+      - description: Include statsperform IDs
+        name: include_statsperform_id
+        in: query
+        schema:
+          type: boolean
+      - description: Include betgenius IDs
+        name: include_betgenius_id
+        in: query
+        schema:
+          type: boolean
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotFixturesEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/fixtures/odds:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns copilot (organization-specific) odds for fixtures. Requires organization-level API key.
+      tags:
+      - copilot
+      summary: Get copilot odds for fixtures
+      parameters:
+      - description: 'Fixture IDs (max 5 total across fixture_id/player_id/team_id). Example: ''202604020E7921D1'''
+        name: fixture_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Player IDs (use GET /players for valid values). Example: ''3C093E0F82BD'''
+        name: player_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Team IDs (use GET /teams for valid values). Example: ''73AEB6743EC2'''
+        name: team_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Copilot version IDs (max 5)
+        name: version_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - description: 'Market IDs (use GET /markets for valid values). Example: ''moneyline'''
+        name: market
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by main line status
+        name: is_main
+        in: query
+        schema:
+          type: boolean
+      - description: Include settled odds
+        name: settled
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          default: american
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotOddsFixturesEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/fixtures/odds/historical:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns historical price timeseries for copilot odd IDs. IDs must be prefixed with your organization ID.
+      tags:
+      - copilot
+      summary: Get historical copilot odds
+      parameters:
+      - description: 'Copilot odd IDs (max 15, format: ''org_id:odd_id'')'
+        name: id
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          default: american
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotOddsHistoricalEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /copilot/parlay/odds:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Calculates a parlay price from copilot odd IDs passed as query parameters
+      tags:
+      - copilot
+      summary: Get copilot parlay odds (GET)
+      parameters:
+      - description: Copilot odd IDs for parlay legs
+        name: id
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          default: american
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Calculates a parlay price from copilot odd IDs with optional price overrides in the request body
+      tags:
+      - copilot
+      summary: Calculate copilot parlay odds (POST)
+      parameters:
+      - description: 'Odds format. Valid values: american, decimal, probability, malay, hong_kong, indonesian'
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          default: american
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/internal_v3_handlers.copilotParlayRequest'
+        description: Parlay entries with optional price overrides
+        required: true
+  /copilot/versions:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns copilot versions for the authenticated organization
+      tags:
+      - copilot
+      summary: List copilot versions
+      parameters:
+      - description: Filter by version ID
+        name: id
+        in: query
+        schema:
+          type: integer
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsSportsbookLeg:
+      type: object
+      properties:
+        id:
+          type: string
+        price:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.BaseResult:
+      type: object
+      properties:
+        in_play_data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InPlayData'
+        scores:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Scores'
+    github_com_opticodds_api-go_internal_v3_response.Scores:
+      type: object
+      properties:
+        away:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Score'
+        home:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Score'
+    github_com_opticodds_api-go_internal_v3_response.CopilotFixturesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Fixture'
+    github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsSportsbookData:
+      type: object
+      properties:
+        error:
+          type: string
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsSportsbookLeg'
+        missing_entries:
+          type: array
+          items:
+            type: string
+        price:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.CopilotOddsHistoricalEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotOddWithTimeseries'
+    github_com_opticodds_api-go_internal_v3_response.CopilotOddWithTimeseries:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotOddTimeseriesEntry'
+        id:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.FixtureExtra:
+      type: object
+      properties:
+        detailed_stats:
+          type: boolean
+          example: true
+        level:
+          type: string
+          example: professional
+        num_periods:
+          type: integer
+          example: 4
+        sub_league:
+          type: string
+          example: Eastern Conference
+    github_com_opticodds_api-go_internal_v3_response.CopilotOddsFixturesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithCopilotOdds'
+    github_com_opticodds_api-go_internal_v3_response.InPlayData:
+      type: object
+      properties:
+        clock:
+          type: string
+          example: '5:30'
+        last_play:
+          type: string
+        period:
+          type: string
+          example: Q3
+        period_number:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.Competitor:
+      type: object
+      properties:
+        abbreviation:
+          type: string
+          example: LAL
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        logo:
+          type: string
+          example: https://cdn.opticodds.com/logos/lakers.png
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
+    github_com_opticodds_api-go_internal_v3_response.Fixture:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_record:
+          type: string
+          example: 28-12
+        away_rotation_number:
+          type: integer
+          example: 502
+        away_seed:
+          type: string
+          example: '2'
+        away_starter:
+          type: string
+          example: Jayson Tatum
+        away_starter_id:
+          type: string
+          example: jayson-tatum
+        away_team_display:
+          type: string
+          example: Boston Celtics
+        broadcast:
+          type: string
+          example: ESPN
+        extra:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureExtra'
+        game_id:
+          type: string
+          example: game_001
+        has_odds:
+          type: boolean
+          example: true
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_record:
+          type: string
+          example: 30-10
+        home_rotation_number:
+          type: integer
+          example: 501
+        home_seed:
+          type: string
+          example: '1'
+        home_starter:
+          type: string
+          example: LeBron James
+        home_starter_id:
+          type: string
+          example: lebron-james
+        home_team_display:
+          type: string
+          example: Los Angeles Lakers
+        id:
+          type: string
+          example: nba-lakers-celtics-2025-01-15
+        is_live:
+          type: boolean
+          example: false
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        lineups:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Lineups'
+        numerical_id:
+          type: integer
+          example: 12345
+        result:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseResult'
+        season_type:
+          type: string
+          example: regular
+        season_week:
+          type: string
+          example: '15'
+        season_year:
+          type: string
+          example: 2024-2025
+        source_ids:
+          type: object
+          additionalProperties:
+            type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+          example: '2025-01-15T19:30:00Z'
+        status:
+          type: string
+          example: Unplayed
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        tournament_stage:
+          type: string
+          example: Finals
+        updated_at:
+          type: string
+          example: '2025-04-28T12:00:00Z'
+        venue_location:
+          type: string
+          example: Los Angeles, CA
+        venue_name:
+          type: string
+          example: Crypto.com Arena
+        venue_neutral:
+          type: boolean
+          example: false
+        weather: {}
+        weather_temp: {}
+    github_com_opticodds_api-go_internal_v3_response.Score:
+      type: object
+      properties:
+        aggregate:
+          type: number
+        periods:
+          type: object
+          additionalProperties:
+            type: number
+            format: float64
+        total:
+          type: number
+          example: 110
+    github_com_opticodds_api-go_internal_v3_response.Lineups:
+      type: object
+      properties:
+        away:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineupPlayer'
+        home:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineupPlayer'
+    internal_v3_handlers.copilotParlayRequest:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/internal_v3_handlers.copilotParlayEntry'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.CopilotVersionsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersion'
+    internal_v3_handlers.copilotParlayEntry:
+      type: object
+      properties:
+        id:
+          type: string
+        price_american:
+          type: number
+        price_decimal:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.CopilotOddTimeseriesEntry:
+      type: object
+      properties:
+        event:
+          type: string
+        is_main:
+          type: boolean
+        price:
+          type: number
+        settlement:
+          type: string
+        timestamp:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotParlayOddsSportsbookData'
+    github_com_opticodds_api-go_internal_v3_response.Tournament:
+      type: object
+      properties:
+        end_date:
+          type: string
+          example: '2025-06-20T00:00:00Z'
+        id:
+          type: string
+          example: nba-playoffs-2025
+        name:
+          type: string
+          example: NBA Playoffs 2025
+        numerical_id:
+          type: integer
+          example: 50
+        start_date:
+          type: string
+          example: '2025-04-15T00:00:00Z'
+    github_com_opticodds_api-go_internal_v3_response.LineupPlayer:
+      type: object
+      properties:
+        is_substitute:
+          type: boolean
+        player_batting_throwing:
+          type: string
+        player_id:
+          type: string
+        player_name:
+          type: string
+        player_position:
+          type: string
+        player_team:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.FixtureWithCopilotOdds:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_record:
+          type: string
+          example: 28-12
+        away_rotation_number:
+          type: integer
+          example: 502
+        away_seed:
+          type: string
+          example: '2'
+        away_starter:
+          type: string
+          example: Jayson Tatum
+        away_starter_id:
+          type: string
+          example: jayson-tatum
+        away_team_display:
+          type: string
+          example: Boston Celtics
+        broadcast:
+          type: string
+          example: ESPN
+        extra:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureExtra'
+        game_id:
+          type: string
+          example: game_001
+        has_odds:
+          type: boolean
+          example: true
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_record:
+          type: string
+          example: 30-10
+        home_rotation_number:
+          type: integer
+          example: 501
+        home_seed:
+          type: string
+          example: '1'
+        home_starter:
+          type: string
+          example: LeBron James
+        home_starter_id:
+          type: string
+          example: lebron-james
+        home_team_display:
+          type: string
+          example: Los Angeles Lakers
+        id:
+          type: string
+          example: nba-lakers-celtics-2025-01-15
+        is_live:
+          type: boolean
+          example: false
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        lineups:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Lineups'
+        numerical_id:
+          type: integer
+          example: 12345
+        odds: {}
+        result:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseResult'
+        season_type:
+          type: string
+          example: regular
+        season_week:
+          type: string
+          example: '15'
+        season_year:
+          type: string
+          example: 2024-2025
+        source_ids:
+          type: object
+          additionalProperties:
+            type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+          example: '2025-01-15T19:30:00Z'
+        status:
+          type: string
+          example: Unplayed
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        tournament_stage:
+          type: string
+          example: Finals
+        updated_at:
+          type: string
+          example: '2025-04-28T12:00:00Z'
+        venue_location:
+          type: string
+          example: Los Angeles, CA
+        venue_name:
+          type: string
+          example: Crypto.com Arena
+        venue_neutral:
+          type: boolean
+          example: false
+        weather: {}
+        weather_temp: {}
+    github_com_opticodds_api-go_internal_v3_response.CopilotVersion:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 42
+        name:
+          type: string
+          example: v1.0
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

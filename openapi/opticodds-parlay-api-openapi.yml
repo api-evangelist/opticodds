@@ -1,0 +1,401 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Parlay API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: parlay
+paths:
+  /parlay/odds:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns parlay pricing for the given entries across specified sportsbooks. Use the opticodds_ai sportsbook for correlation-adjusted AI pricing.
+      tags:
+      - parlay
+      summary: Get parlay odds
+      parameters:
+      - description: Odds format
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          enum:
+          - american
+          - decimal
+          - probability
+          - malay
+          - hong_kong
+          - indonesian
+          default: american
+      - description: Allow missing entries in result
+        name: allow_missing_entries
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Always include deep link URLs
+        name: always_include_deep_link
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayOddsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.ParlayRequest'
+        description: Parlay request with sportsbooks and entries
+        required: true
+  /parlay/odds/byop:
+    post:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns correlation-adjusted parlay pricing using user-provided prices (Bring Your Own Prices). Each entry must include price_american or price_decimal.
+      tags:
+      - parlay
+      summary: Get BYOP parlay odds
+      parameters:
+      - description: Odds format
+        name: odds_format
+        in: query
+        schema:
+          type: string
+          enum:
+          - american
+          - decimal
+          - probability
+          - malay
+          - hong_kong
+          - indonesian
+          default: american
+      - description: Include latency timings
+        name: include_latencies
+        in: query
+        schema:
+          type: boolean
+          default: false
+      - description: Include rate limit info
+        name: include_rate_limit
+        in: query
+        schema:
+          type: boolean
+          default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayBYOPEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.ParlayRequest'
+        description: BYOP parlay request with entries containing prices
+        required: true
+  /parlays/pre-pack:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns pre-built parlay suggestions with correlation-adjusted pricing across multiple sportsbooks. Parlays are generated and refreshed automatically.
+      tags:
+      - parlay
+      summary: Get featured parlays
+      parameters:
+      - description: Filter by sport (e.g. basketball, football)
+        name: sport
+        in: query
+        schema:
+          type: string
+      - description: Filter by league (e.g. nba, nfl)
+        name: league
+        in: query
+        schema:
+          type: string
+      - description: Filter by parlay type
+        name: parlay_type
+        in: query
+        schema:
+          type: string
+          enum:
+          - cross_game
+          - sgp
+          - cross_league
+      - description: Filter by sportsbook (e.g. draftkings, fanduel)
+        name: sportsbook
+        in: query
+        schema:
+          type: string
+      - description: Maximum number of parlays to return
+        name: limit
+        in: query
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FeaturedParlaysEnvelope'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_parlaygen.FeaturedParlay:
+      type: object
+      properties:
+        available_books:
+          type: array
+          items:
+            type: string
+        combined_odds:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int32
+        deep_links:
+          type: object
+          additionalProperties:
+            type: string
+        expires_at:
+          type: string
+        fixture_id:
+          type: string
+        generated_at:
+          type: string
+        id:
+          type: string
+        league:
+          type: string
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_parlaygen.ParlayLeg'
+        name:
+          type: string
+        parlay_type:
+          type: string
+        sport:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.ParlayResult:
+      type: object
+      properties:
+        deep_link_urls:
+          type: object
+          additionalProperties:
+            type: string
+        error:
+          type: string
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayLeg'
+        missing_entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayLeg'
+        price:
+          type: number
+          example: -110
+    github_com_opticodds_api-go_internal_v3_response.ParlayBYOPEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayResult'
+    github_com_opticodds_api-go_internal_parlaygen.ParlayLeg:
+      type: object
+      properties:
+        event_name:
+          type: string
+        fixture_id:
+          type: string
+        league_id:
+          type: string
+        market:
+          type: string
+        name:
+          type: string
+        player_id:
+          type: string
+        points:
+          type: number
+        price:
+          type: integer
+        selection_line:
+          type: string
+        sport_id:
+          type: string
+        starts_at:
+          type: string
+        team_id:
+          type: string
+    github_com_opticodds_api-go_internal_v3_query.ParlayEntry:
+      type: object
+      properties:
+        fixture_id:
+          type: string
+        market:
+          type: string
+        name:
+          type: string
+        price_american:
+          type: integer
+        price_decimal:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.FeaturedParlaysEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_parlaygen.FeaturedParlay'
+    github_com_opticodds_api-go_internal_v3_query.ParlayRequest:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.ParlayEntry'
+        sportsbooks:
+          type: array
+          items:
+            type: string
+    github_com_opticodds_api-go_internal_v3_response.ParlayOddsEnvelope:
+      type: object
+      properties:
+        data:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayResult'
+    github_com_opticodds_api-go_internal_v3_response.ParlayLeg:
+      type: object
+      properties:
+        fixture_id:
+          type: string
+          example: 20260306E73EBFF1
+        market:
+          type: string
+          example: moneyline
+        name:
+          type: string
+          example: Los Angeles Lakers
+        price:
+          type: number
+          example: -110
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

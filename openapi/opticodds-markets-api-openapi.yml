@@ -1,0 +1,263 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Markets API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: markets
+paths:
+  /markets:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns all available markets with their sport/league/sportsbook hierarchy
+      tags:
+      - markets
+      summary: List all markets with hierarchy
+      parameters:
+      - description: Filter by sport IDs
+        name: sport
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by league IDs
+        name: league
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by sportsbook IDs
+        name: sportsbook
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Return only market metadata without hierarchy (default true)
+        name: markets_only
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketsEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+  /markets/settleable:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns markets that can be settled for the specified leagues
+      tags:
+      - markets
+      summary: List settleable markets by league
+      parameters:
+      - description: League IDs (required, max 10)
+        name: league
+        in: query
+        required: true
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketsSettleableEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.Market:
+      type: object
+      properties:
+        id:
+          type: string
+          example: moneyline
+        name:
+          type: string
+          example: Moneyline
+        numerical_id:
+          type: integer
+          example: 100
+    github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets:
+      type: object
+      properties:
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        markets:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Market'
+    github_com_opticodds_api-go_internal_v3_response.MarketsSettleableEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets'
+    github_com_opticodds_api-go_internal_v3_response.MarketsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketWithHierarchy'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.MarketLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nfl
+        name:
+          type: string
+          example: NFL
+        numerical_id:
+          type: integer
+          example: 1
+        sportsbooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSportsbook'
+    github_com_opticodds_api-go_internal_v3_response.MarketSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: football
+        leagues:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketLeague'
+        name:
+          type: string
+          example: Football
+        numerical_id:
+          type: integer
+          example: 1
+    github_com_opticodds_api-go_internal_v3_response.MarketWithHierarchy:
+      type: object
+      properties:
+        id:
+          type: string
+          example: moneyline
+        market_type_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: Moneyline
+        numerical_id:
+          type: integer
+          example: 100
+        sports:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketSport'
+    github_com_opticodds_api-go_internal_v3_response.BaseSportsbook:
+      type: object
+      properties:
+        id:
+          type: string
+          example: draftkings
+        name:
+          type: string
+          example: DraftKings
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query

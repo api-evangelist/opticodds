@@ -1,0 +1,254 @@
+openapi: 3.2.0
+info:
+  description: 'OpticOdds sports betting data API - Version 3
+
+
+    **Pagination**: Endpoints returning lists support two modes.
+
+    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
+
+    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
+
+    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+  title: OpticOdds API v3 Players API
+  contact:
+    name: OpticOdds Support
+    url: https://opticodds.com/support
+  license:
+    name: Proprietary
+    url: https://opticodds.com/terms
+  version: '3.0'
+servers:
+- url: https://api.opticodds.com/v3
+tags:
+- name: players
+paths:
+  /players:
+    get:
+      security:
+      - ApiKeyHeader: []
+      - ApiKeyQuery: []
+      description: Returns players filtered by sport, league, team, or ID
+      tags:
+      - players
+      summary: List players
+      parameters:
+      - description: Filter by sport IDs
+        name: sport
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by league IDs
+        name: league
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by player IDs
+        name: id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by numerical IDs
+        name: numerical_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - description: Filter by base IDs
+        name: base_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - description: Filter by team IDs
+        name: team_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Filter by team base IDs
+        name: team_base_id
+        in: query
+        style: form
+        explode: false
+        schema:
+          type: array
+          items:
+            type: integer
+      - description: Page number
+        name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - description: Include statsperform IDs
+        name: include_statsperform_id
+        in: query
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.PlayersEnvelope'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+components:
+  schemas:
+    github_com_opticodds_api-go_internal_v3_response.PlayersEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Player'
+    github_com_opticodds_api-go_internal_v3_response.Player:
+      type: object
+      properties:
+        age:
+          type: integer
+          example: 39
+        base_id:
+          type: integer
+          example: 100
+        experience:
+          type: integer
+          example: 21
+        first_name:
+          type: string
+          example: LeBron
+        height:
+          type: integer
+          example: 81
+        id:
+          type: string
+          example: lebron-james
+        is_active:
+          type: boolean
+          example: true
+        last_name:
+          type: string
+          example: James
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        logo:
+          type: string
+          example: https://cdn.opticodds.com/logos/lebron.png
+        name:
+          type: string
+          example: LeBron James
+        number:
+          type: integer
+          example: 23
+        numerical_id:
+          type: integer
+          example: 1
+        position:
+          type: string
+          example: SF
+        source_ids:
+          type: object
+          additionalProperties:
+            type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        team:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
+        weight:
+          type: integer
+          example: 250
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
+      type: object
+      properties:
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+  securitySchemes:
+    ApiKeyHeader:
+      description: API key passed via X-Api-Key header
+      type: apiKey
+      name: X-Api-Key
+      in: header
+    ApiKeyQuery:
+      description: API key passed via query parameter
+      type: apiKey
+      name: key
+      in: query
