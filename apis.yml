@@ -56,6 +56,16 @@ tags:
   - Fixtures
   - Injuries
   - Prediction Markets
+  - MCP
+tags_raw:
+  - Odds
+  - Sports Betting
+  - Sports Data
+  - Real-Time Data
+  - Streaming
+  - Fixtures
+  - Injuries
+  - Prediction Markets
   - Model Context Protocol
 created: '2025-02-08'
 modified: '2026-08-27'
@@ -140,6 +150,10 @@ apis:
   humanURL: https://developer.opticodds.com/docs/opticodds-mcp-integration-guide
   baseURL: https://api.opticodds.com/mcp
   tags:
+  - MCP
+  - Agents
+  - Odds
+  tags_raw:
   - Model Context Protocol
   - Agents
   - Odds
@@ -206,6 +220,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Conferences
+  tags_raw:
   - conferences
   properties:
   - type: OpenAPI
@@ -218,6 +234,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Copilot
+  tags_raw:
   - copilot
   properties:
   - type: OpenAPI
@@ -230,6 +248,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Divisions
+  tags_raw:
   - divisions
   properties:
   - type: OpenAPI
@@ -242,6 +262,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Grader
+  tags_raw:
   - grader
   properties:
   - type: OpenAPI
@@ -254,6 +276,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Leagues
+  tags_raw:
   - leagues
   properties:
   - type: OpenAPI
@@ -278,6 +302,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Markets
+  tags_raw:
   - markets
   properties:
   - type: OpenAPI
@@ -290,6 +316,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Odds
+  tags_raw:
   - odds
   properties:
   - type: OpenAPI
@@ -314,6 +342,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Players
+  tags_raw:
   - players
   properties:
   - type: OpenAPI
@@ -326,6 +356,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Queue
+  tags_raw:
   - queue
   properties:
   - type: OpenAPI
@@ -338,6 +370,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Sports
+  tags_raw:
   - sports
   properties:
   - type: OpenAPI
@@ -350,6 +384,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Sportsbooks
+  tags_raw:
   - sportsbooks
   properties:
   - type: OpenAPI
@@ -362,6 +398,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Team
+  tags_raw:
   - teams
   properties:
   - type: OpenAPI
@@ -374,6 +412,8 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
+  - Tournaments
+  tags_raw:
   - tournaments
   properties:
   - type: OpenAPI
