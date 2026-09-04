@@ -44,7 +44,7 @@ accessModel:
     /login both return 404, and the only account surface is the
     existing-customer dashboard at app.opticodds.com. A free trial exists but
     is arranged through a sales representative.
-position: Consumer
+position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/opticodds.png
 tags:
