@@ -194,16 +194,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/opticodds-injuries-api-openapi.yml
-- aid: opticodds:opticodds-reference-api
-  name: OpticOdds Reference API
-  description: Sports, leagues, sportsbooks, market types.
-  humanURL: https://developer.opticodds.com/reference/get_sports
-  baseURL: https://api.opticodds.com/api/v3
-  tags:
-  - Reference
-  properties:
-  - type: OpenAPI
-    url: openapi/opticodds-reference-api-openapi.yml
 - aid: opticodds:opticodds-results-api
   name: OpticOdds Results API
   description: Game and player results.
