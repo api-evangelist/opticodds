@@ -266,7 +266,7 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
-  - Leagues
+  - League
   tags_raw:
   - leagues
   properties:
@@ -332,7 +332,7 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
-  - Players
+  - Player
   tags_raw:
   - players
   properties:
@@ -346,7 +346,7 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
-  - Queue
+  - Queues
   tags_raw:
   - queue
   properties:
@@ -374,7 +374,7 @@ apis:
   humanURL: https://developer.opticodds.com/reference/getting-started
   baseURL: https://api.opticodds.com/api/v3
   tags:
-  - Sportsbooks
+  - Sportsbook
   tags_raw:
   - sportsbooks
   properties:
