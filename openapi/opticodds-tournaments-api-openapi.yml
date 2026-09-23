@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Tournaments API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: tournaments
+- name: Tournaments
 paths:
   /tournaments:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns tournaments filtered by sport, league, or ID
       tags:
-      - tournaments
+      - Tournaments
       summary: List tournaments
       parameters:
       - description: 'Sport IDs (use GET /sports for valid values). Example: ''golf'''
@@ -120,6 +114,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getTournaments
+      x-operation-id-source: derived
   /tournaments/results:
     get:
       security:
@@ -127,7 +123,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns tournament results (leaderboard/round data) for a specific tournament
       tags:
-      - tournaments
+      - Tournaments
       summary: Get tournament results
       parameters:
       - description: 'Tournament ID (use GET /tournaments for valid values). Example: ''pga-masters-2025'''
@@ -177,42 +173,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getTournamentsResults
+      x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.TournamentResult:
-      type: object
-      properties:
-        id:
-          type: string
-        leaderboard: {}
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        numerical_id:
-          type: integer
-        round: {}
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        stages: {}
-        tournament:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentBrief'
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.BaseSport:
       type: object
       properties:
@@ -225,13 +189,6 @@ components:
         numerical_id:
           type: integer
           example: 2
-    github_com_opticodds_api-go_internal_v3_response.TournamentResultsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentResult'
     github_com_opticodds_api-go_internal_v3_response.TournamentsEnvelope:
       type: object
       properties:
@@ -239,6 +196,13 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentFull'
+    github_com_opticodds_api-go_internal_v3_response.TournamentResultsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentResult'
     github_com_opticodds_api-go_internal_v3_response.TournamentBrief:
       type: object
       properties:
@@ -262,6 +226,40 @@ components:
           type: string
         venue_name:
           type: string
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.TournamentResult:
+      type: object
+      properties:
+        id:
+          type: string
+        leaderboard: {}
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        round: {}
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        stages: {}
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentBrief'
     github_com_opticodds_api-go_internal_v3_response.TournamentFull:
       type: object
       properties:

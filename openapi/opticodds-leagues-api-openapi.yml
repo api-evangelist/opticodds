@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Leagues API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: leagues
+- name: Leagues
 paths:
   /leagues:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns all available leagues with their sport and main markets
       tags:
-      - leagues
+      - Leagues
       summary: List all leagues
       parameters:
       - description: 'Sport IDs (use GET /sports for valid values). Example: ''basketball'''
@@ -67,6 +61,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getLeagues
+      x-operation-id-source: derived
   /leagues/active:
     get:
       security:
@@ -74,7 +70,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns leagues that currently have fixtures with odds
       tags:
-      - leagues
+      - Leagues
       summary: List active leagues
       parameters:
       - description: 'Sport IDs (use GET /sports for valid values). Example: ''basketball'''
@@ -116,8 +112,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getLeaguesActive
+      x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.LeaguesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.League'
     github_com_opticodds_api-go_internal_v3_response.Sport:
       type: object
       properties:
@@ -134,31 +139,6 @@ components:
         numerical_id:
           type: integer
           example: 1
-    github_com_opticodds_api-go_internal_v3_response.Market:
-      type: object
-      properties:
-        id:
-          type: string
-          example: moneyline
-        name:
-          type: string
-          example: Moneyline
-        numerical_id:
-          type: integer
-          example: 100
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.LeaguesEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.League'
     github_com_opticodds_api-go_internal_v3_response.League:
       type: object
       properties:
@@ -182,6 +162,24 @@ components:
           example: US
         sport:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Sport'
+    github_com_opticodds_api-go_internal_v3_response.Market:
+      type: object
+      properties:
+        id:
+          type: string
+          example: moneyline
+        name:
+          type: string
+          example: Moneyline
+        numerical_id:
+          type: integer
+          example: 100
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

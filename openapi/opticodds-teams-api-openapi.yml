@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Teams API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: teams
+- name: Teams
 paths:
   /teams:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns teams filtered by sport, league, or ID
       tags:
-      - teams
+      - Teams
       summary: List teams
       parameters:
       - description: Filter by sport IDs
@@ -132,8 +126,29 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getTeams
+      x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.TeamsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Team'
     github_com_opticodds_api-go_internal_v3_response.Team:
       type: object
       properties:
@@ -181,13 +196,6 @@ components:
             type: string
         sport:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-    github_com_opticodds_api-go_internal_v3_response.TeamsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Team'
     github_com_opticodds_api-go_internal_v3_response.BaseLeague:
       type: object
       properties:
@@ -206,18 +214,6 @@ components:
         error:
           type: string
           example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Sportsbooks API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: sportsbooks
+- name: Sportsbooks
 paths:
   /sportsbooks:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns all available sportsbooks enabled for your API key
       tags:
-      - sportsbooks
+      - Sportsbooks
       summary: List all sportsbooks
       responses:
         '200':
@@ -51,6 +45,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getSportsbooks
+      x-operation-id-source: derived
   /sportsbooks/active:
     get:
       security:
@@ -58,7 +54,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns sportsbooks that are currently active for a given sport, league, or fixture
       tags:
-      - sportsbooks
+      - Sportsbooks
       summary: List active sportsbooks
       parameters:
       - description: 'Sport IDs (use GET /sports for valid values). Example: ''basketball'''
@@ -119,6 +115,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getSportsbooksActive
+      x-operation-id-source: derived
   /sportsbooks/last-polled:
     get:
       security:
@@ -126,7 +124,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns the last time each sportsbook was polled for a given league or set of fixtures
       tags:
-      - sportsbooks
+      - Sportsbooks
       summary: Get sportsbook last-polled timestamps
       parameters:
       - description: 'League IDs (max 1, use GET /leagues for valid values). Example: ''nba'''
@@ -187,8 +185,24 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getSportsbooksLastPolled
+      x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.SportsbooksEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Sportsbook'
+    github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolledEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled'
     github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled:
       type: object
       properties:
@@ -237,13 +251,6 @@ components:
         error:
           type: string
           example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.SportsbooksEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Sportsbook'
     github_com_opticodds_api-go_internal_v3_response.LastPolledSportsbook:
       type: object
       properties:
@@ -256,13 +263,6 @@ components:
         timestamp:
           type: number
           example: 1739980800
-    github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolledEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled'
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

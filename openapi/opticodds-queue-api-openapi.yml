@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Queue API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: queue
+- name: Queue
 paths:
   /copilot/queue/remove-connections:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Forcefully closes all consumer connections on a copilot queue
       tags:
-      - queue
+      - Queue
       summary: Remove copilot queue connections
       parameters:
       - description: Queue config ID
@@ -64,6 +58,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getCopilotQueueRemoveConnections
+      x-operation-id-source: derived
   /copilot/queue/start:
     post:
       security:
@@ -71,7 +67,7 @@ paths:
       - ApiKeyQuery: []
       description: Creates a new queue or re-enables an existing one by ID
       tags:
-      - queue
+      - Queue
       summary: Start a copilot odds queue
       responses:
         '200':
@@ -105,6 +101,8 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotQueueStartRequest'
         description: Queue start request
         required: true
+      operationId: postCopilotQueueStart
+      x-operation-id-source: derived
   /copilot/queue/status:
     get:
       security:
@@ -112,7 +110,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns status and metrics for all copilot odds queues
       tags:
-      - queue
+      - Queue
       summary: Get copilot odds queue status
       parameters:
       - description: Filter by queue config ID (repeatable)
@@ -157,6 +155,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getCopilotQueueStatus
+      x-operation-id-source: derived
   /copilot/queue/stop:
     post:
       security:
@@ -164,7 +164,7 @@ paths:
       - ApiKeyQuery: []
       description: Disables queues by ID list and removes them from RabbitMQ
       tags:
-      - queue
+      - Queue
       summary: Stop copilot odds queues
       responses:
         '200':
@@ -198,6 +198,8 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotQueueStopRequest'
         description: Queue stop request
         required: true
+      operationId: postCopilotQueueStop
+      x-operation-id-source: derived
   /copilot/results/queue/start:
     post:
       security:
@@ -205,7 +207,7 @@ paths:
       - ApiKeyQuery: []
       description: Creates a new queue or re-enables an existing one by ID
       tags:
-      - queue
+      - Queue
       summary: Start a copilot results queue
       responses:
         '200':
@@ -239,6 +241,8 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStartRequest'
         description: Queue start request
         required: true
+      operationId: postCopilotResultsQueueStart
+      x-operation-id-source: derived
   /copilot/results/queue/status:
     get:
       security:
@@ -246,7 +250,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns status and metrics for all copilot results queues
       tags:
-      - queue
+      - Queue
       summary: Get copilot results queue status
       parameters:
       - description: Filter by queue config ID (repeatable)
@@ -291,6 +295,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getCopilotResultsQueueStatus
+      x-operation-id-source: derived
   /copilot/results/queue/stop:
     post:
       security:
@@ -298,7 +304,7 @@ paths:
       - ApiKeyQuery: []
       description: Disables queues by ID list and removes them from RabbitMQ
       tags:
-      - queue
+      - Queue
       summary: Stop copilot results queues
       responses:
         '200':
@@ -332,6 +338,8 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStopRequest'
         description: Queue stop request
         required: true
+      operationId: postCopilotResultsQueueStop
+      x-operation-id-source: derived
   /fixtures/results/queue/start:
     post:
       security:
@@ -339,7 +347,7 @@ paths:
       - ApiKeyQuery: []
       description: Creates a new queue or re-enables an existing one by ID
       tags:
-      - queue
+      - Queue
       summary: Start a fixture results queue
       responses:
         '200':
@@ -379,6 +387,8 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStartRequest'
         description: Queue start request
         required: true
+      operationId: postFixturesResultsQueueStart
+      x-operation-id-source: derived
   /fixtures/results/queue/status:
     get:
       security:
@@ -386,7 +396,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns status and metrics for all fixture results queues
       tags:
-      - queue
+      - Queue
       summary: Get fixture results queue status
       parameters:
       - description: Include latency timings
@@ -420,6 +430,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getFixturesResultsQueueStatus
+      x-operation-id-source: derived
   /fixtures/results/queue/stop:
     post:
       security:
@@ -427,7 +439,7 @@ paths:
       - ApiKeyQuery: []
       description: Disables a queue and removes it from RabbitMQ
       tags:
-      - queue
+      - Queue
       summary: Stop a fixture results queue
       responses:
         '200':
@@ -467,106 +479,10 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStopRequest'
         description: Queue stop request
         required: true
+      operationId: postFixturesResultsQueueStop
+      x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus:
-      type: object
-      properties:
-        enabled:
-          type: boolean
-          example: true
-        id:
-          type: integer
-          example: 1
-        messages_per_second:
-          type: number
-          example: 3.5
-        num_consumers:
-          type: integer
-          example: 1
-        num_messages:
-          type: integer
-          example: 42
-        queue_name:
-          type: string
-          example: rmquser_copres_abc123
-        version:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo'
-    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus'
-    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStopRequest:
-      type: object
-      properties:
-        id:
-          type: array
-          items:
-            type: integer
-    github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo:
-      type: object
-      properties:
-        id:
-          type: integer
-          example: 5
-        name:
-          type: string
-          example: v1
-    github_com_opticodds_api-go_internal_v3_response.QueueStopData:
-      type: object
-      properties:
-        stopped:
-          type: array
-          items:
-            type: integer
-    github_com_opticodds_api-go_internal_v3_response.SuccessEnvelope:
-      type: object
-      properties:
-        success:
-          type: boolean
-          example: true
-    github_com_opticodds_api-go_internal_v3_response.QueueStopEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.QueueStopData'
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatusEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatus'
-    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStopRequest:
-      type: object
-      properties:
-        id:
-          type: array
-          items:
-            type: integer
-    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStartRequest:
-      type: object
-      properties:
-        id:
-          type: integer
-        version_id:
-          type: integer
-    github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatus'
     github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatus:
       type: object
       properties:
@@ -595,6 +511,61 @@ components:
           example: rmquser_cop_abc123
         version:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo'
+    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStartRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        is_live:
+          type: boolean
+        odds_format:
+          type: string
+        version_id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_response.QueueStopEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.QueueStopData'
+    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStartRequest:
+      type: object
+      properties:
+        id:
+          type: integer
+        version_id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_response.QueueStopData:
+      type: object
+      properties:
+        stopped:
+          type: array
+          items:
+            type: integer
+    github_com_opticodds_api-go_internal_v3_query.CopilotResultsQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            type: integer
+    github_com_opticodds_api-go_internal_v3_response.SuccessEnvelope:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStopRequest:
+      type: object
+      properties:
+        id:
+          type: array
+          items:
+            type: integer
     github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatus:
       type: object
       properties:
@@ -624,11 +595,20 @@ components:
           type: array
           items:
             type: string
-    github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStopRequest:
+    github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatusEnvelope:
       type: object
       properties:
-        id:
-          type: integer
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotQueueStatus'
+    github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatusEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureResultsQueueStatus'
     github_com_opticodds_api-go_internal_v3_query.FixtureResultsQueueStartRequest:
       type: object
       properties:
@@ -642,17 +622,51 @@ components:
           type: array
           items:
             type: string
-    github_com_opticodds_api-go_internal_v3_query.CopilotQueueStartRequest:
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatusEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus'
+    github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo:
       type: object
       properties:
         id:
           type: integer
-        is_live:
-          type: boolean
-        odds_format:
+          example: 5
+        name:
           type: string
-        version_id:
+          example: v1
+    github_com_opticodds_api-go_internal_v3_response.CopilotResultsQueueStatus:
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          example: true
+        id:
           type: integer
+          example: 1
+        messages_per_second:
+          type: number
+          example: 3.5
+        num_consumers:
+          type: integer
+          example: 1
+        num_messages:
+          type: integer
+          example: 42
+        queue_name:
+          type: string
+          example: rmquser_copres_abc123
+        version:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.CopilotVersionInfo'
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

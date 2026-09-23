@@ -3,13 +3,7 @@ info:
   description: 'OpticOdds sports betting data API - Version 3
 
 
-    **Pagination**: Endpoints returning lists support two modes.
-
-    *Offset-based (default)*: Use `page` (1-indexed) and `limit` (max 100, default 100). Response includes `page` and `has_more`.
-
-    *Cursor-based*: Use `cursor` (opaque token from previous response) and `limit`. Response includes `cursor` (null when no more results). When using cursor, `page` and `has_more` are omitted.
-
-    Do not pass both `page` and `cursor`. Cursor-based pagination is recommended for large result sets.'
+    **Pagination**: Endpoints returning lists support two modes.'
   title: OpticOdds API v3 Grader API
   contact:
     name: OpticOdds Support
@@ -21,7 +15,7 @@ info:
 servers:
 - url: https://api.opticodds.com/v3
 tags:
-- name: grader
+- name: Grader
 paths:
   /grader/futures:
     get:
@@ -30,7 +24,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns the grading result for a futures market selection
       tags:
-      - grader
+      - Grader
       summary: Grade a futures bet
       parameters:
       - description: Sport ID
@@ -98,6 +92,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getGraderFutures
+      x-operation-id-source: derived
   /grader/odds:
     get:
       security:
@@ -105,7 +101,7 @@ paths:
       - ApiKeyQuery: []
       description: Returns the grading result for a single odds market selection
       tags:
-      - grader
+      - Grader
       summary: Grade an odds bet
       parameters:
       - description: Fixture ID
@@ -166,13 +162,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ErrorResponse'
+      operationId: getGraderOdds
+      x-operation-id-source: derived
     post:
       security:
       - ApiKeyHeader: []
       - ApiKeyQuery: []
       description: Returns grading results for up to 25 odds market selections
       tags:
-      - grader
+      - Grader
       summary: Grade odds bets in bulk
       responses:
         '200':
@@ -206,8 +204,22 @@ paths:
               $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest'
         description: Bulk grading request
         required: true
+      operationId: postGraderOdds
+      x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
     github_com_opticodds_api-go_internal_v3_response.OddsGraderResult:
       type: object
       properties:
@@ -216,40 +228,6 @@ components:
         away_team_display:
           type: string
           example: Philadelphia Eagles
-        fixture_id:
-          type: string
-          example: nfl-chiefs-eagles-2025-02-09
-        home_score:
-          type: number
-        home_team_display:
-          type: string
-          example: Kansas City Chiefs
-        market:
-          type: string
-          example: Moneyline
-        name:
-          type: string
-          example: Kansas City Chiefs
-        player_score:
-          type: number
-        result:
-          type: string
-          example: Won
-        status:
-          type: string
-          example: Completed
-    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry:
-      type: object
-      properties:
-        away_score:
-          type: number
-        away_team_display:
-          type: string
-          example: Philadelphia Eagles
-        errors:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.GraderError'
         fixture_id:
           type: string
           example: nfl-chiefs-eagles-2025-02-09
@@ -287,11 +265,6 @@ components:
           type: boolean
         void_substitutes:
           type: boolean
-    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
     github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
       type: object
       properties:
@@ -315,24 +288,40 @@ components:
         tournament_name:
           type: string
           example: The Masters
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry:
       type: object
       properties:
-        error:
+        away_score:
+          type: number
+        away_team_display:
           type: string
-          example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest:
-      type: object
-      properties:
-        entries:
+          example: Philadelphia Eagles
+        errors:
           type: array
           items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
-    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.GraderError'
+        fixture_id:
+          type: string
+          example: nfl-chiefs-eagles-2025-02-09
+        home_score:
+          type: number
+        home_team_display:
+          type: string
+          example: Kansas City Chiefs
+        market:
+          type: string
+          example: Moneyline
+        name:
+          type: string
+          example: Kansas City Chiefs
+        player_score:
+          type: number
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
     github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
       type: object
       properties:
@@ -340,6 +329,17 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
     github_com_opticodds_api-go_internal_v3_response.GraderError:
       type: object
       properties:
