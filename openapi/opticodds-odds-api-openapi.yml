@@ -294,147 +294,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry:
-      type: object
-      properties:
-        locked:
-          type: boolean
-        points:
-          type: number
-        price:
-          type: number
-        timestamp:
-          type: number
-    github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds:
-      type: object
-      properties:
-        away_competitors:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
-        away_team_display:
-          type: string
-        game_id:
-          type: string
-        home_competitors:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
-        home_team_display:
-          type: string
-        id:
-          type: string
-        is_live:
-          type: boolean
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        numerical_id:
-          type: integer
-        odds:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOdd'
-        season_type:
-          type: string
-        season_week:
-          type: string
-        season_year:
-          type: string
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        start_date:
-          type: string
-        status:
-          type: string
-        tournament:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
-        venue_location:
-          type: string
-        venue_name:
-          type: string
-        venue_neutral:
-          type: boolean
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
-    github_com_opticodds_api-go_internal_v3_response.ActiveMarket:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        numerical_id:
-          type: integer
-    github_com_opticodds_api-go_internal_v3_response.LineValue:
-      type: object
-      properties:
-        points:
-          type: number
-        price:
-          type: number
-    github_com_opticodds_api-go_internal_v3_response.HistoricalOdd:
-      type: object
-      properties:
-        clv:
-          description: CLV is the Closing Line Value — the final price+points before the event started.
-          allOf:
-          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry'
-        id:
-          type: string
-        is_main:
-          type: boolean
-        market:
-          type: string
-        market_id:
-          type: string
-        name:
-          type: string
-        normalized_selection:
-          type: string
-        olv:
-          description: OLV is the Opening Line Value — the first price+points posted for this selection.
-          allOf:
-          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
-        player_id:
-          type: string
-        points:
-          type: number
-        selection:
-          type: string
-        selection_line:
-          type: string
-        sportsbook:
-          type: string
-        team_id:
-          type: string
-    github_com_opticodds_api-go_internal_v3_response.FixtureOddsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds'
-    github_com_opticodds_api-go_internal_v3_response.HistoricalOddsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds'
     github_com_opticodds_api-go_internal_v3_response.BaseLeague:
       type: object
       properties:
@@ -447,94 +306,6 @@ components:
         numerical_id:
           type: integer
           example: 3
-    github_com_opticodds_api-go_internal_v3_response.FixtureOddLimit:
-      type: object
-      properties:
-        max:
-          type: number
-    github_com_opticodds_api-go_internal_v3_response.MarketsActiveEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ActiveMarket'
-    github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds:
-      type: object
-      properties:
-        away_competitors:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
-        away_team_display:
-          type: string
-        game_id:
-          type: string
-        home_competitors:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
-        home_team_display:
-          type: string
-        id:
-          type: string
-        is_live:
-          type: boolean
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        numerical_id:
-          type: integer
-        odds:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureOdd'
-        season_type:
-          type: string
-        season_week:
-          type: string
-        season_year:
-          type: string
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        start_date:
-          type: string
-        status:
-          type: string
-        tournament:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
-        venue_location:
-          type: string
-        venue_name:
-          type: string
-        venue_neutral:
-          type: boolean
-    github_com_opticodds_api-go_internal_v3_response.Competitor:
-      type: object
-      properties:
-        abbreviation:
-          type: string
-          example: LAL
-        base_id:
-          type: integer
-          example: 100
-        id:
-          type: string
-          example: lakers
-        logo:
-          type: string
-          example: https://cdn.opticodds.com/logos/lakers.png
-        name:
-          type: string
-          example: Los Angeles Lakers
-        numerical_id:
-          type: integer
-          example: 1
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.Tournament:
       type: object
       properties:
@@ -553,6 +324,64 @@ components:
         start_date:
           type: string
           example: '2025-04-15T00:00:00Z'
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry:
+      type: object
+      properties:
+        locked:
+          type: boolean
+        points:
+          type: number
+        price:
+          type: number
+        timestamp:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOddsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds'
+    github_com_opticodds_api-go_internal_v3_response.FixtureOddsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds'
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.MarketsActiveEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ActiveMarket'
+    github_com_opticodds_api-go_internal_v3_response.ActiveMarket:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        numerical_id:
+          type: integer
+    github_com_opticodds_api-go_internal_v3_response.FixtureOddLimit:
+      type: object
+      properties:
+        max:
+          type: number
     github_com_opticodds_api-go_internal_v3_response.FixtureOdd:
       type: object
       properties:
@@ -605,6 +434,177 @@ components:
         timestamp:
           description: Timestamp is the Unix epoch timestamp (seconds with decimal) when this odd was last updated.
           type: number
+    github_com_opticodds_api-go_internal_v3_response.LineValue:
+      type: object
+      properties:
+        points:
+          type: number
+        price:
+          type: number
+    github_com_opticodds_api-go_internal_v3_response.Competitor:
+      type: object
+      properties:
+        abbreviation:
+          type: string
+          example: LAL
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        logo:
+          type: string
+          example: https://cdn.opticodds.com/logos/lakers.png
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
+    github_com_opticodds_api-go_internal_v3_response.HistoricalOdd:
+      type: object
+      properties:
+        clv:
+          description: CLV is the Closing Line Value — the final price+points before the event started.
+          allOf:
+          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOddEntry'
+        id:
+          type: string
+        is_main:
+          type: boolean
+        market:
+          type: string
+        market_id:
+          type: string
+        name:
+          type: string
+        normalized_selection:
+          type: string
+        olv:
+          description: OLV is the Opening Line Value — the first price+points posted for this selection.
+          allOf:
+          - $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LineValue'
+        player_id:
+          type: string
+        points:
+          type: number
+        selection:
+          type: string
+        selection_line:
+          type: string
+        sportsbook:
+          type: string
+        team_id:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.FixtureWithOdds:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_team_display:
+          type: string
+        game_id:
+          type: string
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_team_display:
+          type: string
+        id:
+          type: string
+        is_live:
+          type: boolean
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        odds:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FixtureOdd'
+        season_type:
+          type: string
+        season_week:
+          type: string
+        season_year:
+          type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+        status:
+          type: string
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        venue_location:
+          type: string
+        venue_name:
+          type: string
+        venue_neutral:
+          type: boolean
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.FixtureWithHistoricalOdds:
+      type: object
+      properties:
+        away_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        away_team_display:
+          type: string
+        game_id:
+          type: string
+        home_competitors:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Competitor'
+        home_team_display:
+          type: string
+        id:
+          type: string
+        is_live:
+          type: boolean
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        odds:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.HistoricalOdd'
+        season_type:
+          type: string
+        season_week:
+          type: string
+        season_year:
+          type: string
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+        status:
+          type: string
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
+        venue_location:
+          type: string
+        venue_name:
+          type: string
+        venue_neutral:
+          type: boolean
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

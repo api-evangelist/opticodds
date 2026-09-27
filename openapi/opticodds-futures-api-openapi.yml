@@ -205,18 +205,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
     github_com_opticodds_api-go_internal_v3_response.FuturesEnvelope:
       type: object
       properties:
@@ -224,23 +212,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureMarketResponse'
-    github_com_opticodds_api-go_internal_v3_response.FutureMarketResponse:
-      type: object
-      properties:
-        future_type:
-          type: string
-        id:
-          type: string
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        name:
-          type: string
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        start_date:
-          type: string
-        tournament:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
     github_com_opticodds_api-go_internal_v3_response.BaseLeague:
       type: object
       properties:
@@ -253,12 +224,6 @@ components:
         numerical_id:
           type: integer
           example: 3
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.Tournament:
       type: object
       properties:
@@ -277,7 +242,19 @@ components:
         start_date:
           type: string
           example: '2025-04-15T00:00:00Z'
-    github_com_opticodds_api-go_internal_v3_response.FutureWithOdds:
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.FutureMarketResponse:
       type: object
       properties:
         future_type:
@@ -288,10 +265,6 @@ components:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
         name:
           type: string
-        odds:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureOdd'
         sport:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
         start_date:
@@ -329,6 +302,27 @@ components:
           type: string
         timestamp:
           type: number
+    github_com_opticodds_api-go_internal_v3_response.FutureWithOdds:
+      type: object
+      properties:
+        future_type:
+          type: string
+        id:
+          type: string
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        name:
+          type: string
+        odds:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureOdd'
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        start_date:
+          type: string
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Tournament'
     github_com_opticodds_api-go_internal_v3_response.FutureOddsEnvelope:
       type: object
       properties:
@@ -336,6 +330,12 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureWithOdds'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

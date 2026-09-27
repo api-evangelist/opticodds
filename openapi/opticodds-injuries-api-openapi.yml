@@ -146,44 +146,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.InjuryPredictionsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPrediction'
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
-    github_com_opticodds_api-go_internal_v3_response.InjuriesEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Injury'
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
     github_com_opticodds_api-go_internal_v3_response.InjuryPrediction:
       type: object
       properties:
@@ -197,7 +159,38 @@ components:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
         team:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
-    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.InjuriesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Injury'
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.BasePlayer:
       type: object
       properties:
         base_id:
@@ -205,19 +198,19 @@ components:
           example: 100
         id:
           type: string
-          example: lakers
+          example: lebron-james
         name:
           type: string
-          example: Los Angeles Lakers
+          example: LeBron James
+        number:
+          type: integer
+          example: 23
         numerical_id:
           type: integer
           example: 1
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
+        position:
           type: string
-          example: Invalid API key
+          example: SF
     github_com_opticodds_api-go_internal_v3_response.InjuryPredictionData:
       type: object
       properties:
@@ -255,7 +248,7 @@ components:
           type: integer
         wins_without_player:
           type: integer
-    github_com_opticodds_api-go_internal_v3_response.BasePlayer:
+    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
       type: object
       properties:
         base_id:
@@ -263,19 +256,20 @@ components:
           example: 100
         id:
           type: string
-          example: lebron-james
+          example: lakers
         name:
           type: string
-          example: LeBron James
-        number:
-          type: integer
-          example: 23
+          example: Los Angeles Lakers
         numerical_id:
           type: integer
           example: 1
-        position:
-          type: string
-          example: SF
+    github_com_opticodds_api-go_internal_v3_response.InjuryPredictionsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPrediction'
     github_com_opticodds_api-go_internal_v3_response.Injury:
       type: object
       properties:
@@ -293,6 +287,12 @@ components:
           $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
         type:
           type: string
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header
