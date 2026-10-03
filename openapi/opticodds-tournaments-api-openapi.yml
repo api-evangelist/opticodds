@@ -177,53 +177,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
-    github_com_opticodds_api-go_internal_v3_response.TournamentResult:
-      type: object
-      properties:
-        id:
-          type: string
-        leaderboard: {}
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        numerical_id:
-          type: integer
-        round: {}
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        stages: {}
-        tournament:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentBrief'
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
-    github_com_opticodds_api-go_internal_v3_response.TournamentsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentFull'
     github_com_opticodds_api-go_internal_v3_response.TournamentBrief:
       type: object
       properties:
@@ -247,6 +200,18 @@ components:
           type: string
         venue_name:
           type: string
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
     github_com_opticodds_api-go_internal_v3_response.TournamentFull:
       type: object
       properties:
@@ -279,6 +244,31 @@ components:
           type: string
         venue_name:
           type: string
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
+    github_com_opticodds_api-go_internal_v3_response.TournamentsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentFull'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.TournamentResultsEnvelope:
       type: object
       properties:
@@ -286,12 +276,22 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentResult'
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+    github_com_opticodds_api-go_internal_v3_response.TournamentResult:
       type: object
       properties:
-        error:
+        id:
           type: string
-          example: Invalid API key
+        leaderboard: {}
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        numerical_id:
+          type: integer
+        round: {}
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        stages: {}
+        tournament:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.TournamentBrief'
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

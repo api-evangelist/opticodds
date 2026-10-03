@@ -208,6 +208,15 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.GraderError:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 101
+        message:
+          type: string
+          example: Sport not supported
     github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry:
       type: object
       properties:
@@ -242,38 +251,6 @@ components:
         status:
           type: string
           example: Completed
-    github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
-      type: object
-      properties:
-        dead_heat_reduction:
-          type: number
-        market:
-          type: string
-          example: The Masters Winner
-        name:
-          type: string
-          example: Scottie Scheffler
-        result:
-          type: string
-          example: Won
-        status:
-          type: string
-          example: Completed
-        tournament_id:
-          type: string
-          example: pga-masters-2025
-        tournament_name:
-          type: string
-          example: The Masters
-    github_com_opticodds_api-go_internal_v3_response.GraderError:
-      type: object
-      properties:
-        code:
-          type: integer
-          example: 101
-        message:
-          type: string
-          example: Sport not supported
     github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry:
       type: object
       properties:
@@ -296,11 +273,18 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
-    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
       type: object
       properties:
         data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
     github_com_opticodds_api-go_internal_v3_response.OddsGraderResult:
       type: object
       properties:
@@ -331,24 +315,40 @@ components:
         status:
           type: string
           example: Completed
-    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
-    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
     github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
       type: object
       properties:
         error:
           type: string
           example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
+      type: object
+      properties:
+        dead_heat_reduction:
+          type: number
+        market:
+          type: string
+          example: The Masters Winner
+        name:
+          type: string
+          example: Scottie Scheffler
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+        tournament_id:
+          type: string
+          example: pga-masters-2025
+        tournament_name:
+          type: string
+          example: The Masters
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

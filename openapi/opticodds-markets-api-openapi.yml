@@ -135,46 +135,31 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+    github_com_opticodds_api-go_internal_v3_response.BaseSportsbook:
       type: object
       properties:
         id:
           type: string
-          example: nba
+          example: draftkings
         name:
           type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
-    github_com_opticodds_api-go_internal_v3_response.Market:
+          example: DraftKings
+    github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets:
       type: object
       properties:
-        id:
-          type: string
-          example: moneyline
-        name:
-          type: string
-          example: Moneyline
-        numerical_id:
-          type: integer
-          example: 100
-    github_com_opticodds_api-go_internal_v3_response.MarketLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nfl
-        name:
-          type: string
-          example: NFL
-        numerical_id:
-          type: integer
-          example: 1
-        sportsbooks:
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        markets:
           type: array
           items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSportsbook'
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Market'
+    github_com_opticodds_api-go_internal_v3_response.MarketsSettleableEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets'
     github_com_opticodds_api-go_internal_v3_response.MarketWithHierarchy:
       type: object
       properties:
@@ -194,29 +179,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketSport'
-    github_com_opticodds_api-go_internal_v3_response.BaseSportsbook:
-      type: object
-      properties:
-        id:
-          type: string
-          example: draftkings
-        name:
-          type: string
-          example: DraftKings
-    github_com_opticodds_api-go_internal_v3_response.MarketsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketWithHierarchy'
-    github_com_opticodds_api-go_internal_v3_response.MarketsSettleableEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets'
     github_com_opticodds_api-go_internal_v3_response.MarketSport:
       type: object
       properties:
@@ -233,21 +195,59 @@ components:
         numerical_id:
           type: integer
           example: 1
+    github_com_opticodds_api-go_internal_v3_response.Market:
+      type: object
+      properties:
+        id:
+          type: string
+          example: moneyline
+        name:
+          type: string
+          example: Moneyline
+        numerical_id:
+          type: integer
+          example: 100
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.MarketsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.MarketWithHierarchy'
     github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
       type: object
       properties:
         error:
           type: string
           example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.SettleableLeagueMarkets:
+    github_com_opticodds_api-go_internal_v3_response.MarketLeague:
       type: object
       properties:
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        markets:
+        id:
+          type: string
+          example: nfl
+        name:
+          type: string
+          example: NFL
+        numerical_id:
+          type: integer
+          example: 1
+        sportsbooks:
           type: array
           items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Market'
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSportsbook'
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

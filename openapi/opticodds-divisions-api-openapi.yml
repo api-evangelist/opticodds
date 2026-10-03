@@ -74,18 +74,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
     github_com_opticodds_api-go_internal_v3_response.DivisionsEnvelope:
       type: object
       properties:
@@ -109,6 +97,18 @@ components:
         name:
           type: string
           example: Pacific
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header
