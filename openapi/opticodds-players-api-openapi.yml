@@ -130,21 +130,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
-      type: object
-      properties:
-        base_id:
-          type: integer
-          example: 100
-        id:
-          type: string
-          example: lakers
-        name:
-          type: string
-          example: Los Angeles Lakers
-        numerical_id:
-          type: integer
-          example: 1
     github_com_opticodds_api-go_internal_v3_response.BaseLeague:
       type: object
       properties:
@@ -176,12 +161,6 @@ components:
         numerical_id:
           type: integer
           example: 2
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.Player:
       type: object
       properties:
@@ -237,6 +216,27 @@ components:
         weight:
           type: integer
           example: 250
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
+    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
+      type: object
+      properties:
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

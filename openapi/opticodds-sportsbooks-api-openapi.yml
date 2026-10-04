@@ -189,25 +189,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled:
-      type: object
-      properties:
-        fixture_id:
-          type: string
-          example: nfl-chiefs-eagles-2025-02-09
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        sportsbooks:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LastPolledSportsbook'
-    github_com_opticodds_api-go_internal_v3_response.SportsbooksEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Sportsbook'
     github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolledEnvelope:
       type: object
       properties:
@@ -215,24 +196,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled'
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.Sportsbook:
       type: object
       properties:
@@ -251,6 +214,36 @@ components:
         name:
           type: string
           example: DraftKings
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.SportsbooksLastPolled:
+      type: object
+      properties:
+        fixture_id:
+          type: string
+          example: nfl-chiefs-eagles-2025-02-09
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        sportsbooks:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.LastPolledSportsbook'
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_response.LastPolledSportsbook:
       type: object
       properties:
@@ -263,6 +256,13 @@ components:
         timestamp:
           type: number
           example: 1739980800
+    github_com_opticodds_api-go_internal_v3_response.SportsbooksEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Sportsbook'
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

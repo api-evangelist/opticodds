@@ -208,15 +208,83 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    github_com_opticodds_api-go_internal_v3_response.GraderError:
+    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest:
       type: object
       properties:
-        code:
-          type: integer
-          example: 101
-        message:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
+    github_com_opticodds_api-go_internal_v3_response.OddsGraderResult:
+      type: object
+      properties:
+        away_score:
+          type: number
+        away_team_display:
           type: string
-          example: Sport not supported
+          example: Philadelphia Eagles
+        fixture_id:
+          type: string
+          example: nfl-chiefs-eagles-2025-02-09
+        home_score:
+          type: number
+        home_team_display:
+          type: string
+          example: Kansas City Chiefs
+        market:
+          type: string
+          example: Moneyline
+        name:
+          type: string
+          example: Kansas City Chiefs
+        player_score:
+          type: number
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
+    github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
+      type: object
+      properties:
+        dead_heat_reduction:
+          type: number
+        market:
+          type: string
+          example: The Masters Winner
+        name:
+          type: string
+          example: Scottie Scheffler
+        result:
+          type: string
+          example: Won
+        status:
+          type: string
+          example: Completed
+        tournament_id:
+          type: string
+          example: pga-masters-2025
+        tournament_name:
+          type: string
+          example: The Masters
     github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry:
       type: object
       properties:
@@ -266,89 +334,21 @@ components:
           type: boolean
         void_substitutes:
           type: boolean
-    github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderRequest:
-      type: object
-      properties:
-        entries:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_query.BulkOddsGraderEntry'
-    github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BulkOddsGraderEntry'
-    github_com_opticodds_api-go_internal_v3_response.FutureGraderResultEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.FutureGraderResult'
-    github_com_opticodds_api-go_internal_v3_response.OddsGraderResult:
-      type: object
-      properties:
-        away_score:
-          type: number
-        away_team_display:
-          type: string
-          example: Philadelphia Eagles
-        fixture_id:
-          type: string
-          example: nfl-chiefs-eagles-2025-02-09
-        home_score:
-          type: number
-        home_team_display:
-          type: string
-          example: Kansas City Chiefs
-        market:
-          type: string
-          example: Moneyline
-        name:
-          type: string
-          example: Kansas City Chiefs
-        player_score:
-          type: number
-        result:
-          type: string
-          example: Won
-        status:
-          type: string
-          example: Completed
     github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
       type: object
       properties:
         error:
           type: string
           example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.OddsGraderResultEnvelope:
+    github_com_opticodds_api-go_internal_v3_response.GraderError:
       type: object
       properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.OddsGraderResult'
-    github_com_opticodds_api-go_internal_v3_response.FutureGraderResult:
-      type: object
-      properties:
-        dead_heat_reduction:
-          type: number
-        market:
+        code:
+          type: integer
+          example: 101
+        message:
           type: string
-          example: The Masters Winner
-        name:
-          type: string
-          example: Scottie Scheffler
-        result:
-          type: string
-          example: Won
-        status:
-          type: string
-          example: Completed
-        tournament_id:
-          type: string
-          example: pga-masters-2025
-        tournament_name:
-          type: string
-          example: The Masters
+          example: Sport not supported
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

@@ -241,6 +241,38 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_parlaygen.ParlayLeg:
+      type: object
+      properties:
+        event_name:
+          type: string
+        fixture_id:
+          type: string
+        league_id:
+          type: string
+        market:
+          type: string
+        name:
+          type: string
+        player_id:
+          type: string
+        points:
+          type: number
+        price:
+          type: integer
+        selection_line:
+          type: string
+        sport_id:
+          type: string
+        starts_at:
+          type: string
+        team_id:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.ParlayBYOPEnvelope:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayResult'
     github_com_opticodds_api-go_internal_v3_response.ParlayOddsEnvelope:
       type: object
       properties:
@@ -284,24 +316,12 @@ components:
           type: string
         sport:
           type: string
-    github_com_opticodds_api-go_internal_v3_query.ParlayEntry:
+    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
       type: object
       properties:
-        fixture_id:
+        error:
           type: string
-        market:
-          type: string
-        name:
-          type: string
-        price_american:
-          type: integer
-        price_decimal:
-          type: number
-    github_com_opticodds_api-go_internal_v3_response.ParlayBYOPEnvelope:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.ParlayResult'
+          example: Invalid API key
     github_com_opticodds_api-go_internal_v3_query.ParlayRequest:
       type: object
       properties:
@@ -313,21 +333,13 @@ components:
           type: array
           items:
             type: string
-    github_com_opticodds_api-go_internal_v3_response.ParlayLeg:
+    github_com_opticodds_api-go_internal_v3_response.FeaturedParlaysEnvelope:
       type: object
       properties:
-        fixture_id:
-          type: string
-          example: 20260306E73EBFF1
-        market:
-          type: string
-          example: moneyline
-        name:
-          type: string
-          example: Los Angeles Lakers
-        price:
-          type: number
-          example: -110
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_parlaygen.FeaturedParlay'
     github_com_opticodds_api-go_internal_v3_response.ParlayResult:
       type: object
       properties:
@@ -348,46 +360,34 @@ components:
         price:
           type: number
           example: -110
-    github_com_opticodds_api-go_internal_parlaygen.ParlayLeg:
+    github_com_opticodds_api-go_internal_v3_response.ParlayLeg:
       type: object
       properties:
-        event_name:
-          type: string
         fixture_id:
           type: string
-        league_id:
+          example: 20260306E73EBFF1
+        market:
+          type: string
+          example: moneyline
+        name:
+          type: string
+          example: Los Angeles Lakers
+        price:
+          type: number
+          example: -110
+    github_com_opticodds_api-go_internal_v3_query.ParlayEntry:
+      type: object
+      properties:
+        fixture_id:
           type: string
         market:
           type: string
         name:
           type: string
-        player_id:
-          type: string
-        points:
-          type: number
-        price:
+        price_american:
           type: integer
-        selection_line:
-          type: string
-        sport_id:
-          type: string
-        starts_at:
-          type: string
-        team_id:
-          type: string
-    github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          example: Invalid API key
-    github_com_opticodds_api-go_internal_v3_response.FeaturedParlaysEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_parlaygen.FeaturedParlay'
+        price_decimal:
+          type: number
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header

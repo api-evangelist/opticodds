@@ -146,6 +146,50 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    github_com_opticodds_api-go_internal_v3_response.InjuryPredictionsEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPrediction'
+    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
+      type: object
+      properties:
+        id:
+          type: string
+          example: nba
+        name:
+          type: string
+          example: NBA
+        numerical_id:
+          type: integer
+          example: 3
+    github_com_opticodds_api-go_internal_v3_response.InjuryPrediction:
+      type: object
+      properties:
+        data:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPredictionData'
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        player:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BasePlayer'
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        team:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
+    github_com_opticodds_api-go_internal_v3_response.BaseSport:
+      type: object
+      properties:
+        id:
+          type: string
+          example: basketball
+        name:
+          type: string
+          example: Basketball
+        numerical_id:
+          type: integer
+          example: 2
     github_com_opticodds_api-go_internal_v3_response.InjuryPredictionData:
       type: object
       properties:
@@ -183,89 +227,6 @@ components:
           type: integer
         wins_without_player:
           type: integer
-    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
-      type: object
-      properties:
-        base_id:
-          type: integer
-          example: 100
-        id:
-          type: string
-          example: lakers
-        name:
-          type: string
-          example: Los Angeles Lakers
-        numerical_id:
-          type: integer
-          example: 1
-    github_com_opticodds_api-go_internal_v3_response.InjuriesEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Injury'
-    github_com_opticodds_api-go_internal_v3_response.Injury:
-      type: object
-      properties:
-        id:
-          type: string
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        player:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BasePlayer'
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        status:
-          type: string
-        team:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
-        type:
-          type: string
-    github_com_opticodds_api-go_internal_v3_response.InjuryPredictionsEnvelope:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPrediction'
-    github_com_opticodds_api-go_internal_v3_response.InjuryPrediction:
-      type: object
-      properties:
-        data:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.InjuryPredictionData'
-        league:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
-        player:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BasePlayer'
-        sport:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
-        team:
-          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
-    github_com_opticodds_api-go_internal_v3_response.BaseLeague:
-      type: object
-      properties:
-        id:
-          type: string
-          example: nba
-        name:
-          type: string
-          example: NBA
-        numerical_id:
-          type: integer
-          example: 3
-    github_com_opticodds_api-go_internal_v3_response.BaseSport:
-      type: object
-      properties:
-        id:
-          type: string
-          example: basketball
-        name:
-          type: string
-          example: Basketball
-        numerical_id:
-          type: integer
-          example: 2
     github_com_opticodds_api-go_internal_v3_response.ErrorResponse:
       type: object
       properties:
@@ -293,6 +254,45 @@ components:
         position:
           type: string
           example: SF
+    github_com_opticodds_api-go_internal_v3_response.Injury:
+      type: object
+      properties:
+        id:
+          type: string
+        league:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseLeague'
+        player:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BasePlayer'
+        sport:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseSport'
+        status:
+          type: string
+        team:
+          $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.BaseTeam'
+        type:
+          type: string
+    github_com_opticodds_api-go_internal_v3_response.InjuriesEnvelope:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/github_com_opticodds_api-go_internal_v3_response.Injury'
+    github_com_opticodds_api-go_internal_v3_response.BaseTeam:
+      type: object
+      properties:
+        base_id:
+          type: integer
+          example: 100
+        id:
+          type: string
+          example: lakers
+        name:
+          type: string
+          example: Los Angeles Lakers
+        numerical_id:
+          type: integer
+          example: 1
   securitySchemes:
     ApiKeyHeader:
       description: API key passed via X-Api-Key header
