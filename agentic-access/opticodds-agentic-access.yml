@@ -1,23 +1,29 @@
-generated: '2026-08-27'
+generated: '2026-09-23'
 method: generated
-source: openapi/opticodds-api-v3-openapi.json, openapi/opticodds-fixtures-api-openapi.yml, openapi/opticodds-futures-api-openapi.yml,
-  openapi/opticodds-injuries-api-openapi.yml, openapi/opticodds-reference-api-openapi.yml, openapi/opticodds-results-api-openapi.yml
+source: openapi/opticodds-conferences-api-openapi.yml, openapi/opticodds-copilot-api-openapi.yml,
+  openapi/opticodds-divisions-api-openapi.yml, openapi/opticodds-fixtures-api-openapi.yml, openapi/opticodds-futures-api-openapi.yml,
+  openapi/opticodds-grader-api-openapi.yml, openapi/opticodds-injuries-api-openapi.yml, openapi/opticodds-leagues-api-openapi.yml,
+  openapi/opticodds-market-types-api-openapi.yml, openapi/opticodds-markets-api-openapi.yml,
+  openapi/opticodds-odds-api-openapi.yml, openapi/opticodds-parlay-api-openapi.yml, openapi/opticodds-players-api-openapi.yml,
+  openapi/opticodds-queue-api-openapi.yml, openapi/opticodds-results-api-openapi.yml, openapi/opticodds-sports-api-openapi.yml,
+  openapi/opticodds-sportsbooks-api-openapi.yml, openapi/opticodds-teams-api-openapi.yml, openapi/opticodds-tournaments-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
-  operations: 67
+  operations: 51
   by_action_class:
-    connected: 57
-    acting: 10
+    connected: 43
+    acting: 8
   by_consequence:
-    read: 57
-    write: 7
+    read: 43
+    write: 5
     safety-critical: 3
   human_in_the_loop_required: 3
 operations:
 - path: /conferences
   method: get
+  operationId: getConferences
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -27,6 +33,7 @@ operations:
     audit: none
 - path: /copilot/fixtures
   method: get
+  operationId: getCopilotFixtures
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -36,6 +43,7 @@ operations:
     audit: none
 - path: /copilot/fixtures/odds
   method: get
+  operationId: getCopilotFixturesOdds
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -45,6 +53,7 @@ operations:
     audit: none
 - path: /copilot/fixtures/odds/historical
   method: get
+  operationId: getCopilotFixturesOddsHistorical
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -54,6 +63,7 @@ operations:
     audit: none
 - path: /copilot/parlay/odds
   method: get
+  operationId: getCopilotParlayOdds
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -63,6 +73,7 @@ operations:
     audit: none
 - path: /copilot/parlay/odds
   method: post
+  operationId: postCopilotParlayOdds
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -76,8 +87,245 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /copilot/versions
+  method: get
+  operationId: getCopilotVersions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /divisions
+  method: get
+  operationId: getDivisions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fixtures
+  method: get
+  operationId: getFixtures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fixtures/active
+  method: get
+  operationId: getFixturesActive
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures
+  method: get
+  operationId: getFutures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /futures/odds
+  method: get
+  operationId: getFuturesOdds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /grader/futures
+  method: get
+  operationId: getGraderFutures
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /grader/odds
+  method: get
+  operationId: getGraderOdds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /grader/odds
+  method: post
+  operationId: postGraderOdds
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /injuries
+  method: get
+  operationId: getInjuries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /injuries/predictions
+  method: get
+  operationId: getInjuriesPredictions
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /leagues
+  method: get
+  operationId: getLeagues
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /leagues/active
+  method: get
+  operationId: getLeaguesActive
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /market-types
+  method: get
+  operationId: getMarketTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /markets
+  method: get
+  operationId: getMarkets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /markets/settleable
+  method: get
+  operationId: getMarketsSettleable
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fixtures/odds
+  method: get
+  operationId: getFixturesOdds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /fixtures/odds/historical
+  method: get
+  operationId: getFixturesOddsHistorical
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /markets/active
+  method: get
+  operationId: getMarketsActive
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /parlay/odds
+  method: post
+  operationId: postParlayOdds
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /parlay/odds/byop
+  method: post
+  operationId: postParlayOddsByop
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /parlays/pre-pack
+  method: get
+  operationId: getParlaysPrePack
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /players
+  method: get
+  operationId: getPlayers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /copilot/queue/remove-connections
   method: get
+  operationId: getCopilotQueueRemoveConnections
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -87,6 +335,7 @@ operations:
     audit: none
 - path: /copilot/queue/start
   method: post
+  operationId: postCopilotQueueStart
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -102,6 +351,7 @@ operations:
     audit: required
 - path: /copilot/queue/status
   method: get
+  operationId: getCopilotQueueStatus
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -111,6 +361,7 @@ operations:
     audit: none
 - path: /copilot/queue/stop
   method: post
+  operationId: postCopilotQueueStop
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -126,6 +377,7 @@ operations:
     audit: required
 - path: /copilot/results/queue/start
   method: post
+  operationId: postCopilotResultsQueueStart
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -141,6 +393,7 @@ operations:
     audit: required
 - path: /copilot/results/queue/status
   method: get
+  operationId: getCopilotResultsQueueStatus
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -150,6 +403,7 @@ operations:
     audit: none
 - path: /copilot/results/queue/stop
   method: post
+  operationId: postCopilotResultsQueueStop
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -163,98 +417,9 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
-- path: /copilot/versions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /divisions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/active
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/odds
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/odds/historical
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/player-results
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/player-results/last-x
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/results
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/results/head-to-head
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
 - path: /fixtures/results/queue/start
   method: post
+  operationId: postFixturesResultsQueueStart
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -270,6 +435,7 @@ operations:
     audit: required
 - path: /fixtures/results/queue/status
   method: get
+  operationId: getFixturesResultsQueueStatus
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -279,6 +445,7 @@ operations:
     audit: none
 - path: /fixtures/results/queue/stop
   method: post
+  operationId: postFixturesResultsQueueStop
   x-agentic-access:
     action-class: acting
     consequence: safety-critical
@@ -292,8 +459,9 @@ operations:
     escalation:
       human-in-the-loop: required
     audit: required
-- path: /futures
+- path: /fixtures/player-results
   method: get
+  operationId: getFixturesPlayerResults
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -301,373 +469,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /futures/odds
+- path: /fixtures/player-results/last-x
   method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /grader/futures
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /grader/odds
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /grader/odds
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /injuries
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /injuries/predictions
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /leagues
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /leagues/active
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /market-types
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /markets
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /markets/active
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /markets/settleable
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /parlay/odds
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /parlay/odds/byop
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /parlays/pre-pack
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /players
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sports
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sports/active
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sportsbooks
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sportsbooks/active
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sportsbooks/last-polled
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /teams
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /tournaments
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /tournaments/results
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures
-  method: get
-  operationId: listFixtures
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/active
-  method: get
-  operationId: listActiveFixtures
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/odds
-  method: get
-  operationId: getFixtureOdds
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /fixtures/odds/historical
-  method: get
-  operationId: getHistoricalFixtureOdds
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /futures
-  method: get
-  operationId: listFutures
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /futures/odds
-  method: get
-  operationId: listFuturesOdds
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /injuries
-  method: get
-  operationId: listInjuries
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sports
-  method: get
-  operationId: listSports
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sports/active
-  method: get
-  operationId: listActiveSports
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /leagues
-  method: get
-  operationId: listLeagues
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /leagues/active
-  method: get
-  operationId: listActiveLeagues
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /sportsbooks
-  method: get
-  operationId: listSportsbooks
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /market-types
-  method: get
-  operationId: listMarketTypes
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /markets
-  method: get
-  operationId: listMarkets
+  operationId: getFixturesPlayerResultsLastX
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -677,7 +481,7 @@ operations:
     audit: none
 - path: /fixtures/results
   method: get
-  operationId: getFixtureResults
+  operationId: getFixturesResults
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -685,9 +489,89 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /fixtures/player-results
+- path: /fixtures/results/head-to-head
   method: get
-  operationId: getPlayerResults
+  operationId: getFixturesResultsHeadToHead
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sports
+  method: get
+  operationId: getSports
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sports/active
+  method: get
+  operationId: getSportsActive
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sportsbooks
+  method: get
+  operationId: getSportsbooks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sportsbooks/active
+  method: get
+  operationId: getSportsbooksActive
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /sportsbooks/last-polled
+  method: get
+  operationId: getSportsbooksLastPolled
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /teams
+  method: get
+  operationId: getTeams
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tournaments
+  method: get
+  operationId: getTournaments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /tournaments/results
+  method: get
+  operationId: getTournamentsResults
   x-agentic-access:
     action-class: connected
     consequence: read
