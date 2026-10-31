@@ -1,4 +1,4 @@
-# OpticOdds (opticodds)
+# OpticOdds
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,54 +64,161 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-OpticOdds Sports Betting API offers real-time betting odds for main lines, player props, alternate markets, injury data, schedules, ranking, scores and more for sports betting applications.
+OpticOdds is a B2B sports betting data provider whose v3 REST API delivers real-time and historical odds aggregated from 200+ sportsbooks, covering main lines, player props, alternate markets, futures, injuries and injury predictions, fixtures, results, and same-game-parlay pricing. The platform serves sportsbook operators and traders, prediction markets, platform providers, DFS operators, betting apps, and media and affiliate businesses. Alongside the polling API it publishes Server-Sent Events streaming endpoints and RabbitMQ push queues, a bet-settlement grader, and a first-party Model Context Protocol server available both as a hosted endpoint and as an npm package. OpticOdds is part of Gambling.com Group.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/opticodds/refs/heads/main/apis.yml)
+**Areas:** Odds · Sports Betting · Sports Data · Real-Time Data · Streaming · Fixtures · Injuries · Prediction Markets · MCP
 
-## Scope
+## OpticOdds on APIs.io
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Everything profiled for OpticOdds is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/opticodds/](https://apis.io/providers/opticodds/)** — or go straight to one of the APIs or properties below.
 
-## Tags
+### APIs (20)
 
-- Odds
-- Sports Betting
-- Sports Data
+- [OpticOdds MCP Server](https://apis.io/apis/opticodds/opticodds-mcp/) — First-party Model Context Protocol server exposing 16 read-only OpticOdds tools — odds, fixtures, player props, injuries, results, line history, best-price…
+- [OpticOdds Fixtures API](https://apis.io/apis/opticodds/opticodds-fixtures-api/) — Fixtures and odds.
+- [OpticOdds Futures API](https://apis.io/apis/opticodds/opticodds-futures-api/) — Futures markets and odds.
+- [OpticOdds Injuries API](https://apis.io/apis/opticodds/opticodds-injuries-api/) — Injuries and injury predictions.
+- [OpticOdds Results API](https://apis.io/apis/opticodds/opticodds-results-api/) — Game and player results.
+- [OpticOdds Conferences API](https://apis.io/apis/opticodds/opticodds-conferences-api/) — The conferences API from OpticOdds — 1 operation(s) for conferences.
+- [OpticOdds Copilot API](https://apis.io/apis/opticodds/opticodds-copilot-api/) — The copilot API from OpticOdds — 5 operation(s) for copilot.
+- [OpticOdds Divisions API](https://apis.io/apis/opticodds/opticodds-divisions-api/) — The divisions API from OpticOdds — 1 operation(s) for divisions.
+- [OpticOdds Grader API](https://apis.io/apis/opticodds/opticodds-grader-api/) — The grader API from OpticOdds — 2 operation(s) for grader.
+- [OpticOdds Leagues API](https://apis.io/apis/opticodds/opticodds-leagues-api/) — The leagues API from OpticOdds — 2 operation(s) for leagues.
+- [OpticOdds Market Types API](https://apis.io/apis/opticodds/opticodds-market-types-api/) — The market-types API from OpticOdds — 1 operation(s) for market-types.
+- [OpticOdds Markets API](https://apis.io/apis/opticodds/opticodds-markets-api/) — The markets API from OpticOdds — 2 operation(s) for markets.
+- [OpticOdds Odds API](https://apis.io/apis/opticodds/opticodds-odds-api/) — The odds API from OpticOdds — 3 operation(s) for odds.
+- [OpticOdds Parlay API](https://apis.io/apis/opticodds/opticodds-parlay-api/) — The parlay API from OpticOdds — 3 operation(s) for parlay.
+- [OpticOdds Players API](https://apis.io/apis/opticodds/opticodds-players-api/) — The players API from OpticOdds — 1 operation(s) for players.
+- [OpticOdds Queue API](https://apis.io/apis/opticodds/opticodds-queue-api/) — The queue API from OpticOdds — 10 operation(s) for queue.
+- [OpticOdds Sports API](https://apis.io/apis/opticodds/opticodds-sports-api/) — The sports API from OpticOdds — 2 operation(s) for sports.
+- [OpticOdds Sportsbooks API](https://apis.io/apis/opticodds/opticodds-sportsbooks-api/) — The sportsbooks API from OpticOdds — 3 operation(s) for sportsbooks.
+- [OpticOdds Teams API](https://apis.io/apis/opticodds/opticodds-teams-api/) — The teams API from OpticOdds — 1 operation(s) for teams.
+- [OpticOdds Tournaments API](https://apis.io/apis/opticodds/opticodds-tournaments-api/) — The tournaments API from OpticOdds — 2 operation(s) for tournaments.
 
-## Timestamps
+### Published properties
 
-- **Created:** 2025-02-08
-- **Modified:** 2026-03-16
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-## APIs
+#### MCP servers (1)
 
-### OpticOdds
+Model Context Protocol servers that expose the API to agents.
 
-OpticOdds Sports Betting API offers real-time betting odds for main lines, player props, alternate markets, injury data, schedules, ranking, scores and more for sports betting applications.
+- [OpticOdds MCP](https://apis.io/servers/opticodds/opticodds-mcp/)
 
-- **Human URL:** [https://opticodds.com/](https://opticodds.com/)
+#### Agentic access (1)
 
-#### Tags
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- Odds
-- Sports Betting
-- Sports Data
+- [Opticodds Agentic Access](https://apis.io/agentic-access/opticodds/opticodds-agentic-access/)
 
-#### Properties
+#### Collections (6)
 
-- [Documentation](https://opticodds.com/docs/)
-- [Postman Collection](collections/opticodds.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/opticodds.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Postman and Open Collection request collections.
 
-## Common Properties
+- [OpticOdds Sports Betting API](https://apis.io/collections/opticodds/open-opticodds/)
+- [OpticOdds Sports Betting Fixtures API](https://apis.io/collections/opticodds/open-opticodds-fixtures-api/)
+- [OpticOdds Sports Betting Fixtures Futures API](https://apis.io/collections/opticodds/open-opticodds-futures-api/)
+- [OpticOdds Sports Betting Fixtures Injuries API](https://apis.io/collections/opticodds/open-opticodds-injuries-api/)
+- [OpticOdds Sports Betting Fixtures Reference API](https://apis.io/collections/opticodds/open-opticodds-reference-api/)
+- [OpticOdds Sports Betting Fixtures Results API](https://apis.io/collections/opticodds/open-opticodds-results-api/)
 
-- [GitHub Organization](https://github.com/OpticOdds)
-- [LinkedIn](https://www.linkedin.com/company/opticodds)
-- [L L Ms Txt](https://opticodds.com/llms.txt)
+#### Overlays (1)
 
-## Maintainers
+OpenAPI overlays, including conversational phrasing for each operation.
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+- [Opticodds Api V3 Overlay](https://apis.io/overlays/opticodds/opticodds-api-v3-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Opticodds Authentication](https://apis.io/security/opticodds/opticodds-authentication/)
+- [Opticodds Domain Security](https://apis.io/security/opticodds/opticodds-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Opticodds Plans Pricing](https://apis.io/plans/opticodds/opticodds-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Opticodds Rate Limits](https://apis.io/rate-limits/opticodds/opticodds-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Opticodds Finops](https://apis.io/finops/opticodds/opticodds-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://opticodds.com/)
+- [Documentation](https://developer.opticodds.com/reference/getting-started)
+- [Getting started](https://developer.opticodds.com/docs/odds-api-getting-started-guide)
+- [API reference](https://developer.opticodds.com/reference/get_fixtures-odds)
+- [Support](https://opticodds.com/contact)
+- [Blog](https://opticodds.com/blog)
+- [Terms of service](https://opticodds.com/terms-of-service)
+- [Privacy policy](https://opticodds.com/privacy-policy)
+- [GitHub](https://github.com/OpticOdds)
+- [Status](https://status.opticodds.com/)
+
+## API Evangelist rating
+
+**Kin Score 41.2** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 75.0 |
+| Contract quality | 51.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 57.9 |
+| Developer ergonomics | 39.9 |
+| Access clarity | 21.1 |
+
+**Agent readiness 30.3** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/opticodds/](https://apis.io/providers/opticodds/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for OpticOdds: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/opticodds/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
